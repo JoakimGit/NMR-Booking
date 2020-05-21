@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class EmployeeController {
+
+    private List<String> allJobs = Arrays.asList("Salgs Assistent", "Salgs Leder", "Rengøringspersonale", "Bogfører", "Mekaniker");
 
     @Autowired
     EmployeeService employeeService;
@@ -22,14 +27,9 @@ public class EmployeeController {
         return "/employee/overview";
     }
 
-    @GetMapping("employee/detail/{id}")
-    public String getStudentByParameter(@PathVariable("id") int id, Model model) {
-        model.addAttribute("employee", employeeService.fetchEmployeeById(id));
-        return "employee/detail";
-    }
-
     @GetMapping("/employee/create")
-    public String create() {
+    public String create(Model model) {
+        model.addAttribute("jobs", allJobs);
         return "/employee/create";
     }
 
@@ -42,6 +42,7 @@ public class EmployeeController {
     @GetMapping("employee/edit/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.fetchEmployeeById(id));
+        model.addAttribute("jobs", allJobs);
         return "/employee/edit";
     }
 

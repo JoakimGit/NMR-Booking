@@ -9,33 +9,36 @@
 
 <div class="container">
     <br>
-    <h1>Update employee</h1>
+    <h1>Rediger ansat</h1>
     <br>
     <form action="/employee/edit" method="post">
         <input type="hidden" name="employee_id" th:value="${employee.employee_id}">
         <div class="form-group">
             <label for="firstname"><b>First name</b></label>
-            <input type="text" class="form-control"  id="firstname" name="first_name" th:value="${employee.first_name}" required>
+            <input type="text" class="form-control"  id="firstname" name="first_name" th:value="${employee.first_name}" pattern="[A-Za-z-']+" required>
         </div>
         <div class="form-group">
             <label for="lastname"><b>Last name</b></label>
-            <input type="text" class="form-control" id="lastname" name="last_name" th:value="${employee.last_name}" required>
+            <input type="text" class="form-control" id="lastname" name="last_name" th:value="${employee.last_name}" pattern="[A-Za-z-']+" required>
         </div>
         <div class="form-group">
             <label for="cpr"><b>CPR</b></label>
-            <input type="text" class="form-control" id="cpr" name="cpr" th:value="${employee.cpr}" required>
+            <input type="text" class="form-control" id="cpr" name="cpr" th:value="${employee.cpr}" pattern="[0-9]{6}-[0-9]{4}" required>
         </div>
         <div class="form-group">
-            <label for="Role"><b>Role</b></label>
-            <input type="text" class="form-control" id="Role" name="role" th:value="${employee.role}" required>
+            <label for="role"><b>Role</b></label>
+            <!-- Drop down menu of all job titles with current one preselected -->
+            <select id="role" name="role">
+                <option th:each="job : ${jobs}" th:value="${job}" th:text="${job}" th:selected="${job==employee.role}"></option>
+            </select>
         </div>
         <div class="form-group">
             <label for="phoneNumber"><b>Phone number</b></label>
-            <input type="text" class="form-control" id="phoneNumber" name="phonenumber" th:value="${employee.phonenumber}" required>
+            <input type="text" class="form-control" id="phoneNumber" name="phonenumber" th:value="${employee.phonenumber}" pattern="[0-9]{8}" required>
         </div>
         <div class="form-group">
             <label for="enrollmentdate"><b>Enrollment date</b></label>
-            <input type="text" class="form-control" id="enrollmentdate" name="employment_date" th:value="${employee.employment_date}" required>
+            <input type="date" class="form-control" id="enrollmentdate" name="employment_date" th:value="${employee.employment_date}" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

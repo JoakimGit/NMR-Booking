@@ -14,8 +14,8 @@
             <th scope="col" data-sortable="true">Efternavn</th>
             <th scope="col" data-sortable="true">Brugernavn</th>
             <th scope="col" data-sortable="true">Tilmeldelsesdato</th>
-            <th scope="col" data-sortable="true">Email</th>
-            <th scope="col" data-sortable="true">Telefonnummer</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefonnummer</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -27,7 +27,8 @@
             <td th:text="${customer.signup_date}"></td>
             <td th:text="${customer.email}"></td>
             <td th:text="${customer.phonenumber}"></td>
-                <a th:href="@{'/customer/edit/' + ${customer.customer_id}}"><button type="button" class="btn btn-primary">Rediger</button></a>
+            <td>
+                <a th:href="@{'/customer/edit/' + ${customer.customer_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
                 <a th:href="@{'/customer/delete/' + ${customer.customer_id}}" onclick="return confirm('Er du sikker på at du vil slette denne kunde?');"><button type="button" class="btn btn-danger">Slet</button></a>
             </td>
         </tr>

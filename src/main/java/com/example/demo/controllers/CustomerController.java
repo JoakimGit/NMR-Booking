@@ -23,7 +23,9 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/create")
-    public String create() {return "/customer/create";}
+    public String create() {
+        return "/customer/create";
+    }
 
     @PostMapping("/customer/create")
     public String createCustomer(@ModelAttribute Customer customer) {

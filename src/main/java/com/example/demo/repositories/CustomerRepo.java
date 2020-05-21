@@ -15,8 +15,6 @@ public class CustomerRepo {
     @Autowired
     private JdbcTemplate template;
 
-
-
     public List<Customer> fetchAllCustomers() {
         String sql = "SELECT * FROM customer";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
@@ -35,13 +33,12 @@ public class CustomerRepo {
     }
 
     public void editCustomer(Customer c) {
-        String sql = "UPDATE customer SET first_name=?, last_name=?, user_name=?, signup_date=?, email=?, phonenumber=?";
-        template.update(sql, c.getFirst_name(), c.getLast_name(), c.getUser_name(), c.getSignup_date(), c.getEmail(), c.getPhonenumber());
+        String sql = "UPDATE customer SET first_name=?, last_name=?, user_name=?, signup_date=?, email=?, phonenumber=? WHERE customer_id=?";
+        template.update(sql, c.getFirst_name(), c.getLast_name(), c.getUser_name(), c.getSignup_date(), c.getEmail(), c.getPhonenumber(), c.getCustomer_id());
     }
 
     public void deleteCustomer(int customer_id) {
         String sql = "DELETE FROM customer WHERE customer_id=?";
         template.update(sql, customer_id);
     }
-        
 }
