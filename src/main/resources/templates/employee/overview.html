@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Employee Overview</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
+
+<div class="container-fluid">
+    <table data-toggle="table" data-search="true">
+        <thead>
+        <tr>
+            <th scope="col" data-sortable="true">Employee ID</th>
+            <th scope="col" data-sortable="true">First Name</th>
+            <th scope="col" data-sortable="true">Last Name</th>
+            <th scope="col">CPR</th>
+            <th scope="col" data-sortable="true">Role</th>
+            <th scope="col">Phone</th>
+            <th scope="col" data-sortable="true">Employment Date</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.employee_id}"></td>
+            <td th:text="${employee.first_name}"></td>
+            <td th:text="${employee.last_name}"></td>
+            <td th:text="${employee.cpr}"></td>
+            <td th:text="${employee.role}"></td>
+            <td th:text="${employee.phonenumber}"></td>
+            <td th:text="${employee.employment_date}"></td>
+            <td><a th:href="@{'/employee/edit/' + ${employee.employee_id}}"><button type="button" class="btn btn-primary">Edit</button></a>
+                <a th:href="@{'/employee/delete/' + ${employee.employee_id}}" onclick="return confirm('Are you sure you want to delete this Employee?');"><button type="button" class="btn btn-danger">Delete</button></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <div th:replace="fragments/bottom_scripts"></div>
 </body>

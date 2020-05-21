@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Update Employee</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
+
+<div class="container">
+    <br>
+    <h1>Update employee</h1>
+    <br>
+    <form action="/employee/edit" method="post">
+        <input type="hidden" name="employee_id" th:value="${employee.employee_id}">
+        <div class="form-group">
+            <label for="firstname"><b>First name</b></label>
+            <input type="text" class="form-control"  id="firstname" name="first_name" th:value="${employee.first_name}" required>
+        </div>
+        <div class="form-group">
+            <label for="lastname"><b>Last name</b></label>
+            <input type="text" class="form-control" id="lastname" name="last_name" th:value="${employee.last_name}" required>
+        </div>
+        <div class="form-group">
+            <label for="cpr"><b>CPR</b></label>
+            <input type="text" class="form-control" id="cpr" name="cpr" th:value="${employee.cpr}" required>
+        </div>
+        <div class="form-group">
+            <label for="Role"><b>Role</b></label>
+            <input type="text" class="form-control" id="Role" name="role" th:value="${employee.role}" required>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber"><b>Phone number</b></label>
+            <input type="text" class="form-control" id="phoneNumber" name="phonenumber" th:value="${employee.phonenumber}" required>
+        </div>
+        <div class="form-group">
+            <label for="enrollmentdate"><b>Enrollment date</b></label>
+            <input type="text" class="form-control" id="enrollmentdate" name="employment_date" th:value="${employee.employment_date}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
 <div th:replace="fragments/bottom_scripts"></div>
 </body>
