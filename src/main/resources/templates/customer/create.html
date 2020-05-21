@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:replace="fragments/head"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar_owner"></div>
+
+<div class="container">
+    <br>
+    <h1>Opret ny kunde</h1>
+    <br>
+    <form action="/owner/customer/create" method="post">
+        <div class="form-group">
+            <label for="first_name"><b>Fornavn</b></label>
+            <input type="text" class="form-control"  id="first_name" name="first_name" placeholder="Indtast kundens fornavn" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name"><b>Efternavn</b></label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Indtast kundens efternavn" required>
+        </div>
+        <div class="form-group">
+            <label for="user_name"><b>Brugernavn</b></label>
+            <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Indtast kundens brugernavn" required>
+        </div>
+        <div class="form-group">
+            <label for="signup_date"><b>Tilmeldelsesdato</b></label>
+            <input type="text" class="form-control" id="signup_date" name="signup_date" placeholder="Indtast kundens tilmeldelsesdato (åååå-mm-dd)" required>
+        </div>
+        <div class="form-group">
+            <label for="email"><b>Email</b></label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Indtast kundens email" required>
+        </div>
+        <div class="form-group">
+            <label for="phonenumber"><b>Telefonnummer</b></label>
+            <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Indtast kundens telefonnummer" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div th:replace="fragments/bottom_scripts"></div>
+</body>
+</html>
