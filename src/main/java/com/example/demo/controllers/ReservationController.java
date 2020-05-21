@@ -1,8 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Reservation;
-import com.example.demo.repositories.IReservationRepo;
-import com.example.demo.repositories.ReservationRepo;
 import com.example.demo.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

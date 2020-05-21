@@ -62,15 +62,4 @@ public class Reservation {
     public void setAccessories(String accessories) {
         this.accessories = accessories;
     }
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "reservation_id=" + reservation_id +
-                ", location='" + location + '\'' +
-                ", pickup_date='" + pickup_date + '\'' +
-                ", dropoff_date='" + dropoff_date + '\'' +
-                ", accessories='" + accessories + '\'' +
-                '}';
-    }
 }

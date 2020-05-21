@@ -7,11 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
 import java.util.List;
 
 @Repository
-public class ReservationRepo implements IReservationRepo {
+public class ReservationRepo {
 
     @Autowired
     JdbcTemplate template;
