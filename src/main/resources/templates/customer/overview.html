@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
 </head>
@@ -27,8 +27,8 @@
             <td th:text="${customer.signup_date}"></td>
             <td th:text="${customer.email}"></td>
             <td th:text="${customer.phonenumber}"></td>
-                <a th:href="@{'/owner/customer/edit/' + ${id}}"><button type="button" class="btn btn-primary">Rediger</button></a>
-                <a th:href="@{'/owner/customer/delete/' + ${id}}" onclick="return confirm('Er du sikker på at du vil slette denne kunde?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                <a th:href="@{'/customer/edit/' + ${customer.customer_id}}"><button type="button" class="btn btn-primary">Rediger</button></a>
+                <a th:href="@{'/customer/delete/' + ${customer.customer_id}}" onclick="return confirm('Er du sikker på at du vil slette denne kunde?');"><button type="button" class="btn btn-danger">Slet</button></a>
             </td>
         </tr>
         </tbody>
