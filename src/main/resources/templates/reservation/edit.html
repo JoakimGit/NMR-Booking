@@ -2,9 +2,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Opdater Reservation</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
+
+<div class="container">
+    <br>
+    <h1>Rediger reservation</h1>
+    <br>
+    <form action="/reservation/edit" method="post">
+        <input type="hidden" name="reservation_id" th:value="${reservation.reservation_id}">
+        <div class="form-group">
+            <label for="location"><b>Lokation</b></label>
+            <input type="text" class="form-control"  id="location" name="location" th:value="${reservation.location}" required>
+        </div>
+        <div class="form-group">
+            <label for="pickup_date"><b>Pick-up Dato</b></label>
+            <input type="text" class="form-control" id="pickup_date" name="pickup_date" th:value="${reservation.pickup_date}" required>
+        </div>
+        <div class="form-group">
+            <label for="dropoff_date"><b>Drop-off Dato</b></label>
+            <input type="text" class="form-control" id="dropoff_date" name="dropoff_date" th:value="${reservation.dropoff_date}" required>
+        </div>
+        <div class="form-group">
+            <label for="accessories"><b>Tilbehør til rejsen</b></label>
+            <!-- Drop down menu of all accessories with current one preselected -->
+            <select id="accessories" name="accessories" multiple>
+                <option th:each="accessories : ${accessories}" th:value="${accessories}" th:text="${accessories}" th:selected="${accessories==reservation.accessories}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
 <div th:replace="fragments/bottom_scripts"></div>
 </body>

@@ -28,8 +28,8 @@ public class AccessoryRepo {
     }
 
     public void createAccessory(Accessory a) {
-        String sql = "INSERT INTO accessory VALUES (?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, a.getAccessory_id(), a.isBike_rack(), a.isBed_linen(), a.isChild_seat(), a.isPicnic_table(), a.isChairs(), a.getReservation_id());
+        String sql = "INSERT INTO accessory VALUES (?, ?, ?, ?, ?, ?)";
+        template.update(sql, a.getAccessory_id(), a.isBike_rack(), a.isBed_linen(), a.isChild_seat(), a.isPicnic_table(), a.isChairs());
     }
 
     public void updateAccessory(Accessory a) {
