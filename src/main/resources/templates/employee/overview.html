@@ -14,7 +14,8 @@
             <th scope="col" data-sortable="true">Medarbejder ID</th>
             <th scope="col" data-sortable="true">Fornavn</th>
             <th scope="col" data-sortable="true">Efternavn</th>
-            <th scope="col" data-sortable="true">Job</th>
+            <th scope="col" data-sortable="true">Stilling</th>
+            <th scope="col">Email</th>
             <th scope="col">CPR</th>
             <th scope="col">Tlf. Nummer</th>
             <th scope="col" data-sortable="true">Ansættelsesdato</th>
@@ -26,7 +27,8 @@
             <td th:text="${employee.employee_id}"></td>
             <td th:text="${employee.first_name}"></td>
             <td th:text="${employee.last_name}"></td>
-            <td th:text="${employee.role}"></td>
+            <td th:text="${employee.job_title}"></td>
+            <td th:text="${employee.email}"></td>
             <td th:text="${employee.cpr}"></td>
             <td th:text="${employee.phonenumber}"></td>
             <td th:text="${employee.employment_date}"></td>

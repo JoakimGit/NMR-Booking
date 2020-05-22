@@ -11,19 +11,21 @@ public class Employee {
     private String first_name;
     private String last_name;
     private String cpr;
-    private String role;
+    private String email;
+    private String job_title;
     private int phonenumber;
     private String employment_date;
 
     public Employee() {
     }
 
-    public Employee(int employee_id, String first_name, String last_name, String cpr, String role, int phonenumber, String employment_date) {
+    public Employee(int employee_id, String first_name, String last_name, String cpr, String email, String job_title, int phonenumber, String employment_date) {
         this.employee_id = employee_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.cpr = cpr;
-        this.role = role;
+        this.email = email;
+        this.job_title = job_title;
         this.phonenumber = phonenumber;
         this.employment_date = employment_date;
     }
@@ -60,12 +62,20 @@ public class Employee {
         this.cpr = cpr;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getJob_title() {
+        return job_title;
+    }
+
+    public void setJob_title(String job_title) {
+        this.job_title = job_title;
     }
 
     public int getPhonenumber() {

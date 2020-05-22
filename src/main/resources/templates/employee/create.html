@@ -13,34 +13,38 @@
     <br>
     <form action="/employee/create" method="post">
         <div class="form-group">
-            <label for="firstname"><b>First name</b></label>
-            <input type="text" class="form-control"  id="firstname" name="first_name" placeholder="Indtast medarbejder fornavn" pattern="[A-Za-z-']+" required>
+            <label for="firstname"><b>Fornavn</b></label>
+            <input type="text" class="form-control"  id="firstname" name="first_name" placeholder="Indtast medarbejder fornavn" pattern="[\p{L}]+" required>
         </div>
         <div class="form-group">
-            <label for="lastname"><b>Last name</b></label>
-            <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Indtast medarbejder efternavn" pattern="[A-Za-z-']+" required>
+            <label for="lastname"><b>Efternavn</b></label>
+            <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Indtast medarbejder efternavn" pattern="[\p{L}]+" required>
         </div>
         <div class="form-group">
             <label for="cpr"><b>CPR</b></label>
             <input type="text" class="form-control" id="cpr" name="cpr" placeholder="Indtast medarbejder CPR" pattern="[0-9]{6}-[0-9]{4}" title="Format = xxxxxx-xxxx" required>
         </div>
         <div class="form-group">
-            <label for="Role"><b>Job titel</b></label>
-            <select id="Role" name="role" required>
+            <label for="Role"><b>Stilling</b></label>
+            <select id="Role" name="job_title" required>
                 <!-- Drop down menu of all job titles -->
-                <option value="" selected hidden>Choose a job</option>
+                <option value="" selected hidden>Vælg en stilling</option>
                 <option th:each="job : ${jobs}" th:value="${job}" th:text="${job}"}></option>
             </select>
         </div>
         <div class="form-group">
-            <label for="phoneNumber"><b>Phone number</b></label>
+            <label for="email"><b>Email</b></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Indtast medarbejder Email" required>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber"><b>Telefon</b></label>
             <input type="text" class="form-control" id="phoneNumber" name="phonenumber" placeholder="Indtast medarbejder telefonnummer" pattern="[0-9]{8}" required>
         </div>
         <div class="form-group">
-            <label for="enrollmentdate"><b>Enrollment date</b></label>
+            <label for="enrollmentdate"><b>Ansættelsesdato</b></label>
             <input type="date" class="form-control" id="enrollmentdate" name="employment_date" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Opret</button>
     </form>
 </div>
 

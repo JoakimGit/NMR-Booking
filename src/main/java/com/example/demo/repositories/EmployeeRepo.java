@@ -28,13 +28,13 @@ public class EmployeeRepo {
     }
 
     public void createEmployee(Employee e) {
-        String sql = "INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, e.getEmployee_id(), e.getFirst_name(), e.getLast_name(), e.getCpr(), e.getRole(), e.getPhonenumber(), e.getEmployment_date());
+        String sql = "INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, e.getEmployee_id(), e.getFirst_name(), e.getLast_name(), e.getCpr(), e.getJob_title(), e.getEmail(), e.getPhonenumber(), e.getEmployment_date());
     }
 
     public void updateEmployee(Employee e) {
-        String sql = "UPDATE employee SET first_name=?, last_name=?, cpr=?, role=?, phonenumber=?, employment_date=? WHERE employee_id=?";
-        template.update(sql, e.getFirst_name(), e.getLast_name(), e.getCpr(), e.getRole(), e.getPhonenumber(), e.getEmployment_date(), e.getEmployee_id());
+        String sql = "UPDATE employee SET first_name=?, last_name=?, cpr=?, job_title=?, email=?, phonenumber=?, employment_date=? WHERE employee_id=?";
+        template.update(sql, e.getFirst_name(), e.getLast_name(), e.getCpr(), e.getJob_title(), e.getEmail() ,e.getPhonenumber(), e.getEmployment_date(), e.getEmployee_id());
     }
 
     public void deleteEmployee(int id) {
