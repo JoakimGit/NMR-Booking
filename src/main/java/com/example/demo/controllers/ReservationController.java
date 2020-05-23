@@ -24,7 +24,8 @@ public class ReservationController {
     @Autowired
     AccessoryService accessoryService;
 
-    private List<String> allAccessories= Arrays.asList("Cykelstativ", "Sengelinned", "Barnesæde", "Picnic bord", "Campingstol");
+    private final List<String> allAccessories= Arrays.asList("Cykelstativ", "Sengelinned", "Barnesæde", "Picnic bord", "Campingstole");
+    private final List<String> allAccessoriesEng= Arrays.asList("bike_rack", "bed_linen", "child_seat", "picnic_table", "chairs");
 
     @GetMapping("/reservation/overview")
     public String overview(Model model) {
@@ -35,11 +36,13 @@ public class ReservationController {
     @GetMapping("/reservation/create")
     public String create(Model model) {
         model.addAttribute("accessories", allAccessories);
+        model.addAttribute("accessoriesEng", allAccessoriesEng);
         return "/reservation/create";
     }
 
     @PostMapping("/reservation/create")
     public String createReservation(@ModelAttribute Reservation reservation, @ModelAttribute Accessory accessory) {
+        System.out.println(accessory.getAllAccessories());
         accessoryService.createAccessory(accessory);
         reservationService.createReservation(reservation);
         return "redirect:/reservation/overview";
@@ -48,20 +51,18 @@ public class ReservationController {
     @GetMapping("/reservation/edit/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("reservation", reservationService.findReservationById(id));
-        model.addAttribute("accessories", allAccessories);
         return "/reservation/edit";
     }
 
     @PostMapping("reservation/edit")
     public String editReservation(@ModelAttribute Reservation reservation) {
-    reservationService.editReservation(reservation);
-    return "redirect:/reservation/overview";
+        reservationService.editReservation(reservation);
+        return "redirect:/reservation/overview";
     }
 
     @GetMapping("reservation/delete/{id}")
     public String deleteReservation(@PathVariable("id") int id) {
-    reservationService.deleteReservation(id);
-    return "redirect:/reservation/overview";
-
+        reservationService.deleteReservation(id);
+        return "redirect:/reservation/overview";
     }
 }

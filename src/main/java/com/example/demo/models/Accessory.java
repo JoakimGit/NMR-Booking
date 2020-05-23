@@ -1,7 +1,14 @@
 package com.example.demo.models;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.List;
+
+@Entity
 public class Accessory {
 
+    @Id
     private int accessory_id;
     private boolean bike_rack;
     private boolean bed_linen;
@@ -9,6 +16,8 @@ public class Accessory {
     private boolean picnic_table;
     private boolean chairs;
     private int reservation_id;
+    @ElementCollection
+    private List<String> allAccessories;
 
     public Accessory() {
     }
@@ -77,5 +86,13 @@ public class Accessory {
 
     public void setReservation_id(int reservation_id) {
         this.reservation_id = reservation_id;
+    }
+
+    public List<String> getAllAccessories() {
+        return allAccessories;
+    }
+
+    public void setAllAccessories(List<String> allAccessories) {
+        this.allAccessories = allAccessories;
     }
 }

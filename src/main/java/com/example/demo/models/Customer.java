@@ -13,9 +13,9 @@ public class Customer {
     private String user_name;
     private String signup_date;
     private String email;
-    private int phonenumber;
+    private String phonenumber;
 
-    public Customer(int customer_id, String first_name, String last_name, String user_name, String signup_date, String email, int phonenumber) {
+    public Customer(int customer_id, String first_name, String last_name, String user_name, String signup_date, String email, String phonenumber) {
         this.customer_id = customer_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -75,11 +75,11 @@ public class Customer {
         this.email = email;
     }
 
-    public int getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(int phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 

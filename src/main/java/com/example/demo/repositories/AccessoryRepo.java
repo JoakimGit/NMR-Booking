@@ -33,8 +33,8 @@ public class AccessoryRepo {
     }
 
     public void updateAccessory(Accessory a) {
-        String sql = "UPDATE accessory SET bike_rack=?, bed_linen=?, child_seat=?, picnic_table=?, chairs=?, reservation_id=? WHERE accessory_id=?";
-        template.update(sql, a.getAccessory_id(), a.isBike_rack(), a.isBed_linen(), a.isChild_seat(), a.isPicnic_table(), a.isChairs(), a.getReservation_id(), a.getAccessory_id());
+        String sql = "UPDATE accessory SET bike_rack=?, bed_linen=?, child_seat=?, picnic_table=?, chairs=? WHERE accessory_id=?";
+        template.update(sql, a.getAccessory_id(), a.isBike_rack(), a.isBed_linen(), a.isChild_seat(), a.isPicnic_table(), a.isChairs(), a.getAccessory_id());
     }
 
     public void deleteAccessory(int id) {
