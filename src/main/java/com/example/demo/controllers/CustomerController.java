@@ -33,9 +33,9 @@ public class CustomerController {
         return "redirect:/customer/overview";
     }
 
-    @GetMapping("/customer/edit/{customer_id}")
-    public String edit(@PathVariable("customer_id") int customer_id, Model model) {
-        model.addAttribute("customer", customerService.fetchCustomerById(customer_id));
+    @GetMapping("/customer/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("customer", customerService.fetchCustomerById(id));
         return "/customer/edit";
     }
 
@@ -45,9 +45,9 @@ public class CustomerController {
         return "redirect:/customer/overview";
     }
 
-    @GetMapping("/customer/delete/{customer_id}")
-    public String delete(@PathVariable("customer_id") int customer_id) {
-        customerService.deleteCustomer(customer_id);
+    @GetMapping("/customer/delete/{id}")
+    public String delete(@PathVariable("id") int id) {
+        customerService.deleteCustomer(id);
         return "redirect:/customer/overview";
     }
 

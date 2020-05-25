@@ -21,10 +21,10 @@ public class CustomerRepo {
         return template.query(sql, rowMapper);
     }
 
-    public Customer fetchCustomerById(int customer_id) {
+    public Customer fetchCustomerById(int id) {
         String sql = "SELECT * FROM customer WHERE customer_id=?";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
-        return template.queryForObject(sql, rowMapper, customer_id);
+        return template.queryForObject(sql, rowMapper, id);
     }
 
     public void createCustomer(Customer c) {
@@ -37,8 +37,8 @@ public class CustomerRepo {
         template.update(sql, c.getFirst_name(), c.getLast_name(), c.getUser_name(), c.getSignup_date(), c.getEmail(), c.getPhonenumber(), c.getCustomer_id());
     }
 
-    public void deleteCustomer(int customer_id) {
+    public void deleteCustomer(int id) {
         String sql = "DELETE FROM customer WHERE customer_id=?";
-        template.update(sql, customer_id);
+        template.update(sql, id);
     }
 }
