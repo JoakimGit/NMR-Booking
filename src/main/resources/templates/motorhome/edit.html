@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Create new motorhome</title>
+    <title>Opdater Autocamper</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -10,7 +10,7 @@
 
 <div class="container">
     <br>
-    <h1>Update Motorhome</h1>
+    <h1>Opdater Autocamper</h1>
     <br>
     <form action="/motorhome/update" method="post">
         <input type="hidden" name="motorhome_id" th:value="${motorhome.motorhome_id}">
@@ -34,7 +34,6 @@
             <label for="available"><b>available</b></label>
             <input type="text" class="form-control" id="available" name="available?" th:value="${motorhome.available}" required>
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

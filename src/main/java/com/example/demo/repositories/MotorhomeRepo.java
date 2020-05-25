@@ -23,7 +23,7 @@ public class MotorhomeRepo {
     }
 
     public List<Motorhome> fetchAllDistinctMotorhomes() {
-        String sql = "SELECT min(motorhome_id), price, brand, model, available, beds FROM motorhome GROUP BY price, brand, model, available, beds";
+        String sql = "SELECT min(motorhome_id) as motorhome_id, price, brand, model, available, beds FROM motorhome GROUP BY price, brand, model, available, beds";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         return template.query(sql, rowMapper);
     }
