@@ -2,10 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Create new motorhome</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
+<div class="container">
+    <br>
+    <h1>Create new Motorhome</h1>
+    <br>
+    <form action="/motorhome/create" method="post">
+        <div class="form-group">
+            <label for="brand"><b>Brand name:</b></label>
+            <input type="text" class="form-control"  id="brand" name="brand" placeholder="Enter brand name" required>
+        </div>
+        <div class="form-group">
+            <label for="model"><b>Model name</b></label>
+            <input type="text" class="form-control" id="model" name="model" placeholder="Enter model name" required>
+        </div>
+        <div class="form-group">
+            <label for="price"><b>Price</b></label>
+            <input type="text" class="form-control" id="price" name="price" placeholder="Enter price" required>
+        </div>
+        <div class="form-group">
+            <label for="beds"><b>Beds</b></label>
+            <input type="text" class="form-control" id="beds" name="beds" placeholder="Enter how many beds" required>
+        </div>
+        <div class="form-group">
+            <label for="available"><b>available</b></label>
+            <input type="text" class="form-control" id="available" name="available?" placeholder="enter the current state of availablebility" required>
+        </div>
 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 <div th:replace="fragments/bottom_scripts"></div>
 </body>
 </html>

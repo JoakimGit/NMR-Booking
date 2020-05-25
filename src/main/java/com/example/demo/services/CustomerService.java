@@ -14,7 +14,6 @@ public class CustomerService {
     CustomerRepo customerRepo;
 
     public List<Customer> fetchAllCustomers() {
-
         return customerRepo.fetchAllCustomers();
     }
 

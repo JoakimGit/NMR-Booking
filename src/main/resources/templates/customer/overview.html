@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Kunde oversigt</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
@@ -10,6 +11,7 @@
     <table data-toggle="table" data-search="true">
         <thead>
         <tr>
+            <th scope="col" data-sortable="true">Kunde ID</th>
             <th scope="col" data-sortable="true">Fornavn</th>
             <th scope="col" data-sortable="true">Efternavn</th>
             <th scope="col" data-sortable="true">Brugernavn</th>
@@ -21,6 +23,7 @@
         </thead>
         <tbody>
         <tr th:each="customer : ${customers}">
+            <td th:text="${customer.customer_id}"></td>
             <td th:text="${customer.first_name}"></td>
             <td th:text="${customer.last_name}"></td>
             <td th:text="${customer.user_name}"></td>

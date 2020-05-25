@@ -21,26 +21,28 @@ public class ReservationRepo {
         return template.query(sql, rowMapper);
     }
 
-    public void addReservation(Reservation r) {
-        String sql = "INSERT INTO reservation (reservation_id, location, pickup_date, dropoff_date, accessories) VALUES (?, ?, ?)";
-        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getAccessories());
+    public void createReservation(Reservation r) {
+        String sql = "INSERT INTO reservation VALUES (?, ?, ?, ?)";
+        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date());
     }
 
     public Reservation findReservationById(int id) {
-    String sql = "SELECT * FROM reservation WHERE id=?";
-    RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
-    return template.queryForObject(sql, rowMapper, id);
+        String sql = "SELECT * FROM reservation WHERE reservation_id=?";
+        RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
+        return template.queryForObject(sql, rowMapper, id);
     }
 
-    public void updateReservation(Reservation r) {
-    String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=?, accessories=? WHERE id=?";
-    template.update(sql, r.getLocation(),r.getPickup_date(), r.getDropoff_date(), r.getAccessories(),r.getReservation_id());
+    public void editReservation(Reservation r) {
+        String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=? WHERE reservation_id=?";
+        template.update(sql, r.getLocation(),r.getPickup_date(), r.getDropoff_date(), r.getReservation_id());
     }
 
     public void deleteReservation(int id) {
-    String sql = "DELETE FROM reservation WHERE id=?";
-    template.update(sql, id);
+        String sql = "DELETE FROM reservation WHERE reservation_id=?";
+        template.update(sql, id);
     }
+
+
 
 
 

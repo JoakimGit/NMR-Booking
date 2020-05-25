@@ -17,8 +17,8 @@ public class ReservationService {
     return reservationRepo.fetchAllReservations();
     }
 
-    public void addReservation(Reservation r) {
-    reservationRepo.addReservation(r);
+    public void createReservation(Reservation r) {
+    reservationRepo.createReservation(r);
 
     }
 
@@ -27,8 +27,8 @@ public class ReservationService {
 
     }
 
-    public void updateReservation(Reservation r) {
-    reservationRepo.updateReservation(r);
+    public void editReservation(Reservation r) {
+    reservationRepo.editReservation(r);
     }
 
     public void deleteReservation(int id) {

@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Opret kunde</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
@@ -35,7 +36,7 @@
             <label for="phonenumber"><b>Telefonnummer</b></label>
             <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Indtast kundens telefonnummer" pattern="[0-9]{8}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Opret</button>
     </form>
 </div>
 

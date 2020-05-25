@@ -33,12 +33,6 @@ public class EmployeeController {
         return "/employee/create";
     }
 
-    @PostMapping("/employee/create")
-    public String createStudent(@ModelAttribute Employee employee) {
-        employeeService.createEmployee(employee);
-        return "redirect:/employee/overview";
-    }
-
     @GetMapping("employee/edit/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.fetchEmployeeById(id));
@@ -53,7 +47,7 @@ public class EmployeeController {
     }
 
     @GetMapping("employee/delete/{id}")
-    public String deleteStudent(@PathVariable("id") int id) {
+    public String deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
         return "redirect:/employee/overview";
     }
