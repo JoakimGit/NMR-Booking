@@ -27,15 +27,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/employee/**").hasRole("ADMIN")
-                    .antMatchers("/motorhome/overview").hasAnyRole("ADMIN", "LEAD", "SALES")
-                    .antMatchers("/motorhome/**").hasAnyRole("ADMIN", "LEAD")
-                    .antMatchers("/customer/**").hasAnyRole("ADMIN","LEAD", "SALES")
-                    .antMatchers("/reservation/**").hasAnyRole("ADMIN","LEAD", "SALES")
-                    .antMatchers("/", "/css/**", "/img/**").permitAll()
-                    .and()
+        http.authorizeRequests()
+                .antMatchers("/employee/").hasRole("ADMIN")
+                .antMatchers("/motorhome/overview").hasAnyRole("ADMIN", "LEAD", "SALES")
+                .antMatchers("/motorhome/").hasAnyRole("ADMIN", "LEAD")
+                .antMatchers("/customer/").hasAnyRole("ADMIN","LEAD", "SALES")
+                .antMatchers("/reservation/").hasAnyRole("ADMIN","LEAD", "SALES")
+                .antMatchers("/", "/css/", "/img/").permitAll()
+                .and()
                 .formLogin();
     }
 
