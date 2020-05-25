@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Motorhome;
-import com.example.demo.repositories.MotorhomeRepo;
+
 import com.example.demo.services.MotorhomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class MotorhomeController {
 
     @GetMapping("/motorhome/overview")
     public String overview(Model model){
-        model.addAttribute("motorhomes", motorhomeService.fetchAllMotorhomes());
+        model.addAttribute("motorhomes", motorhomeService.fetchAllDistinctMotorhomes());
         return "/motorhome/overview";
     }
 

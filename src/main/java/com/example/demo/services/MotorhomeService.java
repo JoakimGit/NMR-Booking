@@ -12,8 +12,8 @@ import java.util.List;
 public class MotorhomeService {
     @Autowired
     MotorhomeRepo motorhomeRepo;
-    public List<Motorhome>fetchAllMotorhomes(){
-        return motorhomeRepo.fetchAllMotorhomes();
+    public List<Motorhome>fetchAllDistinctMotorhomes(){
+        return motorhomeRepo.fetchAllDistinctMotorhomes();
     }
 
     public Motorhome fetchMotorhomeByID(int motorhome_id){

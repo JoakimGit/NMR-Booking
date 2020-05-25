@@ -22,6 +22,13 @@ public class MotorhomeRepo {
         return template.query(sql, rowMapper);
     }
 
+    public List<Motorhome> fetchAllDistinctMotorhomes() {
+        String sql = "SELECT min(motorhome_id), price, brand, model, available, beds FROM motorhome GROUP BY price, brand, model, available, beds";
+        RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
+        return template.query(sql, rowMapper);
+    }
+
+
     public Motorhome fetchMotorhomeById(int motorhome_id) {
         String sql = "SELECT * FROM motorhome WHERE motorhome_id=?";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
@@ -29,18 +36,18 @@ public class MotorhomeRepo {
     }
 
     public void updateMotorhome(Motorhome m){
-        String sql = "UPDATE motorhome SET price=?, brand=?, model=?, available=?, bed=? WHERE motorhome_id=?";
-        template.update(sql, m.getBeds(), m.isAvailable(), m.getPrice(), m.getModel(), m.getBrand(), m.getMotorhome_id());
+        String sql = "UPDATE motorhome SET price=?, brand=?, model=?, available=?, beds=? WHERE motorhome_id=?";
+        template.update(sql, m.getMotorhome_id(), m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds());
     }
 
 
     public void createMotorhome(Motorhome m) {
         String sql = "INSERT INTO motorhome VALUES(?,?,?,?,?,?)";
-        template.update(sql, m.getMotorhome_id(), m.getBrand(), m.getModel(), m.getPrice(), m.getBeds(), m.isAvailable());
+        template.update(sql, m.getMotorhome_id(), m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds());
     }
 
     public void deleteMotorhome(int motorhome_id) {
-        String sql = "DELETE FROM item WHERE motorhome_id=?";
+        String sql = "DELETE FROM motorhome WHERE motorhome_id=?";
         template.update(sql, motorhome_id);
     }
 
