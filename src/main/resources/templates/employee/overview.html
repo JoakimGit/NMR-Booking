@@ -10,32 +10,32 @@
 <div class="container-fluid">
     <table data-toggle="table" data-search="true">
         <thead>
-        <tr>
-            <th scope="col" data-sortable="true">Medarbejder ID</th>
-            <th scope="col" data-sortable="true">Fornavn</th>
-            <th scope="col" data-sortable="true">Efternavn</th>
-            <th scope="col" data-sortable="true">Stilling</th>
-            <th scope="col">Email</th>
-            <th scope="col">CPR</th>
-            <th scope="col">Tlf. Nummer</th>
-            <th scope="col" data-sortable="true">Ansættelsesdato</th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col" data-sortable="true">Medarbejder ID</th>
+                <th scope="col" data-sortable="true">Fornavn</th>
+                <th scope="col" data-sortable="true">Efternavn</th>
+                <th scope="col" data-sortable="true">Stilling</th>
+                <th scope="col">Email</th>
+                <th scope="col">CPR</th>
+                <th scope="col">Tlf. Nummer</th>
+                <th scope="col" data-sortable="true">Ansættelsesdato</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="employee : ${employees}">
-            <td th:text="${employee.employee_id}"></td>
-            <td th:text="${employee.first_name}"></td>
-            <td th:text="${employee.last_name}"></td>
-            <td th:text="${employee.job_title}"></td>
-            <td th:text="${employee.email}"></td>
-            <td th:text="${employee.cpr}"></td>
-            <td th:text="${employee.phonenumber}"></td>
-            <td th:text="${employee.employment_date}"></td>
-            <td><a th:href="@{'/employee/edit/' + ${employee.employee_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                <a th:href="@{'/employee/delete/' + ${employee.employee_id}}" onclick="return confirm('Er du sikker på at du vil slette denne medarbejder?');"><button type="button" class="btn btn-danger">Slet</button></a>
-            </td>
-        </tr>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.employee_id}"></td>
+                <td th:text="${employee.first_name}"></td>
+                <td th:text="${employee.last_name}"></td>
+                <td th:text="${employee.job_title}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.cpr}"></td>
+                <td th:text="${employee.phonenumber}"></td>
+                <td th:text="${employee.employment_date}"></td>
+                <td><a th:href="@{'/employee/edit/' + ${employee.employee_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/employee/delete/' + ${employee.employee_id}}" onclick="return confirm('Er du sikker på at du vil slette denne medarbejder?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
