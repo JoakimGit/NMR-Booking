@@ -33,4 +33,19 @@ public class AccessoryService {
         accessoryRepo.deleteAccessory(id);
     }
 
+    public List<String> fetchAllAccessoryNames() {
+        return accessoryRepo.fetchAllAccessoryNames();
+    }
+
+    public List<String> fetchAllChosenAccessoriesById(int reservation_id) {
+        return accessoryRepo.fetchAllChosenAccessoriesById(reservation_id);
+    }
+
+    public void createAccessoryForReservation (int id, String name) {
+        accessoryRepo.createAccessoryForReservation(id, name);
+    }
+
+    public void deleteAccessoryInReservation(int id) {
+        accessoryRepo.deleteAccessoryInReservation(id);
+    }
 }

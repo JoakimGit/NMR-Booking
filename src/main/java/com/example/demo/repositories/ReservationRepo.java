@@ -15,6 +15,12 @@ public class ReservationRepo {
     @Autowired
     JdbcTemplate template;
 
+    public Reservation fetchReservationById(int id) {
+        String sql = "SELECT * FROM reservation WHERE reservation_id=?";
+        RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
+        return template.queryForObject(sql, rowMapper, id);
+    }
+
     public List<Reservation> fetchAllReservations() {
         String sql = "SELECT * FROM reservation";
         RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
@@ -24,12 +30,6 @@ public class ReservationRepo {
     public void createReservation(Reservation r) {
         String sql = "INSERT INTO reservation VALUES (?, ?, ?, ?)";
         template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date());
-    }
-
-    public Reservation findReservationById(int id) {
-        String sql = "SELECT * FROM reservation WHERE reservation_id=?";
-        RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
-        return template.queryForObject(sql, rowMapper, id);
     }
 
     public void editReservation(Reservation r) {
@@ -42,10 +42,8 @@ public class ReservationRepo {
         template.update(sql, id);
     }
 
-
-
-
-
-
-
+    public int findNewestReservationId() {
+        String sql = "SELECT LAST_INSERT_ID()";
+        return template.queryForObject(sql, Integer.class);
+    }
 }

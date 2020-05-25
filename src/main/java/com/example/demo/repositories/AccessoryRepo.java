@@ -28,17 +28,37 @@ public class AccessoryRepo {
     }
 
     public void createAccessory(Accessory a) {
-        String sql = "INSERT INTO accessory VALUES (?, ?, ?, ?, ?, ?)";
-        template.update(sql, a.getAccessory_id(), a.isBike_rack(), a.isBed_linen(), a.isChild_seat(), a.isPicnic_table(), a.isChairs());
+        String sql = "INSERT INTO accessory VALUES (?, ?)";
+        template.update(sql, a.getAccessory_id(), a.getAccessory_name());
     }
 
     public void updateAccessory(Accessory a) {
-        String sql = "UPDATE accessory SET bike_rack=?, bed_linen=?, child_seat=?, picnic_table=?, chairs=? WHERE accessory_id=?";
-        template.update(sql, a.getAccessory_id(), a.isBike_rack(), a.isBed_linen(), a.isChild_seat(), a.isPicnic_table(), a.isChairs(), a.getAccessory_id());
+        String sql = "UPDATE accessory SET accessory_name=? WHERE accessory_id=?";
+        template.update(sql, a.getAccessory_name(), a.getAccessory_id());
     }
 
     public void deleteAccessory(int id) {
         String sql = "DELETE FROM accessory WHERE accessory_id = ?";
+        template.update(sql, id);
+    }
+
+    public List<String> fetchAllAccessoryNames() {
+        String sql = "SELECT accessory_name FROM accessory";
+        return template.queryForList(sql, String.class);
+    }
+
+    public List<String> fetchAllChosenAccessoriesById(int reservation_id) {
+        String sql = "SELECT accessory_name FROM accessory_in_reservation WHERE reservation_id=?";
+        return template.queryForList(sql, String.class, reservation_id);
+    }
+
+    public void createAccessoryForReservation (int id, String name) {
+        String sql = "INSERT INTO accessory_in_reservation VALUES (?, ?)";
+        template.update(sql, id, name);
+    }
+
+    public void deleteAccessoryInReservation(int id) {
+        String sql = "DELETE FROM accessory_in_reservation WHERE reservation_id = ?";
         template.update(sql, id);
     }
 }

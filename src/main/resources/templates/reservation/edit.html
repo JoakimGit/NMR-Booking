@@ -26,13 +26,18 @@
             <input type="text" class="form-control" id="dropoff_date" name="dropoff_date" th:value="${reservation.dropoff_date}" required>
         </div>
         <div class="form-group">
-            <label for="accessories"><b>Tilbehør til rejsen</b></label>
-            <!-- Drop down menu of all accessories with current one preselected -->
-            <select id="accessories" name="accessories" multiple>
-                <option th:each="accessories : ${accessories}" th:value="${accessories}" th:text="${accessories}" th:selected="${accessories==reservation.accessories}"></option>
-            </select>
+            <span th:each="accessory : ${accessories}">
+                <input type="checkbox" th:id="${accessory}" name="chosen_accessories" th:value="${accessory}" th:checked="${#arrays.contains(chosenAccessories, accessory)}">
+                <label th:for="${accessory}" th:text="${accessory}"></label><br>
+            </span>
         </div>
-
+        <!-- Hvis du stadig vil have det skal være en "dropdown" så kan du fortsætte herfra. -->
+        <!--<div class="form-group">
+            <label for="accessories"><b>Tilbehør til rejsen</b></label>
+            <select id="accessories" name="accessories" multiple>
+                <option th:each="accessory : ${accessories}" th:value="${accessory}" th:text="${accessory}" th:selected=""></option>
+            </select>
+        </div>-->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

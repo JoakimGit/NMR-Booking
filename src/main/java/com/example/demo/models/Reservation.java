@@ -11,14 +11,12 @@ public class Reservation {
     private String location;
     private String pickup_date;
     private String dropoff_date;
-    private String accessories;
 
-    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String accessories) {
+    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date) {
     this.reservation_id = reservation_id;
     this.location = location;
     this.pickup_date = pickup_date;
     this.dropoff_date = dropoff_date;
-    this.accessories = accessories;
     }
 
     public Reservation() {}
@@ -53,13 +51,5 @@ public class Reservation {
 
     public void setDropoff_date(String dropoff_date) {
         this.dropoff_date = dropoff_date;
-    }
-
-    public String getAccessories() {
-        return accessories;
-    }
-
-    public void setAccessories(String accessories) {
-        this.accessories = accessories;
     }
 }

@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Controller
 public class ReservationController {
 
@@ -24,9 +21,6 @@ public class ReservationController {
     @Autowired
     AccessoryService accessoryService;
 
-    private final List<String> allAccessories= Arrays.asList("Cykelstativ", "Sengelinned", "Barnesæde", "Picnic bord", "Campingstole");
-    private final List<String> allAccessoriesEng= Arrays.asList("bike_rack", "bed_linen", "child_seat", "picnic_table", "chairs");
-
     @GetMapping("/reservation/overview")
     public String overview(Model model) {
         model.addAttribute("reservations", reservationService.fetchAllReservations());
@@ -35,28 +29,27 @@ public class ReservationController {
 
     @GetMapping("/reservation/create")
     public String create(Model model) {
-        model.addAttribute("accessories", allAccessories);
-        model.addAttribute("accessoriesEng", allAccessoriesEng);
+        model.addAttribute("accessories", accessoryService.fetchAllAccessoryNames());
         return "/reservation/create";
     }
 
     @PostMapping("/reservation/create")
     public String createReservation(@ModelAttribute Reservation reservation, @ModelAttribute Accessory accessory) {
-        System.out.println(accessory.getAllAccessories());
-        accessoryService.createAccessory(accessory);
-        reservationService.createReservation(reservation);
+        reservationService.createReservation(reservation, accessory);
         return "redirect:/reservation/overview";
     }
 
     @GetMapping("/reservation/edit/{id}")
     public String update(@PathVariable("id") int id, Model model) {
-        model.addAttribute("reservation", reservationService.findReservationById(id));
+        model.addAttribute("reservation", reservationService.fetchReservationById(id));
+        model.addAttribute("accessories", accessoryService.fetchAllAccessoryNames());
+        model.addAttribute("chosenAccessories", accessoryService.fetchAllChosenAccessoriesById(id));
         return "/reservation/edit";
     }
 
     @PostMapping("reservation/edit")
-    public String editReservation(@ModelAttribute Reservation reservation) {
-        reservationService.editReservation(reservation);
+    public String editReservation(@ModelAttribute Reservation reservation, @ModelAttribute Accessory accessory) {
+        reservationService.editReservation(reservation, accessory);
         return "redirect:/reservation/overview";
     }
 
