@@ -28,8 +28,8 @@ public class CustomerRepo {
     }
 
     public void createCustomer(Customer c) {
-        String sql = "INSERT INTO customer(first_name, last_name, user_name, signup_date, email, phonenumber) VALUES (?,?,?,?,?,?)";
-        template.update(sql, c.getFirst_name(), c.getLast_name(), c.getUser_name(), c.getSignup_date(), c.getEmail(), c.getPhonenumber());
+        String sql = "INSERT INTO customer VALUES (?,?,?,?,?,?,?)";
+        template.update(sql, c.getCustomer_id(), c.getFirst_name(), c.getLast_name(), c.getUser_name(), c.getSignup_date(), c.getEmail(), c.getPhonenumber());
     }
 
     public void editCustomer(Customer c) {
