@@ -5,7 +5,33 @@
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
-
+<div class="container-fluid">
+    <table data-toggle="table" data-search="true">
+        <thead>
+        <tr>
+            <th scope="col" data-sortable="true">Motorhome:Id</th>
+            <th scope="col" data-sortable="true">Brand</th>
+            <th scope="col" data-sortable="true">Model</th>
+            <th scope="col" data-sortable="true">price </th>
+            <th scope="col" data-sortable="true">beds</th>
+            <th scope="col" data-sortable="true">avaiable</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="motorhome : ${motorhomes}">
+            <td th:text="${motorhome.motorhome_id}"></td>
+            <td th:text="${motorhome.brand}"></td>
+            <td th:text="${motorhome.model}"></td>
+            <td th:text="${motorhome.price}"></td>
+            <td th:text="${motorhome.beds}"></td>
+            <td th:text="${motorhome.available}"></td>
+            <td><a th:href="@{'/motorhome/edit/' + ${motorhome.motorhome_id}}"><button type="button" class="btn btn-primary">Edit</button></a>
+                <a th:href="@{'/motorhome/delete/' + ${motorhome.motorhome_id}}" onclick="return confirm('Are you sure you want to delete this motorhome?');"><button type="button" class="btn btn-danger">Delete</button></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div th:replace="fragments/bottom_scripts"></div>
 </body>
 </html>

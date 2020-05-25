@@ -2,10 +2,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head"></div>
+    <title>Create new motorhome</title>
 </head>
 <body>
 <div th:replace="fragments/navbar_owner"></div>
+<div class="container">
+    <br>
+    <h1>Update Motorhome</h1>
+    <br>
+    <form action="/motorhome/update" method="post">
+        <input type="hidden" name="motorhome_id" th:value="${motorhome.motorhome_id}">
+        <div class="form-group">
+            <label for="brand"><b>Brand name:</b></label>
+            <input type="text" class="form-control"  id="brand" name="brand" th:value="${motorhome.brand}" required>
+        </div>
+        <div class="form-group">
+            <label for="model"><b>Model name</b></label>
+            <input type="text" class="form-control" id="model" name="model" th:value="${motorhome.model}" required>
+        </div>
+        <div class="form-group">
+            <label for="price"><b>Price</b></label>
+            <input type="text" class="form-control" id="price" name="price" th:value="${motorhome.price}" required>
+        </div>
+        <div class="form-group">
+            <label for="beds"><b>Beds</b></label>
+            <input type="text" class="form-control" id="beds" name="role" th:value="${motorhome.beds}" required>
+        </div>
+        <div class="form-group">
+            <label for="available"><b>available</b></label>
+            <input type="text" class="form-control" id="available" name="available?" th:value="${motorhome.available}" required>
+        </div>
 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 <div th:replace="fragments/bottom_scripts"></div>
 </body>
 </html>
