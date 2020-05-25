@@ -44,6 +44,8 @@
             <label for="enrollmentdate"><b>Ansættelsesdato</b></label>
             <input type="date" class="form-control" id="enrollmentdate" name="employment_date" required>
         </div>
+        <!--spring security blocks post requests without a csrf token by default, so we provide one-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button type="submit" class="btn btn-primary">Opret</button>
     </form>
 </div>

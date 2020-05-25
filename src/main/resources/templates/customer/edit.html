@@ -39,6 +39,8 @@
             <label for="phonenumber"><b>Telefonnummer</b></label>
             <input type="text" class="form-control" id="phonenumber" name="phonenumber" th:value="${customer.phonenumber}" pattern="[0-9]{8}" required>
         </div>
+        <!--spring security blocks post requests without a csrf token by default, so we provide one-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button type="submit" class="btn btn-primary">Opdater</button>
     </form>
 </div>

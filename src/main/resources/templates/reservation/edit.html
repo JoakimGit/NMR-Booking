@@ -40,6 +40,8 @@
                 <option th:each="accessory : ${accessories}" th:value="${accessory}" th:text="${accessory}" th:selected=""></option>
             </select>
         </div>-->
+        <!--spring security blocks post requests without a csrf token by default, so we provide one-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
