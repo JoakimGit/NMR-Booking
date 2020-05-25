@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
 </head>
 <body>
-<div th:replace="fragments/navbar_owner"></div>
+<div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
+<div sec:authorize="hasRole('LEAD')" th:replace="fragments/navbar_lead"></div>
+<div sec:authorize="hasRole('SALES')" th:replace="fragments/navbar_employee"></div>
 
 <div th:replace="fragments/bottom_scripts"></div>
 </body>
