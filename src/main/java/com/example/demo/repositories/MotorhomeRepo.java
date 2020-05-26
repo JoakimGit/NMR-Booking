@@ -16,10 +16,10 @@ public class MotorhomeRepo {
     @Autowired
     JdbcTemplate template;
 
-    public List<Motorhome> fetchAllMotorhomes() {
-        String sql = "SELECT* FROM motorhome";
+    public List<Motorhome> fetchAllMotorhomesByBrand(String brand) {
+        String sql ="SELECT * FROM motorhome WHERE brand=?";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
-        return template.query(sql, rowMapper);
+        return template.query(sql, rowMapper,brand);
     }
 
     public List<Motorhome> fetchAllDistinctMotorhomes() {

@@ -30,8 +30,8 @@
                 <td th:text="${motorhome.price}"></td>
                 <td th:text="${motorhome.beds}"></td>
                 <td th:text="${motorhome.available}"></td>
-                <td><a th:href="@{'/motorhome/edit/' + ${motorhome.motorhome_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                    <a th:href="@{'/motorhome/delete/' + ${motorhome.motorhome_id}}" onclick="return confirm('Er du sikker på du vil slette denne autocamper?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                <td>
+                    <a th:href="@{'/motorhome/details/' + ${motorhome.brand}}"><button type="button" class="btn btn-info">Detaljer</button></a>
                 </td>
             </tr>
         </tbody>

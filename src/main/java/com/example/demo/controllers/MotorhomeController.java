@@ -46,11 +46,18 @@ public class MotorhomeController {
         return "redirect:/motorhome/overview";
     }
 
-    @GetMapping("/motorhome/delete/{motorhome_id}")
-    public String deleteHome(@PathVariable("motorhome_id") int motorhome_id){
+    @GetMapping("/motorhome/delete/{motorhome_id}/{motorhome.brand}")
+    public String deleteHome(@PathVariable("motorhome_id") int motorhome_id, @PathVariable("motorhome.brand") String brand){
         motorhomeService.deleteMotorhome(motorhome_id);
-        return "redirect:/motorhome/overview";
+        return "redirect:/motorhome/details/{motorhome.brand}";
     }
+
+    @GetMapping("/motorhome/details/{brand}")
+    public String brandOverview(@PathVariable("brand") String brand, Model model){
+        model.addAttribute("motorhomesbrand",motorhomeService.fetchAllMotorhomesByBrand(brand));
+        return "/motorhome/details";
+    }
+
 
 
 }

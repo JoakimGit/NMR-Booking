@@ -32,6 +32,10 @@ public class MotorhomeService {
     motorhomeRepo.deleteMotorhome(motorhome_id);
     }
 
+    public List <Motorhome> fetchAllMotorhomesByBrand(String brand){
+        return motorhomeRepo.fetchAllMotorhomesByBrand(brand);
+    }
+
 
 }
 
