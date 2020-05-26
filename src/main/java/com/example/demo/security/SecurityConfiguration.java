@@ -28,20 +28,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/employee/create").hasRole("ADMIN")
-                .antMatchers("/employee/edit").hasRole("ADMIN")
-                .antMatchers("/employee/overview").hasRole("ADMIN")
-                .antMatchers("/motorhome/creater").hasAnyRole("ADMIN", "LEAD")
-                .antMatchers("/motorhome/edit").hasAnyRole("ADMIN", "LEAD")
-                .antMatchers("/motorhome/overview").hasAnyRole("ADMIN", "LEAD")
-                .antMatchers("/customer/create").hasAnyRole("ADMIN","LEAD", "SALES")
-                .antMatchers("/customer/edit").hasAnyRole("ADMIN","LEAD", "SALES")
-                .antMatchers("/customer/overview").hasAnyRole("ADMIN","LEAD", "SALES")
-                .antMatchers("/reservation/create").hasAnyRole("ADMIN","LEAD", "SALES")
-                .antMatchers("/reservation/edit").hasAnyRole("ADMIN","LEAD", "SALES")
-                .antMatchers("/reservation/overview").hasAnyRole("ADMIN","LEAD", "SALES")
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+                .antMatchers("/employee/**").hasRole("ADMIN")
+                .antMatchers("/motorhome/overview").hasAnyRole("ADMIN", "LEAD", "SALES")
+                .antMatchers("/motorhome/**").hasAnyRole("ADMIN", "LEAD")
+                .antMatchers("/customer/**").hasAnyRole("ADMIN","LEAD", "SALES")
+                .antMatchers("/reservation/**").hasAnyRole("ADMIN","LEAD", "SALES")
+                .antMatchers("/", "/css/**", "/img/**").permitAll()
+                .and()
+                .formLogin();
     }
 
     @Bean
