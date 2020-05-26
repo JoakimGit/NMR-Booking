@@ -15,12 +15,6 @@ public class ReservationRepo {
     @Autowired
     JdbcTemplate template;
 
-    public Reservation fetchReservationById(int id) {
-        String sql = "SELECT * FROM reservation WHERE reservation_id=?";
-        RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
-        return template.queryForObject(sql, rowMapper, id);
-    }
-
     public List<Reservation> fetchAllReservations() {
         String sql = "SELECT * FROM reservation";
         RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
@@ -28,22 +22,30 @@ public class ReservationRepo {
     }
 
     public void createReservation(Reservation r) {
-        String sql = "INSERT INTO reservation VALUES (?, ?, ?, ?)";
-        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date());
+        String sql = "INSERT INTO reservation (reservation_id, location, pickup_date, dropoff_date, modelBrand) VALUES (?, ?, ?, ?, ?)";
+        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getModelBrand());
+    }
+
+    public Reservation fetchReservationById(int id) {
+    String sql = "SELECT * FROM reservation WHERE reservation_id=?";
+    RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
+    return template.queryForObject(sql, rowMapper, id);
     }
 
     public void editReservation(Reservation r) {
-        String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=? WHERE reservation_id=?";
-        template.update(sql, r.getLocation(),r.getPickup_date(), r.getDropoff_date(), r.getReservation_id());
+    String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=?, accessories=?, modelBrand=? WHERE reservation_id=?";
+    template.update(sql, r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getAccessories(), r.getReservation_id(), r.getModelBrand());
     }
 
     public void deleteReservation(int id) {
-        String sql = "DELETE FROM reservation WHERE reservation_id=?";
-        template.update(sql, id);
+    String sql = "DELETE FROM reservation WHERE reservation_id=?";
+    template.update(sql, id);
     }
 
     public int findNewestReservationId() {
         String sql = "SELECT LAST_INSERT_ID()";
         return template.queryForObject(sql, Integer.class);
     }
+
+
 }

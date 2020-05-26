@@ -17,7 +17,7 @@
         <input type="hidden" name="reservation_id" th:value="${reservation.reservation_id}">
         <div class="form-group">
             <label for="location"><b>Lokation</b></label>
-            <input type="text" class="form-control"  id="location" name="location" th:value="${reservation.location}" required>
+            <input type="text" class="form-control"  id="location" name="location" th:value="${reservation.location}" pattern="[A-Za-z-']+" required>
         </div>
         <div class="form-group">
             <label for="pickup_date"><b>Pick-up Dato</b></label>
