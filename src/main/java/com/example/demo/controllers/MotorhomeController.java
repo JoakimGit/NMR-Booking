@@ -32,7 +32,7 @@ public class MotorhomeController {
     @PostMapping("/motorhome/edit")
     public String Update(@ModelAttribute Motorhome motorhome){
         motorhomeService.updateMotorhome(motorhome);
-        return "redirect:/motorhome/overview";
+        return "redirect:/motorhome/details/"+motorhome.getBrand();
     }
 
     @GetMapping("/motorhome/create")
@@ -57,7 +57,4 @@ public class MotorhomeController {
         model.addAttribute("motorhomesbrand",motorhomeService.fetchAllMotorhomesByBrand(brand));
         return "/motorhome/details";
     }
-
-
-
 }

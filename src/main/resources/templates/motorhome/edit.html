@@ -12,15 +12,15 @@
     <br>
     <h1>Opdater Autocamper</h1>
     <br>
-    <form action="/motorhome/update" method="post">
+    <form action="/motorhome/edit" method="post">
         <input type="hidden" name="motorhome_id" th:value="${motorhome.motorhome_id}">
         <div class="form-group">
             <label for="brand"><b>Mærke</b></label>
-            <input type="text" class="form-control"  id="brand" name="brand" th:value="${motorhome.brand}" pattern="[\p{L}]+" required>
+            <input type="text" class="form-control"  id="brand" name="brand" th:value="${motorhome.brand}" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß '-]+" required>
         </div>
         <div class="form-group">
             <label for="model"><b>Model</b></label>
-            <input type="text" class="form-control" id="model" name="model" th:value="${motorhome.model}" required>
+            <input type="text" class="form-control" id="model" name="model" th:value="${motorhome.model}" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß0-9 ,.'-]+" required>
         </div>
         <div class="form-group">
             <label for="price"><b>Pris</b></label>
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             <label for="beds"><b>Senge</b></label>
-            <input type="number" class="form-control" id="beds" name="role" th:value="${motorhome.beds}" min="2" max="6" required>
+            <input type="number" class="form-control" id="beds" name="beds" th:value="${motorhome.beds}" min="2" max="6" required>
         </div>
         <div class="form-group">
             <label for="available"><b>Tilgængelig</b></label>

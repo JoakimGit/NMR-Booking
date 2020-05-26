@@ -19,7 +19,7 @@ public class MotorhomeRepo {
     public List<Motorhome> fetchAllMotorhomesByBrand(String brand) {
         String sql ="SELECT * FROM motorhome WHERE brand=?";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
-        return template.query(sql, rowMapper,brand);
+        return template.query(sql, rowMapper, brand);
     }
 
     public List<Motorhome> fetchAllDistinctMotorhomes() {
@@ -27,7 +27,6 @@ public class MotorhomeRepo {
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         return template.query(sql, rowMapper);
     }
-
 
     public Motorhome fetchMotorhomeById(int motorhome_id) {
         String sql = "SELECT * FROM motorhome WHERE motorhome_id=?";
@@ -37,9 +36,8 @@ public class MotorhomeRepo {
 
     public void updateMotorhome(Motorhome m){
         String sql = "UPDATE motorhome SET price=?, brand=?, model=?, available=?, beds=? WHERE motorhome_id=?";
-        template.update(sql, m.getMotorhome_id(), m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds());
+        template.update(sql, m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds(), m.getMotorhome_id());
     }
-
 
     public void createMotorhome(Motorhome m) {
         String sql = "INSERT INTO motorhome VALUES(?,?,?,?,?,?)";
@@ -50,5 +48,4 @@ public class MotorhomeRepo {
         String sql = "DELETE FROM motorhome WHERE motorhome_id=?";
         template.update(sql, motorhome_id);
     }
-
 }

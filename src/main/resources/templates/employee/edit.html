@@ -15,15 +15,15 @@
         <input type="hidden" name="employee_id" th:value="${employee.employee_id}">
         <div class="form-group">
             <label for="firstname"><b>Fornavn</b></label>
-            <input type="text" class="form-control"  id="firstname" name="first_name" th:value="${employee.first_name}" pattern="[\p{L}]+" required>
+            <input type="text" class="form-control"  id="firstname" name="first_name" th:value="${employee.first_name}" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>
         </div>
         <div class="form-group">
             <label for="lastname"><b>Efternavn</b></label>
-            <input type="text" class="form-control" id="lastname" name="last_name" th:value="${employee.last_name}" pattern="[\p{L}]+" required>
+            <input type="text" class="form-control" id="lastname" name="last_name" th:value="${employee.last_name}" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß,'-]+" required>
         </div>
         <div class="form-group">
             <label for="cpr"><b>CPR</b></label>
-            <input type="text" class="form-control" id="cpr" name="cpr" th:value="${employee.cpr}" pattern="[0-9]{6}-[0-9]{4}" required>
+            <input type="text" class="form-control" id="cpr" name="cpr" th:value="${employee.cpr}" pattern="[0-9]{6}-?[0-9]{4}" title="Format: xxxxxx-xxxx" required>
         </div>
         <div class="form-group">
             <label for="role"><b>Stilling</b></label>
@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="phoneNumber"><b>Telefon</b></label>
-            <input type="text" class="form-control" id="phoneNumber" name="phonenumber" th:value="${employee.phonenumber}" pattern="[0-9]{8}" required>
+            <input type="text" class="form-control" id="phoneNumber" name="phonenumber" th:value="${employee.phonenumber}" pattern="(?:[0-9]{2}-?){3}[0-9]{2}" title="Format: 8 cifre, med eller uden bindestreg" required>
         </div>
         <div class="form-group">
             <label for="enrollmentdate"><b>Ansættelsesdato</b></label>

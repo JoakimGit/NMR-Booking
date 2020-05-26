@@ -17,15 +17,15 @@
         <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
         <div class="form-group">
             <label for="first_name"><b>Fornavn</b></label>
-            <input type="text" class="form-control" id="first_name" name="first_name" th:value="${customer.first_name}" pattern="[A-Za-z-']+" required>
+            <input type="text" class="form-control" id="first_name" name="first_name" th:value="${customer.first_name}" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>
         </div>
         <div class="form-group">
             <label for="last_name"><b>Efternavn</b></label>
-            <input type="text" class="form-control" id="last_name" name="last_name" th:value="${customer.last_name}" pattern="[A-Za-z-']+" required>
+            <input type="text" class="form-control" id="last_name" name="last_name" th:value="${customer.last_name}" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß,'-]+" required>
         </div>
         <div class="form-group">
             <label for="user_name"><b>Brugernavn</b></label>
-            <input type="text" class="form-control" id="user_name" name="user_name" th:value="${customer.user_name}" pattern="[A-Za-z-0-9]+" required>
+            <input type="text" class="form-control" id="user_name" name="user_name" th:value="${customer.user_name}" pattern="[A-Za-zæøåÆØÅöÖäÄüÜß0-9_-]+" title="Format: Bogstaver, tal, '_' og '-' tilladt" required>
         </div>
         <div class="form-group">
             <label for="signup_date"><b>Tilmeldelsesdato</b></label>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
             <label for="phonenumber"><b>Telefonnummer</b></label>
-            <input type="text" class="form-control" id="phonenumber" name="phonenumber" th:value="${customer.phonenumber}" pattern="[0-9]{8}" required>
+            <input type="text" class="form-control" id="phonenumber" name="phonenumber" th:value="${customer.phonenumber}" pattern="(?:[0-9]{2}-?){3}[0-9]{2}" title="Format: 8 cifre, med eller uden bindestreg" required>
         </div>
         <!--spring security blocks post requests without a csrf token by default, so we provide one-->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

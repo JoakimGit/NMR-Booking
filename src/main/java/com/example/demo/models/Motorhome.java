@@ -73,4 +73,16 @@ public class Motorhome {
     public void setBeds(int beds) {
         this.beds = beds;
     }
+
+    @Override
+    public String toString() {
+        return "Motorhome{" +
+                "motorhome_id=" + motorhome_id +
+                ", price=" + price +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", available=" + available +
+                ", beds=" + beds +
+                '}';
+    }
 }
