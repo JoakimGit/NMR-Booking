@@ -17,7 +17,7 @@ public class MotorhomeRepo {
     JdbcTemplate template;
 
     public List<Motorhome> fetchAllMotorhomes() {
-        String sql = "SELECT* FROM motorhome";
+        String sql = "SELECT * FROM motorhome";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         return template.query(sql, rowMapper);
     }
@@ -27,7 +27,6 @@ public class MotorhomeRepo {
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         return template.query(sql, rowMapper);
     }
-
 
     public Motorhome fetchMotorhomeById(int motorhome_id) {
         String sql = "SELECT * FROM motorhome WHERE motorhome_id=?";
@@ -40,7 +39,6 @@ public class MotorhomeRepo {
         template.update(sql, m.getMotorhome_id(), m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds());
     }
 
-
     public void createMotorhome(Motorhome m) {
         String sql = "INSERT INTO motorhome VALUES(?,?,?,?,?,?)";
         template.update(sql, m.getMotorhome_id(), m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds());
@@ -50,5 +48,4 @@ public class MotorhomeRepo {
         String sql = "DELETE FROM motorhome WHERE motorhome_id=?";
         template.update(sql, motorhome_id);
     }
-
 }
