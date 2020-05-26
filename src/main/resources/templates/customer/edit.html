@@ -14,7 +14,7 @@
     <h1>Opdater kunde</h1>
     <br>
     <form action="/customer/edit" method="post">
-        <input type="hidden" name="id" th:value="${customer.customer_id}">
+        <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
         <div class="form-group">
             <label for="first_name"><b>Fornavn</b></label>
             <input type="text" class="form-control" id="first_name" name="first_name" th:value="${customer.first_name}" pattern="[A-Za-z-']+" required>
