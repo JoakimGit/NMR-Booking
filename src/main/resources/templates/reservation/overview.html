@@ -14,19 +14,26 @@
         <thead>
             <tr>
                 <th scope="col" data-sortable="true">Reservations ID</th>
+                <th scope="col" data-sortable="true">Kunde ID</th>
+                <th scope="col" data-sortable="true">Mærke og model</th>
+                <th scope="col" data-sortable="true">Sæson</th>
                 <th scope="col" data-sortable="true">Lokation</th>
                 <th scope="col" data-sortable="true">Pick-up Dato</th>
                 <th scope="col" data-sortable="true">Drop-off Dato</th>
                 <th scope="col" data-sortable="true">Tilbehør</th>
-                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="reservation : ${reservations}">
                 <td th:text="${reservation.reservation_id}"></td>
+                <td th:text="${reservation.customer_id}"></td>
+                <td th:text="${reservation.brand_model}"></td>
+                <td th:text="${reservation.season}"></td>
                 <td th:text="${reservation.location}"></td>
                 <td th:text="${reservation.pickup_date}"></td>
                 <td th:text="${reservation.dropoff_date}"></td>
+                <td th:text="${reservation.accessories}"></td>
+
                 <td>
                     <a th:href="@{'/reservation/edit/' + ${reservation.reservation_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
                     <a th:href="@{'/reservation/delete/' + ${reservation.reservation_id}}" onclick="return confirm('Er du sikker på at du vil slette denne reservation?');"><button type="button" class="btn btn-danger">Slet</button></a>

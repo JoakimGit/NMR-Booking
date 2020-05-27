@@ -12,15 +12,19 @@ public class Reservation {
     private String pickup_date;
     private String dropoff_date;
     private String accessories;
-    private String modelBrand;
+    private String brand_model;
+    private String season;
+    private int customer_id;
 
-    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String accessories, String name) {
+    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String accessories, String brand_model, String season, int customer_id) {
     this.reservation_id = reservation_id;
     this.location = location;
     this.pickup_date = pickup_date;
     this.dropoff_date = dropoff_date;
     this.accessories = accessories;
-    this.modelBrand = modelBrand;
+    this.brand_model = brand_model;
+    this.season = season;
+    this.customer_id = customer_id;
     }
 
     public Reservation() {}
@@ -65,12 +69,27 @@ public class Reservation {
         this.accessories = accessories;
     }
 
-    public String getModelBrand() {
-        return modelBrand;
+    public String getBrand_model() {
+        return brand_model;
     }
 
-    public void setModelBrand(String modelBrand) {
-        this.modelBrand = modelBrand;
+    public void setBrand_model(String brand_model) {
+        this.brand_model = brand_model;
+    }
 
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 }

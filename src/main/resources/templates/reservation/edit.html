@@ -16,6 +16,24 @@
     <form action="/reservation/edit" method="post">
         <input type="hidden" name="reservation_id" th:value="${reservation.reservation_id}">
         <div class="form-group">
+            <label for="costumer_id"><b>Kunde ID</b></label>
+            <input type="text" class="form-control" id="costumer_id" name="costumer_id" th:value="${reservation.customer_id}" required>
+        </div>
+        <div class="form-group">
+            <label for="brand_model"><b>Mærke og model</b></label>
+            <!-- Drop down menu of all job titles with current one preselected -->
+            <select id="brand_model" name="brand_model">
+                <option th:each="brand_model : ${brand_model}" th:value="${brand_model}" th:text="${brand_model}" th:selected="${brand_model==reservation.brand_model}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="season"><b>Sæson</b></label>
+            <!-- Drop down menu of all job titles with current one preselected -->
+            <select id="season" name="season">
+                <option th:each="season : ${season}" th:value="${season}" th:text="${season}" th:selected="${season==reservation.season}"></option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="location"><b>Lokation</b></label>
             <input type="text" class="form-control"  id="location" name="location" th:value="${reservation.location}" pattern="[A-Za-z-']+" required>
         </div>
