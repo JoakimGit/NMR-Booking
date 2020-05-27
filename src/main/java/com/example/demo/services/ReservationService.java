@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Accessory;
 import com.example.demo.models.Reservation;
 import com.example.demo.repositories.ReservationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,19 @@ public class ReservationService {
     }
 
     public List<Reservation> fetchAllReservations() {
-        return reservationRepo.fetchAllReservations();
+        List<Reservation> reservations = reservationRepo.fetchAllReservations();
+        for (Reservation reservation : reservations) {
+            int id = reservation.getReservation_id();
+            reservation.setAccessories(accessoryService.fetchAllChosenAccessoriesById(id));
+        }
+        return reservations;
     }
 
-    public void createReservation(Reservation r, Accessory a) {
+    public void createReservation(Reservation r) {
         reservationRepo.createReservation(r);
 
         int reservation_id = findNewestReservationId();
-        List<String> chosen_accessories = a.getChosen_accessories();
+        List<String> chosen_accessories = r.getAccessories();
 
         if (chosen_accessories != null) {
             for (String accessory : chosen_accessories) {
@@ -38,12 +42,11 @@ public class ReservationService {
         }
     }
 
-    public void editReservation(Reservation r, Accessory a) {
+    public void editReservation(Reservation r) {
         reservationRepo.editReservation(r);
-
-        List<String> chosen_accessories = a.getChosen_accessories();
-
         accessoryService.deleteAccessoryInReservation(r.getReservation_id());
+
+        List<String> chosen_accessories = r.getAccessories();
 
         if (chosen_accessories != null) {
             for (String accessory : chosen_accessories) {

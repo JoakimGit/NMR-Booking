@@ -36,6 +36,9 @@ public class MotorhomeService {
         return motorhomeRepo.fetchAllMotorhomesByBrand(brand);
     }
 
+    public List<String> fetchMotorhomeBrandAndModel() {
+        return motorhomeRepo.fetchMotorhomeBrandAndModel();
+    }
 
 }
 

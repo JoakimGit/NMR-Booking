@@ -1,7 +1,9 @@
 package com.example.demo.models;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 public class Reservation {
@@ -11,12 +13,13 @@ public class Reservation {
     private String location;
     private String pickup_date;
     private String dropoff_date;
-    private String accessories;
     private String brand_model;
     private String season;
     private int customer_id;
+    @ElementCollection
+    private List<String> accessories;
 
-    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String accessories, String brand_model, String season, int customer_id) {
+    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, List<String> accessories, String brand_model, String season, int customer_id) {
     this.reservation_id = reservation_id;
     this.location = location;
     this.pickup_date = pickup_date;
@@ -61,11 +64,11 @@ public class Reservation {
         this.dropoff_date = dropoff_date;
     }
 
-    public String getAccessories() {
+    public List<String> getAccessories() {
         return accessories;
     }
 
-    public void setAccessories(String accessories) {
+    public void setAccessories(List<String> accessories) {
         this.accessories = accessories;
     }
 

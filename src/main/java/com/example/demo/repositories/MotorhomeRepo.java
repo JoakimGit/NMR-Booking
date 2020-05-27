@@ -34,6 +34,11 @@ public class MotorhomeRepo {
         return template.queryForObject(sql, rowMapper, motorhome_id);
     }
 
+    public List<String> fetchMotorhomeBrandAndModel() {
+        String sql = "SELECT CONCAT(brand, ' - ', model) FROM motorhome GROUP BY brand, model";
+        return template.queryForList(sql, String.class);
+    }
+
     public void updateMotorhome(Motorhome m){
         String sql = "UPDATE motorhome SET price=?, brand=?, model=?, available=?, beds=? WHERE motorhome_id=?";
         template.update(sql, m.getPrice(), m.getBrand(), m.getModel(), m.isAvailable(), m.getBeds(), m.getMotorhome_id());

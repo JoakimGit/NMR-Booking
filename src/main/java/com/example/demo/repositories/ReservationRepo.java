@@ -22,8 +22,8 @@ public class ReservationRepo {
     }
 
     public void createReservation(Reservation r) {
-        String sql = "INSERT INTO reservation (reservation_id, location, pickup_date, dropoff_date, accessories, brand_model, season, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getAccessories(), r.getBrand_model(), r.getSeason(), r.getCustomer_id());
+        String sql = "INSERT INTO reservation (reservation_id, location, pickup_date, dropoff_date, brand_model, season, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getBrand_model(), r.getSeason(), r.getCustomer_id());
     }
 
     public Reservation fetchReservationById(int id) {
@@ -33,8 +33,8 @@ public class ReservationRepo {
     }
 
     public void editReservation(Reservation r) {
-    String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=?, accessories=?, brand_model=?, season=?, customer_id=? WHERE reservation_id=?";
-    template.update(sql, r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getAccessories(), r.getReservation_id(), r.getBrand_model(), r.getSeason(), r.getCustomer_id());
+    String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=?, brand_model=?, season=?, customer_id=? WHERE reservation_id=?";
+    template.update(sql, r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getBrand_model(), r.getSeason(), r.getCustomer_id(), r.getReservation_id());
     }
 
     public void deleteReservation(int id) {
@@ -46,6 +46,4 @@ public class ReservationRepo {
         String sql = "SELECT LAST_INSERT_ID()";
         return template.queryForObject(sql, Integer.class);
     }
-
-
 }

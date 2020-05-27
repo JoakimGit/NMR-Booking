@@ -3,6 +3,7 @@
 <head>
     <div th:replace="fragments/head"></div>
     <title>Reservation Oversigt</title>
+    <link rel="stylesheet" href="../css/custom.css">
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -21,6 +22,7 @@
                 <th scope="col" data-sortable="true">Pick-up Dato</th>
                 <th scope="col" data-sortable="true">Drop-off Dato</th>
                 <th scope="col" data-sortable="true">Tilbehør</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -32,8 +34,14 @@
                 <td th:text="${reservation.location}"></td>
                 <td th:text="${reservation.pickup_date}"></td>
                 <td th:text="${reservation.dropoff_date}"></td>
-                <td th:text="${reservation.accessories}"></td>
-
+                <td>
+                    <ul id="accessoryUl">
+                        <li id="accessoryLi" th:each="accessory : ${reservation.accessories}" >
+                            <span class="accessorySpan" th:text="${accessory}" ></span>
+                            <span class="accessorySpan" th:if="not ${reservation.accessories.indexOf(accessory) == (reservation.accessories.size() -1)}">,</span>
+                        </li>
+                    </ul>
+                </td>
                 <td>
                     <a th:href="@{'/reservation/edit/' + ${reservation.reservation_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
                     <a th:href="@{'/reservation/delete/' + ${reservation.reservation_id}}" onclick="return confirm('Er du sikker på at du vil slette denne reservation?');"><button type="button" class="btn btn-danger">Slet</button></a>

@@ -16,48 +16,42 @@
     <form action="/reservation/edit" method="post">
         <input type="hidden" name="reservation_id" th:value="${reservation.reservation_id}">
         <div class="form-group">
-            <label for="costumer_id"><b>Kunde ID</b></label>
-            <input type="text" class="form-control" id="costumer_id" name="costumer_id" th:value="${reservation.customer_id}" required>
+            <label for="customer_id"><b>Kunde ID</b></label>
+            <input type="number" class="form-control" id="customer_id" name="customer_id" th:value="${reservation.customer_id}" min="1" max="10" required>
         </div>
         <div class="form-group">
+            <!-- Drop down menu of all brand + models with current one preselected -->
             <label for="brand_model"><b>Mærke og model</b></label>
-            <!-- Drop down menu of all job titles with current one preselected -->
             <select id="brand_model" name="brand_model">
                 <option th:each="brand_model : ${brand_model}" th:value="${brand_model}" th:text="${brand_model}" th:selected="${brand_model==reservation.brand_model}"></option>
             </select>
         </div>
         <div class="form-group">
-            <label for="season"><b>Sæson</b></label>
-            <!-- Drop down menu of all job titles with current one preselected -->
-            <select id="season" name="season">
-                <option th:each="season : ${season}" th:value="${season}" th:text="${season}" th:selected="${season==reservation.season}"></option>
+            <label for="season"><b>Lokation</b></label>
+            <select id="season" name="season" required>
+                <option value="Højsæson" th:selected="Højsæson == ${reservation.season}">Højsæson</option>
+                <option value="Midtsæson" th:selected="Midtsæson == ${reservation.season}">Midtsæson</option>
+                <option value="Lavsæson" th:selected="Lavsæson == ${reservation.season}">Lavsæson</option>
             </select>
         </div>
         <div class="form-group">
             <label for="location"><b>Lokation</b></label>
-            <input type="text" class="form-control"  id="location" name="location" th:value="${reservation.location}" pattern="[A-Za-z-']+" required>
+            <input type="text" class="form-control"  id="location" name="location" th:value="${reservation.location}" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß0-9 ,.'-]+" required>
         </div>
         <div class="form-group">
             <label for="pickup_date"><b>Pick-up Dato</b></label>
-            <input type="text" class="form-control" id="pickup_date" name="pickup_date" th:value="${reservation.pickup_date}" required>
+            <input type="date" class="form-control" id="pickup_date" name="pickup_date" th:value="${reservation.pickup_date}" required>
         </div>
         <div class="form-group">
             <label for="dropoff_date"><b>Drop-off Dato</b></label>
-            <input type="text" class="form-control" id="dropoff_date" name="dropoff_date" th:value="${reservation.dropoff_date}" required>
+            <input type="date" class="form-control" id="dropoff_date" name="dropoff_date" th:value="${reservation.dropoff_date}" required>
         </div>
         <div class="form-group">
             <span th:each="accessory : ${accessories}">
-                <input type="checkbox" th:id="${accessory}" name="chosen_accessories" th:value="${accessory}" th:checked="${#arrays.contains(chosenAccessories, accessory)}">
+                <input type="checkbox" th:id="${accessory}" name="accessories" th:value="${accessory}" th:checked="${#arrays.contains(chosenAccessories, accessory)}">
                 <label th:for="${accessory}" th:text="${accessory}"></label><br>
             </span>
         </div>
-        <!-- Hvis du stadig vil have det skal være en "dropdown" så kan du fortsætte herfra. -->
-        <!--<div class="form-group">
-            <label for="accessories"><b>Tilbehør til rejsen</b></label>
-            <select id="accessories" name="accessories" multiple>
-                <option th:each="accessory : ${accessories}" th:value="${accessory}" th:text="${accessory}" th:selected=""></option>
-            </select>
-        </div>-->
         <!--spring security blocks post requests without a csrf token by default, so we provide one-->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button type="submit" class="btn btn-primary">Opdater</button>

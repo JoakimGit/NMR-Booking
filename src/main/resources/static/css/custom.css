@@ -1,0 +1,14 @@
+.container-fluid #accessoryUl {
+    list-style-type: none;
+    margin: 0;
+    padding: 0
+}
+
+.container-fluid #accessoryLi {
+    font-size: 0;
+    display: inline-block;
+}
+
+.container-fluid .accessorySpan {
+    font-size: 16px;
+}
