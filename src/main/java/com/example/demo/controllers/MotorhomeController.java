@@ -37,7 +37,7 @@ public class MotorhomeController {
     @PostMapping("/autocamper/rediger")
     public String update(@ModelAttribute Motorhome motorhome){
         motorhomeService.updateMotorhome(motorhome);
-        return "redirect:/motorhome/details/"+motorhome.getBrand();
+        return "redirect:/autocamper/detaljer/"+motorhome.getBrand();
     }
 
     @GetMapping("/autocamper/opret")
@@ -48,13 +48,13 @@ public class MotorhomeController {
     @PostMapping("/autocamper/opret")
     public String createM(@ModelAttribute Motorhome motorhome){
         motorhomeService.createMotorhome(motorhome);
-        return "redirect:/motorhome/overview";
+        return "redirect:/autocamper/oversigt";
     }
 
     @GetMapping("/autocamper/slet/{motorhome_id}/{motorhome.brand}")
     public String deleteHome(@PathVariable("motorhome_id") int motorhome_id, @PathVariable("motorhome.brand") String brand){
         motorhomeService.deleteMotorhome(motorhome_id);
-        return "redirect:/motorhome/details/{motorhome.brand}";
+        return "redirect:/autocamper/detaljer/{motorhome.brand}";
     }
 
     @GetMapping("/autocamper/detaljer/{brand}")
@@ -72,7 +72,7 @@ public class MotorhomeController {
     @PostMapping("/tilbehør/opret")
     public String createA(@ModelAttribute Accessory accessory) {
         accessoryService.createAccessory(accessory);
-        return "redirect:/accessory/overview";
+        return "redirect:/tilbehør/oversigt";
     }
 
     @GetMapping("/tilbehør/rediger/{id}")
@@ -84,6 +84,6 @@ public class MotorhomeController {
     @PostMapping("/tilbehør/rediger")
     public String editAccessory(@ModelAttribute Accessory accessory) {
         accessoryService.updateAccessory(accessory);
-        return "redirect:/accessory/overview";
+        return "redirect:/tilbehør/oversigt";
     }
 }

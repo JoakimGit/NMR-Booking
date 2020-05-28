@@ -30,7 +30,7 @@ public class CustomerController {
     @PostMapping("/kunde/opret")
     public String createCustomer(@ModelAttribute Customer customer) {
         customerService.createCustomer(customer);
-        return "redirect:/customer/overview";
+        return "redirect:/kunde/oversigt";
     }
 
     @GetMapping("/kunde/rediger/{id}")
@@ -42,13 +42,13 @@ public class CustomerController {
     @PostMapping("/kunde/rediger")
     public String editCustomer(@ModelAttribute Customer customer) {
         customerService.editCustomer(customer);
-        return "redirect:/customer/overview";
+        return "redirect:/kunde/oversigt";
     }
 
     @GetMapping("/kunde/slet/{id}")
     public String delete(@PathVariable("id") int id) {
         customerService.deleteCustomer(id);
-        return "redirect:/customer/overview";
+        return "redirect:/kunde/oversigt";
     }
 
 }
