@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Kunde oversigt</title>
+    <title>Kunde Oversigt</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -33,8 +33,8 @@
                 <td th:text="${customer.email}"></td>
                 <td th:text="${customer.phonenumber}"></td>
                 <td>
-                    <a th:href="@{'/customer/edit/' + ${customer.customer_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                    <a th:href="@{'/customer/delete/' + ${customer.customer_id}}" onclick="return confirm('Er du sikker på at du vil slette denne kunde?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                    <a th:href="@{'/kunde/rediger/' + ${customer.customer_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/kunde/slet/' + ${customer.customer_id}}" onclick="return confirm('Er du sikker på at du vil slette denne kunde?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>
             </tr>
         </tbody>

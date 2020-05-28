@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Opret kunde</title>
+    <title>Opret Kunde</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -13,7 +13,7 @@
     <br>
     <h1>Opret ny kunde</h1>
     <br>
-    <form action="/customer/create" method="post">
+    <form action="/kunde/opret" method="post">
         <div class="form-group">
             <label for="first_name"><b>Fornavn</b></label>
             <input type="text" class="form-control"  id="first_name" name="first_name" placeholder="Indtast kundens fornavn" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>
