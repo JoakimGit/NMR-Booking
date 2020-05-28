@@ -51,4 +51,9 @@ public class CustomerController {
         return "redirect:/customer/overview";
     }
 
+    @GetMapping("/kunde/reservationer/{id}")
+    public String customerReservationOverview(@PathVariable("reservation") String reservation, Model model) {
+        model.addAttribute()
+    }
+
 }

@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Accessory;
 import com.example.demo.models.Motorhome;
-
 import com.example.demo.services.AccessoryService;
 import com.example.demo.services.MotorhomeService;
 import org.springframework.beans.factory.annotation.Autowired;
