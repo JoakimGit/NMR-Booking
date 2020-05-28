@@ -40,7 +40,7 @@ public class ReservationController {
     @PostMapping("/reservation/opret")
     public String createReservation(@ModelAttribute Reservation reservation) {
         reservationService.createReservation(reservation);
-        return "redirect:/reservation/overview";
+        return "redirect:/reservation/oversigt";
     }
 
     @GetMapping("/reservation/rediger/{id}")
@@ -55,12 +55,12 @@ public class ReservationController {
     @PostMapping("reservation/rediger")
     public String editReservation(@ModelAttribute Reservation reservation) {
         reservationService.editReservation(reservation);
-        return "redirect:/reservation/overview";
+        return "redirect:/reservation/oversigt";
     }
 
     @GetMapping("reservation/slet/{id}")
     public String deleteReservation(@PathVariable("id") int id) {
         reservationService.deleteReservation(id);
-        return "redirect:/reservation/overview";
+        return "redirect:/reservation/oversigt";
     }
 }

@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th scope="col" data-sortable="true">Reservations ID</th>
-                <th scope="col" data-sortable="true">Kunde ID</th>
+                <th scope="col" data-sortable="true">Kunde</th>
                 <th scope="col" data-sortable="true">Mærke og model</th>
                 <th scope="col" data-sortable="true">Sæson</th>
                 <th scope="col" data-sortable="true">Lokation</th>
@@ -28,7 +28,7 @@
         <tbody>
             <tr th:each="reservation : ${reservations}">
                 <td th:text="${reservation.reservation_id}"></td>
-                <td th:text="${reservation.customer_id}"></td>
+                <td th:text="${reservation.user_name}"></td>
                 <td th:text="${reservation.brand_model}"></td>
                 <td th:text="${reservation.season}"></td>
                 <td th:text="${reservation.location}"></td>
