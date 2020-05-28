@@ -22,14 +22,23 @@ public class CustomerService {
     }
 
     public void editCustomer(Customer c) {
+        formatPhone(c.getPhonenumber(), c);
         customerRepo.editCustomer(c);
     }
 
     public void createCustomer(Customer c) {
+        formatPhone(c.getPhonenumber(), c);
         customerRepo.createCustomer(c);
     }
 
     public void deleteCustomer(int customer_id) {
         customerRepo.deleteCustomer(customer_id);
+    }
+
+    public void formatPhone(String phone, Customer customer) {
+        if (phone.length() > 8) {
+            phone = phone.replaceAll("[\\-]", "");
+            customer.setPhonenumber(phone);
+        }
     }
 }

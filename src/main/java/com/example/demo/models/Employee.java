@@ -15,11 +15,12 @@ public class Employee {
     private String job_title;
     private String phonenumber;
     private String employment_date;
+    private String authority;
 
     public Employee() {
     }
 
-    public Employee(int employee_id, String first_name, String last_name, String cpr, String email, String job_title, String phonenumber, String employment_date) {
+    public Employee(int employee_id, String first_name, String last_name, String cpr, String email, String job_title, String phonenumber, String employment_date, String authority) {
         this.employee_id = employee_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -28,6 +29,7 @@ public class Employee {
         this.job_title = job_title;
         this.phonenumber = phonenumber;
         this.employment_date = employment_date;
+        this.authority = authority;
     }
 
     public int getEmployee_id() {
@@ -92,6 +94,14 @@ public class Employee {
 
     public void setEmployment_date(String employment_date) {
         this.employment_date = employment_date;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     @Override

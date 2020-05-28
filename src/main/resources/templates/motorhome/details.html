@@ -1,4 +1,4 @@
-CTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
@@ -12,31 +12,34 @@ CTYPE html>
 <div class="container-fluid">
     <table data-toggle="table" data-search="true">
         <thead>
-        <tr>
-            <th scope="col" data-sortable="true">Autocamper ID</th>
-            <th scope="col" data-sortable="true">Mærke</th>
-            <th scope="col" data-sortable="true">Model</th>
-            <th scope="col" data-sortable="true">Pris </th>
-            <th scope="col" data-sortable="true">Senge</th>
-            <th scope="col" data-sortable="true">Tilgængelig</th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col" data-sortable="true">Autocamper ID</th>
+                <th scope="col" data-sortable="true">Mærke</th>
+                <th scope="col" data-sortable="true">Model</th>
+                <th scope="col" data-sortable="true">Pris </th>
+                <th scope="col" data-sortable="true">Senge</th>
+                <th scope="col" data-sortable="true">Tilgængelig</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="motorhome : ${motorhomesbrand}">
-            <td th:text="${motorhome.motorhome_id}"></td>
-            <td th:text="${motorhome.brand}"></td>
-            <td th:text="${motorhome.model}"></td>
-            <td th:text="${motorhome.price}"></td>
-            <td th:text="${motorhome.beds}"></td>
-            <td th:text="${motorhome.available}"></td>
-            <td><a th:href="@{'/motorhome/edit/' + ${motorhome.motorhome_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                <a th:href="@{'/motorhome/delete/' + ${motorhome.motorhome_id} + '/' + ${motorhome.brand}}" onclick="return confirm('Er du sikker på du vil slette denne autocamper?');"><button type="button" class="btn btn-danger">Slet</button></a>
-            </td>
+            <tr th:each="motorhome : ${motorhomesbrand}">
+                <td th:text="${motorhome.motorhome_id}"></td>
+                <td th:text="${motorhome.brand}"></td>
+                <td th:text="${motorhome.model}"></td>
+                <td th:text="${motorhome.price}"></td>
+                <td th:text="${motorhome.beds}"></td>
+                <td th:text="${motorhome.available}"></td>
+                <td><a th:href="@{'/motorhome/edit/' + ${motorhome.motorhome_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/motorhome/delete/' + ${motorhome.motorhome_id} + '/' + ${motorhome.brand}}" onclick="return confirm('Er du sikker på du vil slette denne autocamper?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                </td>
         </tr>
         </tbody>
-    </table>
-</div><a th:href="@{'/motorhome/overview/'}"><button type="button" class="btn btn-success">Tilbage</button></a>
+    </table><br>
+    <div class="btn-group pull-right">
+        <a th:href="@{'/motorhome/overview/'}"><button type="button" class="btn btn-success">Tilbage</button></a>
+    </div>
+</div>
 <div th:replace="fragments/bottom_scripts"></div>
 </body>
 </html>
