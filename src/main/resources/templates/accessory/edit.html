@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <div th:replace="fragments/head"></div>
+    <title>Rediger Tilbehør</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
+<div sec:authorize="hasRole('LEAD')" th:replace="fragments/navbar_lead"></div>
+<div sec:authorize="hasRole('SALES')" th:replace="fragments/navbar_employee"></div>
+
+<div class="container">
+    <br>
+    <h1>Rediger tilbehør</h1>
+    <br>
+    <form action="/tilbehør/rediger" method="post">
+        <input type="hidden" name="accessory_id" th:value="${accessory.accessory_id}">
+        <div class="form-group">
+            <label for="accessory_name"><b>Navn</b></label>
+            <input type="text" class="form-control" id="accessory_name" name="accessory_name" th:value="${accessory.accessory_name}" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>
+        </div>
+
+        <!--spring security blocks post requests without a csrf token by default, so we provide one-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit" class="btn btn-primary">Opdater</button>
+    </form>
+</div>
+
+<div th:replace="fragments/bottom_scripts"></div>
+</body>
+</html>

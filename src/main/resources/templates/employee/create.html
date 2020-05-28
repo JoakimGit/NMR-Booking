@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Opret ansat</title>
+    <title>Opret Ansat</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -11,7 +11,7 @@
     <br>
     <h1>Opret ny ansat</h1>
     <br>
-    <form action="/employee/create" method="post">
+    <form action="/medarbejder/opret" method="post">
         <div class="form-group">
             <label for="firstname"><b>Fornavn</b></label>
             <input type="text" class="form-control"  id="firstname" name="first_name" placeholder="Indtast medarbejder fornavn" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>

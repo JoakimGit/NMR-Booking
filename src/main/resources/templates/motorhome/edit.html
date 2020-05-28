@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Opdater Autocamper</title>
+    <title>Rediger Autocamper</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -10,9 +10,9 @@
 
 <div class="container">
     <br>
-    <h1>Opdater Autocamper</h1>
+    <h1>Rediger autocamper</h1>
     <br>
-    <form action="/motorhome/edit" method="post">
+    <form action="/autocamper/detaljer/" method="post">
         <input type="hidden" name="motorhome_id" th:value="${motorhome.motorhome_id}">
         <div class="form-group">
             <label for="brand"><b>Mærke</b></label>

@@ -24,7 +24,7 @@ public class MotorhomeService {
         motorhomeRepo.updateMotorhome(m);
     }
 
-    public void createmotorhome(Motorhome m){
+    public void createMotorhome(Motorhome m){
         motorhomeRepo.createMotorhome(m);
     }
 

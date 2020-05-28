@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Employee;
-import com.example.demo.models.User;
 import com.example.demo.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,38 +21,32 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping("/employee/overview")
+    @GetMapping("/medarbejder/oversigt")
     public String showEmployee(Model model) {
         model.addAttribute("employees", employeeService.fetchAllEmployees());
         return "/employee/overview";
     }
 
-    @GetMapping("/employee/create")
+    @GetMapping("/medarbejder/opret")
     public String create(Model model) {
         model.addAttribute("jobs", allJobs);
         return "/employee/create";
     }
 
-    @PostMapping("/employee/create")
-    public String createStudent(@ModelAttribute Employee employee) {
-        employeeService.createEmployee(employee);
-        return "redirect:/employee/overview";
-    }
-
-    @GetMapping("employee/edit/{id}")
+    @GetMapping("medarbejder/rediger/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.fetchEmployeeById(id));
         model.addAttribute("jobs", allJobs);
         return "/employee/edit";
     }
 
-    @PostMapping("/employee/edit")
+    @PostMapping("/medarbejder/rediger")
     public String updateEmployee(@ModelAttribute Employee employee) {
         employeeService.updateEmployee(employee);
         return "redirect:/employee/overview";
     }
 
-    @GetMapping("employee/delete/{id}")
+    @GetMapping("medarbejder/slet/{id}")
     public String deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
         return "redirect:/employee/overview";
