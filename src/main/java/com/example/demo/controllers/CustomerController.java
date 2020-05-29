@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Customer;
+import com.example.demo.services.AccessoryService;
 import com.example.demo.services.CustomerService;
+import com.example.demo.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +12,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.nio.file.Path;
+
 @Controller
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    ReservationService reservationService;
+
+    @Autowired
+    AccessoryService accessoryService;
 
     @GetMapping("/kunde/oversigt")
     public String overview(Model model) {
@@ -49,6 +59,13 @@ public class CustomerController {
     public String delete(@PathVariable("id") int id) {
         customerService.deleteCustomer(id);
         return "redirect:/kunde/oversigt";
+    }
+
+    @GetMapping("/kunde/reservationer/{id}/{user_name}")
+    public String customerReservationOverview(@PathVariable("id") int id, @PathVariable("user_name") String user_name, Model model) {
+        model.addAttribute("accessories", accessoryService.fetchAllChosenAccessoriesById(id));
+        model.addAttribute("reservations", reservationService.fetchReservationsByCustomerUsername(user_name));
+        return "/customer/reservations";
     }
 
 }

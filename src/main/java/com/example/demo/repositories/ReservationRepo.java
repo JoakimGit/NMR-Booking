@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.models.Customer;
 import com.example.demo.models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -30,6 +31,12 @@ public class ReservationRepo {
     String sql = "SELECT * FROM reservation WHERE reservation_id=?";
     RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
     return template.queryForObject(sql, rowMapper, id);
+    }
+
+    public List<Reservation> fetchReservationsByCustomerUsername(String username) {
+        String sql = "SELECT * FROM reservation WHERE user_name=?";
+        RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
+        return template.query(sql, rowMapper, username);
     }
 
     public void editReservation(Reservation r) {
