@@ -43,8 +43,8 @@
                     </ul>
                 </td>
                 <td>
-                    <a th:href="@{'/reservation/edit/' + ${reservation.reservation_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                    <a th:href="@{'/reservation/delete/' + ${reservation.reservation_id}}" onclick="return confirm('Er du sikker på at du vil slette denne reservation?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                    <a th:href="@{'/reservation/rediger/' + ${reservation.reservation_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/reservation/slet/' + ${reservation.reservation_id}}" onclick="return confirm('Er du sikker på at du vil slette denne reservation?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>
             </tr>
         </tbody>

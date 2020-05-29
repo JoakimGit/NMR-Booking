@@ -23,67 +23,73 @@ public class MotorhomeController {
     AccessoryService accessoryService;
 
     @GetMapping("/autocamper/oversigt")
-    public String overview(Model model){
+    public String showMotorhome(Model model){
         model.addAttribute("motorhomes", motorhomeService.fetchAllDistinctMotorhomes());
         return "/motorhome/overview";
     }
 
+    @GetMapping("/autocamper/opret")
+    public String createMotorhome(){
+        return "/motorhome/create";
+    }
+
+    @PostMapping("/autocamper/opret")
+    public String createMotorhomeNow(@ModelAttribute Motorhome motorhome){
+        motorhomeService.createMotorhome(motorhome);
+        return "redirect:/autocamper/oversigt";
+    }
+
+    @GetMapping("/autocamper/detaljer/{brand}/{model}")
+    public String motorhomedetails(@PathVariable("brand") String brand, @PathVariable("model") String model, Model viewModel){
+        viewModel.addAttribute("motorhomesbrand",motorhomeService.fetchAllMotorhomesByBrandAndModel(brand, model));
+        return "/motorhome/details";
+    }
+
     @GetMapping("/autocamper/rediger/{motorhome_id}")
-    public String findMotorhome(@PathVariable("motorhome_id")int motorhome_id, Model model){
+    public String editMotorhome(@PathVariable("motorhome_id")int motorhome_id, Model model){
         model.addAttribute("motorhome",motorhomeService.fetchMotorhomeByID(motorhome_id));
         return "/motorhome/edit";
     }
 
     @PostMapping("/autocamper/rediger")
-    public String update(@ModelAttribute Motorhome motorhome){
+    public String editMotorhomeNow(@ModelAttribute Motorhome motorhome){
         motorhomeService.updateMotorhome(motorhome);
-        return "redirect:/autocamper/detaljer/"+motorhome.getBrand();
+        return "redirect:/autocamper/detaljer/"+motorhome.getBrand()+"/"+motorhome.getModel();
     }
 
-    @GetMapping("/autocamper/opret")
-    public String showCreateMotorhomePage(){
-        return "/motorhome/create";
-    }
-
-    @PostMapping("/autocamper/opret")
-    public String createM(@ModelAttribute Motorhome motorhome){
-        motorhomeService.createMotorhome(motorhome);
-        return "redirect:/autocamper/oversigt";
-    }
-
-    @GetMapping("/autocamper/slet/{motorhome_id}/{motorhome.brand}")
-    public String deleteHome(@PathVariable("motorhome_id") int motorhome_id, @PathVariable("motorhome.brand") String brand){
+    @GetMapping("/autocamper/slet/{motorhome_id}/{motorhome.brand}/{motorhome.model}")
+    public String deleteMotorhome(@PathVariable("motorhome_id") int motorhome_id, @PathVariable("motorhome.brand") String brand){
         motorhomeService.deleteMotorhome(motorhome_id);
-        return "redirect:/autocamper/detaljer/{motorhome.brand}";
+        return "redirect:/autocamper/detaljer/{motorhome.brand}/{motorhome.model}";
     }
 
-    @GetMapping("/autocamper/detaljer/{brand}")
-    public String brandOverview(@PathVariable("brand") String brand, Model model){
-        model.addAttribute("motorhomesbrand",motorhomeService.fetchAllMotorhomesByBrand(brand));
-        return "/motorhome/details";
-    }
-
-    @GetMapping("/tilbehør/oversigt")
-    public String overviewA(Model model) {
+    @GetMapping("/autocamper/tilbehoer/oversigt")
+    public String showAccessories(Model model) {
         model.addAttribute("accessories", accessoryService.fetchAllAccessories());
         return "/accessory/overview";
     }
 
-    @PostMapping("/tilbehør/opret")
-    public String createA(@ModelAttribute Accessory accessory) {
+    @PostMapping("/autocamper/tilbehoer/opret")
+    public String createAccessory(@ModelAttribute Accessory accessory) {
         accessoryService.createAccessory(accessory);
-        return "redirect:/tilbehør/oversigt";
+        return "redirect:/autocamper/tilbehoer/oversigt";
     }
 
-    @GetMapping("/tilbehør/rediger/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
+    @GetMapping("/autocamper/tilbehoer/rediger/{id}")
+    public String editAccessory(@PathVariable("id") int id, Model model) {
         model.addAttribute("accessory", accessoryService.fetchAccessoryById(id));
         return "/accessory/edit";
     }
 
-    @PostMapping("/tilbehør/rediger")
-    public String editAccessory(@ModelAttribute Accessory accessory) {
+    @PostMapping("/autocamper/tilbehoer/rediger")
+    public String editAccessoryNow(@ModelAttribute Accessory accessory) {
         accessoryService.updateAccessory(accessory);
-        return "redirect:/tilbehør/oversigt";
+        return "redirect:/autocamper/tilbehoer/oversigt";
+    }
+
+    @GetMapping("/autocamper/tilbehoer/slet/{id}")
+    public String deleteAccessory(@PathVariable("id") int id){
+        accessoryService.deleteAccessory(id);
+        return "redirect:/autocamper/tilbehoer/oversigt";
     }
 }

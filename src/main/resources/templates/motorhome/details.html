@@ -19,6 +19,8 @@
                 <th scope="col" data-sortable="true">Pris </th>
                 <th scope="col" data-sortable="true">Senge</th>
                 <th scope="col" data-sortable="true">Tilgængelig</th>
+                <th scope="col">Billedesti</th>
+                <th scope="col">Nummerplade</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -30,14 +32,17 @@
                 <td th:text="${motorhome.price}"></td>
                 <td th:text="${motorhome.beds}"></td>
                 <td th:text="${motorhome.available}"></td>
-                <td><a th:href="@{'/motorhome/edit/' + ${motorhome.motorhome_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                    <a th:href="@{'/motorhome/delete/' + ${motorhome.motorhome_id} + '/' + ${motorhome.brand}}" onclick="return confirm('Er du sikker på du vil slette denne autocamper?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                <td th:text="${motorhome.file_path}"></td>
+                <td th:text="${motorhome.license_plate}"></td>
+                <td><a th:href="@{'/autocamper/rediger/' + ${motorhome.motorhome_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/autocamper/slet/' + ${motorhome.motorhome_id} + '/' + ${motorhome.brand} + '/' + ${motorhome.model}}"
+                       onclick="return confirm('Er du sikker på du vil slette denne autocamper?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>
         </tr>
         </tbody>
     </table><br>
     <div class="btn-group pull-right">
-        <a th:href="@{'/motorhome/overview/'}"><button type="button" class="btn btn-success">Tilbage</button></a>
+        <a th:href="@{'/autocamper/oversigt'}"><button type="button" class="btn btn-success">Tilbage</button></a>
     </div>
 </div>
 <div th:replace="fragments/bottom_scripts"></div>

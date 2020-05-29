@@ -23,7 +23,7 @@
             <select id="brand_model" name="brand_model" required>
                 <!-- Drop down menu of all brands + models -->
                 <option value="" selected hidden>Vælg autocamper</option>
-                <option th:each="brand_model : ${brand_model}" th:value="${brand_model}" th:text="${brand_model}"}></option>
+                <option th:each="motorhome : ${motorhomes}" th:value="${motorhome.brand + ' ~ ' +  motorhome.model}" th:text="${motorhome.brand + ' - ' + motorhome.model}"}></option>
             </select>
         </div>
         <div class="form-group">

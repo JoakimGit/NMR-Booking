@@ -32,12 +32,32 @@ public class MotorhomeService {
     motorhomeRepo.deleteMotorhome(motorhome_id);
     }
 
-    public List <Motorhome> fetchAllMotorhomesByBrand(String brand){
-        return motorhomeRepo.fetchAllMotorhomesByBrand(brand);
+    public List <Motorhome> fetchAllMotorhomesByBrandAndModel(String brand, String model){
+        return motorhomeRepo.fetchAllMotorhomesByBrandAndModel(brand, model);
     }
 
     public List<String> fetchMotorhomeBrandAndModel() {
         return motorhomeRepo.fetchMotorhomeBrandAndModel();
+    }
+
+    public List<Motorhome> fetchAllAvailableMotorhomes() {
+        return motorhomeRepo.fetchAllAvailableMotorhomes();
+    }
+
+    public Motorhome fetchAvailableMotorhomeByBrandAndModel(String brand, String model) {
+        return motorhomeRepo.fetchAvailableMotorhomeByBrandAndModel(brand, model);
+    }
+
+    public void setMotorhomeUnavailable(String license) {
+        motorhomeRepo.setMotorhomeUnavailable(license);
+    }
+
+    public void setMotorhomeAvailable(String license) {
+        motorhomeRepo.setMotorhomeAvailable(license);
+    }
+
+    public Motorhome fetchMotorhomeByLicense(String license_plate) {
+        return motorhomeRepo.fetchMotorhomeByLicense(license_plate);
     }
 
 }

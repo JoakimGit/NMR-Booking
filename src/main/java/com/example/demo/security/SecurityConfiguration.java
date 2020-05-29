@@ -20,7 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
+        auth
+            .jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, enabled FROM user WHERE username =?")
                 .authoritiesByUsernameQuery("SELECT username, role FROM user WHERE username=?");
@@ -30,17 +31,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/employee/**").hasRole("ADMIN")
-                .antMatchers("/motorhome/overview").hasAnyRole("ADMIN", "LEAD", "SALES")
-                .antMatchers("/motorhome/**").hasAnyRole("ADMIN", "LEAD")
-                .antMatchers("/customer/**").hasAnyRole("ADMIN","LEAD", "SALES")
+                .antMatchers("/medarbejder/**").hasRole("ADMIN")
+                .antMatchers("/autocamper/oversigt").hasAnyRole("ADMIN", "LEAD", "SALES")
+                .antMatchers("/autocamper/**").hasAnyRole("ADMIN", "LEAD")
+                .antMatchers("/tilbehoer/**").hasAnyRole("ADMIN", "LEAD")
+                .antMatchers("/kunde/**").hasAnyRole("ADMIN","LEAD", "SALES")
                 .antMatchers("/reservation/**").hasAnyRole("ADMIN","LEAD", "SALES")
                 .antMatchers("/", "/css/**", "/img/**").permitAll()
                 .and()
             .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/index", false)
-                .permitAll()
                 .and()
             .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -9,35 +9,33 @@
 <div sec:authorize="hasRole('LEAD')" th:replace="fragments/navbar_lead"></div>
 <div sec:authorize="hasRole('SALES')" th:replace="fragments/navbar_employee"></div>
 
-<div class="container-fluid">
+<div class="container">
     <table data-toggle="table" data-search="true">
         <thead>
-        <tr>
-            <th scope="col" data-sortable="true">Tilbehør ID</th>
-            <th scope="col" data-sortable="true">Navn</th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col" data-sortable="true">Navn</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="accessory : ${accessories}">
-            <td th:text="${accessory.accessory_id}"></td>
-            <td th:text="${accessory.accessory_name}"></td>
-            <td>
-                <a th:href="@{'/tilbehør/rediger/' + ${accessory.accessory_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                <a th:href="@{'/tilbehør/slet/' + ${accessory.accessory_id}}" onclick="return confirm('Er du sikker på at du vil slette dette tilbehør?');"><button type="button" class="btn btn-danger">Slet</button></a>
-            </td>
-        </tr>
+            <tr th:each="accessory : ${accessories}">
+                <td th:text="${accessory.accessory_name}"></td>
+                <td>
+                    <a th:href="@{'/autocamper/tilbehør/rediger/' + ${accessory.accessory_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/autocamper/tilbehør/slet/' + ${accessory.accessory_id}}" onclick="return confirm('Er du sikker på at du vil slette dette tilbehør?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
-<div class="container-fluid">
+<div class="container">
     <br>
     <h2>Opret nyt tilbehør</h2>
     <br>
-    <form action="/tilbehør/opret" method="post">
+    <form action="/autocamper/tilbehoer/opret" method="post">
         <div class="form-group">
             <label for="accessory_name"><b>Navn</b></label>
-            <input type="text" class="form-control"  id="accessory_name" name="accessory_name" placeholder="Indtast tilbehørets navn" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>
+            <input type="text" class="form-control"  id="accessory_name" name="accessory_name" placeholder="Indtast tilbehørets navn" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" size="50" required>
         </div>
         <!--spring security blocks post requests without a csrf token by default, so we provide one-->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
