@@ -10,6 +10,7 @@
 <div sec:authorize="hasRole('SALES')" th:replace="fragments/navbar_employee"></div>
 
 <div class="container-fluid">
+    <a th:href="@{'/motorhome/overview/'}"><button type="button" class="btn btn-success">Tilbage</button></a>
     <table data-toggle="table" data-search="true">
         <thead>
             <tr>
@@ -19,6 +20,7 @@
                 <th scope="col" data-sortable="true">Pris </th>
                 <th scope="col" data-sortable="true">Senge</th>
                 <th scope="col" data-sortable="true">Tilgængelig</th>
+                <th scope="col">Detaljer</th>
                 <th scope="col"></th>
             </tr>
         </thead>
