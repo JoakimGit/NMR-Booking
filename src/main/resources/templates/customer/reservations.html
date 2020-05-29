@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <div th:replace="fragments/head"></div>
+    <title>Reservationer</title>
+    <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
+<div sec:authorize="hasRole('LEAD')" th:replace="fragments/navbar_lead"></div>
+<div sec:authorize="hasRole('SALES')" th:replace="fragments/navbar_employee"></div>
+
+<div class="container-fluid">
+    <table data-toggle="table" data-search="true">
+        <thead>
+        <tr>
+            <th scope="col" data-sortable="true">Reservations ID</th>
+            <th scope="col" data-sortable="true">Kunde</th>
+            <th scope="col" data-sortable="true">Mærke og model</th>
+            <th scope="col" data-sortable="true">Sæson</th>
+            <th scope="col" data-sortable="true">Lokation</th>
+            <th scope="col" data-sortable="true">Pick-up Dato</th>
+            <th scope="col" data-sortable="true">Drop-off Dato</th>
+            <th scope="col" data-sortable="true">Tilbehør</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation : ${reservations}">
+            <td th:text="${reservation.reservation_id}"></td>
+            <td th:text="${reservation.user_name}"></td>
+            <td th:text="${reservation.brand_model}"></td>
+            <td th:text="${reservation.season}"></td>
+            <td th:text="${reservation.location}"></td>
+            <td th:text="${reservation.pickup_date}"></td>
+            <td th:text="${reservation.dropoff_date}"></td>
+            <td>
+                <ul>
+                    <li  th:each="accessory : ${accessories}" >
+                        <span th:text="${accessory}" ></span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="fragments/bottom_scripts"></div>
+</body>
+</html>
