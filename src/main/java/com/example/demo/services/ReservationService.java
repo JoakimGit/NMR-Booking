@@ -62,4 +62,8 @@ public class ReservationService {
     public int findNewestReservationId() {
         return reservationRepo.findNewestReservationId();
     }
+
+    public List<Reservation> fetchReservationsByCustomerUsername(String username) {
+        return reservationRepo.fetchReservationsByCustomerUsername(username);
+    }
 }

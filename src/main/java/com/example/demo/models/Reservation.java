@@ -15,19 +15,18 @@ public class Reservation {
     private String dropoff_date;
     private String brand_model;
     private String season;
-    private int customer_id;
+    private String user_name;
     @ElementCollection
     private List<String> accessories;
 
-    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, List<String> accessories, String brand_model, String season, int customer_id) {
-    this.reservation_id = reservation_id;
-    this.location = location;
-    this.pickup_date = pickup_date;
-    this.dropoff_date = dropoff_date;
-    this.accessories = accessories;
-    this.brand_model = brand_model;
-    this.season = season;
-    this.customer_id = customer_id;
+    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String brand_model, String season, String user_name, List<String> accessories) {
+        this.reservation_id = reservation_id;
+        this.location = location;
+        this.pickup_date = pickup_date;
+        this.dropoff_date = dropoff_date;
+        this.brand_model = brand_model;
+        this.season = season;
+        this.user_name = user_name;
     }
 
     public Reservation() {}
@@ -64,14 +63,6 @@ public class Reservation {
         this.dropoff_date = dropoff_date;
     }
 
-    public List<String> getAccessories() {
-        return accessories;
-    }
-
-    public void setAccessories(List<String> accessories) {
-        this.accessories = accessories;
-    }
-
     public String getBrand_model() {
         return brand_model;
     }
@@ -88,11 +79,19 @@ public class Reservation {
         this.season = season;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public List<String> getAccessories() {
+        return accessories;
+    }
+
+    public void setAccessories(List<String> accessories) {
+        this.accessories = accessories;
     }
 }

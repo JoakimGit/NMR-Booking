@@ -24,26 +24,26 @@ public class ReservationController {
     @Autowired
     MotorhomeService motorhomeService;
 
-    @GetMapping("/reservation/overview")
+    @GetMapping("/reservation/oversigt")
     public String overview(Model model) {
         model.addAttribute("reservations", reservationService.fetchAllReservations());
         return "/reservation/overview";
     }
 
-    @GetMapping("/reservation/create")
+    @GetMapping("/reservation/opret")
     public String create(Model model) {
         model.addAttribute("brand_model", motorhomeService.fetchMotorhomeBrandAndModel());
         model.addAttribute("accessories", accessoryService.fetchAllAccessoryNames());
         return "/reservation/create";
     }
 
-    @PostMapping("/reservation/create")
+    @PostMapping("/reservation/opret")
     public String createReservation(@ModelAttribute Reservation reservation) {
         reservationService.createReservation(reservation);
-        return "redirect:/reservation/overview";
+        return "redirect:/reservation/oversigt";
     }
 
-    @GetMapping("/reservation/edit/{id}")
+    @GetMapping("/reservation/rediger/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("reservation", reservationService.fetchReservationById(id));
         model.addAttribute("brand_model", motorhomeService.fetchMotorhomeBrandAndModel());
@@ -52,15 +52,15 @@ public class ReservationController {
         return "/reservation/edit";
     }
 
-    @PostMapping("reservation/edit")
+    @PostMapping("reservation/rediger")
     public String editReservation(@ModelAttribute Reservation reservation) {
         reservationService.editReservation(reservation);
-        return "redirect:/reservation/overview";
+        return "redirect:/reservation/oversigt";
     }
 
-    @GetMapping("reservation/delete/{id}")
+    @GetMapping("reservation/slet/{id}")
     public String deleteReservation(@PathVariable("id") int id) {
         reservationService.deleteReservation(id);
-        return "redirect:/reservation/overview";
+        return "redirect:/reservation/oversigt";
     }
 }

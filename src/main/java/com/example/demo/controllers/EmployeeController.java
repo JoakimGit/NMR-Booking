@@ -21,34 +21,40 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping("/employee/overview")
+    @GetMapping("/medarbejder/oversigt")
     public String showEmployee(Model model) {
         model.addAttribute("employees", employeeService.fetchAllEmployees());
         return "/employee/overview";
     }
 
-    @GetMapping("/employee/create")
+    @GetMapping("/medarbejder/opret")
     public String create(Model model) {
         model.addAttribute("jobs", allJobs);
         return "/employee/create";
     }
 
-    @GetMapping("employee/edit/{id}")
+    @PostMapping("/medarbejder/opret")
+    public String createEmployee(@ModelAttribute Employee employee) {
+        employeeService.createEmployee(employee);
+        return "redirect:/medarbejder/oversigt";
+    }
+
+    @GetMapping("medarbejder/rediger/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.fetchEmployeeById(id));
         model.addAttribute("jobs", allJobs);
         return "/employee/edit";
     }
 
-    @PostMapping("/employee/edit")
+    @PostMapping("/medarbejder/rediger")
     public String updateEmployee(@ModelAttribute Employee employee) {
         employeeService.updateEmployee(employee);
-        return "redirect:/employee/overview";
+        return "redirect:/medarbejder/oversigt";
     }
 
-    @GetMapping("employee/delete/{id}")
+    @GetMapping("medarbejder/slet/{id}")
     public String deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
-        return "redirect:/employee/overview";
+        return "redirect:/medarbejder/oversigt";
     }
 }

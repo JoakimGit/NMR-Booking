@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.models.Customer;
 import com.example.demo.models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,8 +23,8 @@ public class ReservationRepo {
     }
 
     public void createReservation(Reservation r) {
-        String sql = "INSERT INTO reservation (reservation_id, location, pickup_date, dropoff_date, brand_model, season, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getBrand_model(), r.getSeason(), r.getCustomer_id());
+        String sql = "INSERT INTO reservation (reservation_id, location, pickup_date, dropoff_date, brand_model, season, user_name) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, r.getReservation_id(), r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getBrand_model(), r.getSeason(), r.getUser_name());
     }
 
     public Reservation fetchReservationById(int id) {
@@ -32,9 +33,15 @@ public class ReservationRepo {
     return template.queryForObject(sql, rowMapper, id);
     }
 
+    public List<Reservation> fetchReservationsByCustomerUsername(String username) {
+        String sql = "SELECT * FROM reservation WHERE user_name=?";
+        RowMapper<Reservation> rowMapper = new BeanPropertyRowMapper<>(Reservation.class);
+        return template.query(sql, rowMapper, username);
+    }
+
     public void editReservation(Reservation r) {
-    String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=?, brand_model=?, season=?, customer_id=? WHERE reservation_id=?";
-    template.update(sql, r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getBrand_model(), r.getSeason(), r.getCustomer_id(), r.getReservation_id());
+    String sql = "UPDATE reservation SET location=?, pickup_date=?, dropoff_date=?, brand_model=?, season=?, user_name=? WHERE reservation_id=?";
+    template.update(sql, r.getLocation(), r.getPickup_date(), r.getDropoff_date(), r.getBrand_model(), r.getSeason(), r.getUser_name(), r.getReservation_id());
     }
 
     public void deleteReservation(int id) {

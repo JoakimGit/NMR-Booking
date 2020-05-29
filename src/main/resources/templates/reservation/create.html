@@ -13,10 +13,10 @@
     <br>
     <h1>Opret ny reservation</h1>
     <br>
-    <form action="/reservation/create" method="post">
+    <form action="/reservation/opret" method="post">
         <div class="form-group">
-            <label for="customer_id"><b>Kunde ID</b></label>
-            <input type="number" class="form-control" id="customer_id" name="customer_id" placeholder="Indtast Kunde ID" min="1" max="10" required>
+            <label for="user_name"><b>Kunde ID</b></label>
+            <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Indtast Kunde brugernavn" pattern="[A-Za-zæøåÆØÅöÖäÄüÜß0-9_-]+" required>
         </div>
         <div class="form-group">
             <label for="brand_model"><b>Mærke og model</b></label>

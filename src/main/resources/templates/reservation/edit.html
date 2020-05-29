@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Opdater Reservation</title>
+    <title>Rediger Reservation</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -16,8 +16,8 @@
     <form action="/reservation/edit" method="post">
         <input type="hidden" name="reservation_id" th:value="${reservation.reservation_id}">
         <div class="form-group">
-            <label for="customer_id"><b>Kunde ID</b></label>
-            <input type="number" class="form-control" id="customer_id" name="customer_id" th:value="${reservation.customer_id}" min="1" max="10" required>
+            <label for="user_name"><b>Kunde ID</b></label>
+            <input type="text" class="form-control" id="user_name" name="user_name" th:value="${reservation.user_name}" pattern="[A-Za-zæøåÆØÅöÖäÄüÜß0-9_-]+" required>
         </div>
         <div class="form-group">
             <!-- Drop down menu of all brand + models with current one preselected -->

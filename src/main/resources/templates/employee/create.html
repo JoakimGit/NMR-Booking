@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:replace="fragments/head"></div>
-    <title>Opret ansat</title>
+    <title>Opret Ansat</title>
 </head>
 <body>
 <div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
@@ -11,7 +11,7 @@
     <br>
     <h1>Opret ny ansat</h1>
     <br>
-    <form action="/employee/create" method="post">
+    <form action="/medarbejder/opret" method="post">
         <div class="form-group">
             <label for="firstname"><b>Fornavn</b></label>
             <input type="text" class="form-control"  id="firstname" name="first_name" placeholder="Indtast medarbejder fornavn" pattern="(?:[a-zA-ZæøåÆØÅöÖäÄüÜß-]\s?)+" required>
@@ -43,6 +43,15 @@
         <div class="form-group">
             <label for="enrollmentdate"><b>Ansættelsesdato</b></label>
             <input type="date" class="form-control" id="enrollmentdate" name="employment_date" required>
+        </div>
+        <div class="form-group">
+            <label for="authority"><b>Adgang</b></label>
+            <select id="authority" name="authority" required>
+                <option value="" selected hidden>Vælg adgang</option>
+                <option value="ROLE_ADMIN">Ejer</option>
+                <option value="ROLE_LEAD">Salgs Leder</option>
+                <option value="ROLE_SALES">Sælger</option>
+            </select>
         </div>
         <!--spring security blocks post requests without a csrf token by default, so we provide one-->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
