@@ -13,17 +13,21 @@ public class Motorhome {
     private String model;
     private boolean available;
     private int beds;
+    private String file_path;
+    private String license_plate;
 
     public Motorhome() {
     }
 
-    public Motorhome(int motorhome_id, int price, String brand, String model, boolean available, int beds) {
+    public Motorhome(int motorhome_id, int price, String brand, String model, boolean available, int beds, String file_path, String license_plate) {
         this.motorhome_id = motorhome_id;
         this.price = price;
         this.brand = brand;
         this.model = model;
         this.available = available;
         this.beds = beds;
+        this.file_path = file_path;
+        this.license_plate = license_plate;
     }
 
     public int getMotorhome_id() {
@@ -74,6 +78,22 @@ public class Motorhome {
         this.beds = beds;
     }
 
+    public String getLicense_plate() {
+        return license_plate;
+    }
+
+    public void setLicense_plate(String license_plate) {
+        this.license_plate = license_plate;
+    }
+
+    public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
+
     @Override
     public String toString() {
         return "Motorhome{" +
@@ -83,6 +103,8 @@ public class Motorhome {
                 ", model='" + model + '\'' +
                 ", available=" + available +
                 ", beds=" + beds +
+                ", file_path='" + file_path + '\'' +
+                ", license_plate='" + license_plate + '\'' +
                 '}';
     }
 }

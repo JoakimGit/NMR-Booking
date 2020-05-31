@@ -32,7 +32,7 @@ public class ReservationController {
 
     @GetMapping("/reservation/opret")
     public String create(Model model) {
-        model.addAttribute("brand_model", motorhomeService.fetchMotorhomeBrandAndModel());
+        model.addAttribute("motorhomes", motorhomeService.fetchAllAvailableMotorhomes());
         model.addAttribute("accessories", accessoryService.fetchAllAccessoryNames());
         return "/reservation/create";
     }
@@ -46,7 +46,7 @@ public class ReservationController {
     @GetMapping("/reservation/rediger/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("reservation", reservationService.fetchReservationById(id));
-        model.addAttribute("brand_model", motorhomeService.fetchMotorhomeBrandAndModel());
+        model.addAttribute("motorhomes", motorhomeService.fetchMotorhomeBrandAndModel());
         model.addAttribute("accessories", accessoryService.fetchAllAccessoryNames());
         model.addAttribute("chosenAccessories", accessoryService.fetchAllChosenAccessoriesById(id));
         return "/reservation/edit";

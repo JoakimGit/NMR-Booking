@@ -16,10 +16,11 @@ public class Reservation {
     private String brand_model;
     private String season;
     private String user_name;
+    private String license_plate;
     @ElementCollection
     private List<String> accessories;
 
-    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String brand_model, String season, String user_name, List<String> accessories) {
+    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String brand_model, String season, String user_name, String license_plate) {
         this.reservation_id = reservation_id;
         this.location = location;
         this.pickup_date = pickup_date;
@@ -27,6 +28,7 @@ public class Reservation {
         this.brand_model = brand_model;
         this.season = season;
         this.user_name = user_name;
+        this.license_plate = license_plate;
     }
 
     public Reservation() {}
@@ -93,5 +95,27 @@ public class Reservation {
 
     public void setAccessories(List<String> accessories) {
         this.accessories = accessories;
+    }
+
+    public String getLicense_plate() {
+        return license_plate;
+    }
+
+    public void setLicense_plate(String license_plate) {
+        this.license_plate = license_plate;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservation_id=" + reservation_id +
+                ", location='" + location + '\'' +
+                ", pickup_date='" + pickup_date + '\'' +
+                ", dropoff_date='" + dropoff_date + '\'' +
+                ", brand_model='" + brand_model + '\'' +
+                ", season='" + season + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", license_plate='" + license_plate + '\'' +
+                '}';
     }
 }

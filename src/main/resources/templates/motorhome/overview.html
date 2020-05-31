@@ -10,30 +10,26 @@
 <div sec:authorize="hasRole('SALES')" th:replace="fragments/navbar_employee"></div>
 
 <div class="container-fluid">
-    <a th:href="@{'/motorhome/overview/'}"><button type="button" class="btn btn-success">Tilbage</button></a>
     <table data-toggle="table" data-search="true">
         <thead>
             <tr>
-                <th scope="col" data-sortable="true">Autocamper ID</th>
+                <th scope="col">Billede</th>
                 <th scope="col" data-sortable="true">Mærke</th>
                 <th scope="col" data-sortable="true">Model</th>
                 <th scope="col" data-sortable="true">Pris </th>
                 <th scope="col" data-sortable="true">Senge</th>
-                <th scope="col" data-sortable="true">Tilgængelig</th>
-                <th scope="col">Detaljer</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="motorhome : ${motorhomes}">
-                <td th:text="${motorhome.motorhome_id}"></td>
+                <td><img th:src="@{${'../img/' + motorhome.file_path}}" th:alt="${motorhome.file_path}" height="100px" width="140px"></td>
                 <td th:text="${motorhome.brand}"></td>
                 <td th:text="${motorhome.model}"></td>
                 <td th:text="${motorhome.price}"></td>
                 <td th:text="${motorhome.beds}"></td>
-                <td th:text="${motorhome.available}"></td>
                 <td>
-                    <a th:href="@{'/autocamper/detaljer/' + ${motorhome.brand}}"><button type="button" class="btn btn-info">Detaljer</button></a>
+                    <a th:href="@{'/autocamper/detaljer/' + ${motorhome.brand} + '/' + ${motorhome.model}}"><button type="button" class="btn btn-info">Detaljer</button></a>
                 </td>
             </tr>
         </tbody>
