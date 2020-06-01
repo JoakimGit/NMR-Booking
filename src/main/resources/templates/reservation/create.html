@@ -14,20 +14,21 @@
     <h1>Opret ny reservation</h1>
     <br>
     <form action="/reservation/opret" method="post">
+        <input hidden name="status" value="true">
         <div class="form-group">
             <label for="user_name"><b>Kunde ID</b></label>
             <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Indtast Kunde brugernavn" pattern="[A-Za-zæøåÆØÅöÖäÄüÜß0-9_-]+" required>
         </div>
         <div class="form-group">
-            <label for="brand_model"><b>Mærke og model</b></label>
-            <select id="brand_model" name="brand_model" required>
+            <label for="license_plate"><b>Mærke og model</b></label>
+            <select id="license_plate" name="license_plate" required>
                 <!-- Drop down menu of all brands + models -->
                 <option value="" selected hidden>Vælg autocamper</option>
-                <option th:each="motorhome : ${motorhomes}" th:value="${motorhome.brand + ' ~ ' +  motorhome.model}" th:text="${motorhome.brand + ' - ' + motorhome.model}"}></option>
+                <option th:each="motorhome : ${motorhomes}" th:value="${motorhome.license_plate}" th:text="${motorhome.brand + ' - ' + motorhome.model}"}></option>
             </select>
         </div>
         <div class="form-group">
-            <label for="season"><b>Lokation</b></label>
+            <label for="season"><b>Sæson</b></label>
             <select id="season" name="season" required>
                 <option value="" selected hidden>Vælg en sæson</option>
                 <option value="Højsæson">Højsæson</option>
@@ -41,11 +42,11 @@
         </div>
         <div class="form-group">
             <label for="pickup_date"><b>Pick-up dato</b></label>
-            <input type="date" class="form-control" id="pickup_date" name="pickup_date" placeholder="Indtast Pick-up dato (åååå-mm-dd" required>
+            <input type="date" class="form-control" id="pickup_date" name="pickup_date" placeholder="Vælg Pick-up dato" required>
         </div>
         <div class="form-group">
             <label for="dropoff_date"><b>Drop-off dato</b></label>
-            <input type="date" class="form-control" id="dropoff_date" name="dropoff_date" placeholder="Indtast Drop-off dato (åååå-mm-dd)" required>
+            <input type="date" class="form-control" id="dropoff_date" name="dropoff_date" placeholder="Vælg Drop-off dato" required>
         </div>
         <div class="form-group">
             <span th:each="accessory : ${accessories}">

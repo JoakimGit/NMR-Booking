@@ -21,29 +21,36 @@
                 <th scope="col" data-sortable="true">Lokation</th>
                 <th scope="col" data-sortable="true">Pick-up Dato</th>
                 <th scope="col" data-sortable="true">Drop-off Dato</th>
+                <th scope="col">Autocamper</th>
+                <th scope="col">Status</th>
                 <th scope="col" data-sortable="true">Tilbehør</th>
-                <th scope="col"></th>
+                <th scope="col" class="w-16"></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="reservation : ${reservations}">
                 <td th:text="${reservation.reservation_id}"></td>
-                <td th:text="${reservation.user_name}"></td>
+                <td th:text="${reservation.user_name} ?: 'Bruger er slettet'"></td>
                 <td th:text="${reservation.brand_model}"></td>
                 <td th:text="${reservation.season}"></td>
                 <td th:text="${reservation.location}"></td>
                 <td th:text="${reservation.pickup_date}"></td>
                 <td th:text="${reservation.dropoff_date}"></td>
+                <td th:text="${reservation.license_plate} ?: 'Slettet'"></td>
+                <td th:text="${reservation.status} ? 'I gang' : 'Afsluttet'"></td>
                 <td>
-                    <ul id="accessoryUl">
-                        <li id="accessoryLi" th:each="accessory : ${reservation.accessories}" >
-                            <span class="accessorySpan" th:text="${accessory}" ></span>
+                    <ul class="accessoryUl">
+                        <!-- Comma seperated list of accessories. Get around fencepost problem by checking if we're at last index before setting the comma -->
+                        <li class="accessoryLi" th:each="accessory : ${reservation.accessories}">
+                            <span class="accessorySpan" th:text="${accessory}"></span>
                             <span class="accessorySpan" th:if="not ${reservation.accessories.indexOf(accessory) == (reservation.accessories.size() -1)}">,</span>
                         </li>
                     </ul>
                 </td>
                 <td>
-                    <a th:href="@{'/reservation/rediger/' + ${reservation.reservation_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/reservation/afbestil/' + ${reservation.reservation_id}}" th:hidden="${reservation.license_plate == null || reservation.status == false}" onclick="return confirm('Er du sikker på at du vil afbestille denne reservation?');"><button type="button" class="btn btn-dark">Aflys</button></a>
+                    <a th:href="@{'/reservation/afslut/' + ${reservation.license_plate}}" th:hidden="${reservation.license_plate == null || reservation.status == false}" onclick="return confirm('Er du sikker på at du vil afslutte denne reservation?');"><button type="button" class="btn btn-warning">Afslut</button></a>
+                    <a th:href="@{'/reservation/rediger/' + ${reservation.reservation_id} + '/' + ${reservation.license_plate}}" th:hidden="${reservation.license_plate == null || reservation.status == false}"><button type="button" class="btn btn-success">Rediger</button></a>
                     <a th:href="@{'/reservation/slet/' + ${reservation.reservation_id}}" onclick="return confirm('Er du sikker på at du vil slette denne reservation?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>
             </tr>

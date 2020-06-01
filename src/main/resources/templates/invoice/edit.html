@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <div th:replace="fragments/head"></div>
+    <title>Rediger Tilbehør</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="fragments/navbar_owner"></div>
+<div sec:authorize="hasRole('BOOKKEEPER')" th:replace="fragments/navbar_bookkeeper"></div>
+
+<div class="container">
+    <br>
+    <h1>Rediger faktura</h1>
+    <br>
+    <form action="/faktura/rediger" method="post">
+        <input hidden name="invoice_id" th:value="${invoice.invoice_id}">
+        <div class="form-group">
+            <label for="invoice_type"><b>Faktura Type</b></label>
+            <select id="invoice_type" name="invoice_type" required>
+                <option value="Reservation Pris" th:selected="${'Reservation Pris' == invoice.invoice_type}">Reservation Pris</option>
+                <option value="Afmeldingsgebyr" th:selected="${'Afmeldingsgebyr' == invoice.invoice_type}">Afmeldingsgebyr</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="total"><b>Total beløb</b></label>
+            <input type="text" class="form-control"  id="total" name="total" th:value="${invoice.total}" pattern="[1-9]\d+(?:[.,][0-9]+)?" required>
+        </div>
+        <div class="form-group">
+            <label for="reservation_id"><b>Reservation ID</b></label>
+            <input type="number" class="form-control"  id="reservation_id" name="reservation_id" th:value="${invoice.reservation_id}" min="1" step="1" required>
+        </div>
+        <!--spring security blocks post requests without a csrf token by default, so we provide one-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit" class="btn btn-primary">Opret</button>
+    </form>
+</div>
+
+<div th:replace="fragments/bottom_scripts"></div>
+</body>
+</html>

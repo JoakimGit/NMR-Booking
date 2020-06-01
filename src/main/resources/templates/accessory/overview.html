@@ -21,8 +21,8 @@
             <tr th:each="accessory : ${accessories}">
                 <td th:text="${accessory.accessory_name}"></td>
                 <td>
-                    <a th:href="@{'/autocamper/tilbehør/rediger/' + ${accessory.accessory_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
-                    <a th:href="@{'/autocamper/tilbehør/slet/' + ${accessory.accessory_id}}" onclick="return confirm('Er du sikker på at du vil slette dette tilbehør?');"><button type="button" class="btn btn-danger">Slet</button></a>
+                    <a th:href="@{'/autocamper/tilbehoer/rediger/' + ${accessory.accessory_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
+                    <a th:href="@{'/autocamper/tilbehoer/slet/' + ${accessory.accessory_id}}" onclick="return confirm('Er du sikker på at du vil slette dette tilbehør?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>
             </tr>
         </tbody>

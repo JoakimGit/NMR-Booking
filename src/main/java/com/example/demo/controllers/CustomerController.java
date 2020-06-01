@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.nio.file.Path;
-
 @Controller
 public class CustomerController {
 
@@ -61,9 +59,8 @@ public class CustomerController {
         return "redirect:/kunde/oversigt";
     }
 
-    @GetMapping("/kunde/reservationer/{id}/{user_name}")
-    public String customerReservationOverview(@PathVariable("id") int id, @PathVariable("user_name") String user_name, Model model) {
-        model.addAttribute("accessories", accessoryService.fetchAllChosenAccessoriesById(id));
+    @GetMapping("/kunde/reservationer/{user_name}")
+    public String customerReservationOverview(@PathVariable("user_name") String user_name, Model model) {
         model.addAttribute("reservations", reservationService.fetchReservationsByCustomerUsername(user_name));
         return "/customer/reservations";
     }

@@ -1,14 +1,20 @@
-.container-fluid #accessoryUl {
+/* Used in reservation/overview in order to show the accessories as a comma seperated list (item, item, item)*/
+.container-fluid .accessoryUl {
     list-style-type: none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
-.container-fluid #accessoryLi {
+.container-fluid .accessoryLi {
     font-size: 0;
     display: inline-block;
 }
 
 .container-fluid .accessorySpan {
     font-size: 16px;
+}
+
+/* In order to make the column with the buttons in reservation/overview wide enough that it holds all the buttons in a single line */
+.w-16 {
+    width: 16% !important;
 }

@@ -15,11 +15,12 @@ public class Motorhome {
     private int beds;
     private String file_path;
     private String license_plate;
+    private int motorhometype_id;
 
     public Motorhome() {
     }
 
-    public Motorhome(int motorhome_id, int price, String brand, String model, boolean available, int beds, String file_path, String license_plate) {
+    public Motorhome(int motorhome_id, int price, String brand, String model, boolean available, int beds, String file_path, String license_plate, int motorhometype_id) {
         this.motorhome_id = motorhome_id;
         this.price = price;
         this.brand = brand;
@@ -28,6 +29,7 @@ public class Motorhome {
         this.beds = beds;
         this.file_path = file_path;
         this.license_plate = license_plate;
+        this.motorhometype_id = motorhometype_id;
     }
 
     public int getMotorhome_id() {
@@ -78,6 +80,14 @@ public class Motorhome {
         this.beds = beds;
     }
 
+    public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
+
     public String getLicense_plate() {
         return license_plate;
     }
@@ -86,12 +96,12 @@ public class Motorhome {
         this.license_plate = license_plate;
     }
 
-    public String getFile_path() {
-        return file_path;
+    public int getMotorhometype_id() {
+        return motorhometype_id;
     }
 
-    public void setFile_path(String file_path) {
-        this.file_path = file_path;
+    public void setMotorhometype_id(int motorhometype_id) {
+        this.motorhometype_id = motorhometype_id;
     }
 
     @Override
@@ -105,6 +115,7 @@ public class Motorhome {
                 ", beds=" + beds +
                 ", file_path='" + file_path + '\'' +
                 ", license_plate='" + license_plate + '\'' +
+                ", motorhometype_id=" + motorhometype_id +
                 '}';
     }
 }

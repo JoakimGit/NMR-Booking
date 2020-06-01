@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-
 import com.example.demo.models.Motorhome;
 import com.example.demo.repositories.MotorhomeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,55 +9,83 @@ import java.util.List;
 
 @Service
 public class MotorhomeService {
+
     @Autowired
     MotorhomeRepo motorhomeRepo;
-    public List<Motorhome>fetchAllDistinctMotorhomes(){
-        return motorhomeRepo.fetchAllDistinctMotorhomes();
+
+    @Autowired
+    ReservationService reservationService;
+
+    public List<Motorhome>fetchAllMotorhomeTypes(){
+        return motorhomeRepo.fetchAllMotorhomeTypes();
     }
 
-    public Motorhome fetchMotorhomeByID(int motorhome_id){
-        return motorhomeRepo.fetchMotorhomeById(motorhome_id);
-    }
-
-    public void updateMotorhome(Motorhome m){
-        motorhomeRepo.updateMotorhome(m);
-    }
-
-    public void createMotorhome(Motorhome m){
-        motorhomeRepo.createMotorhome(m);
-    }
-
-    public void deleteMotorhome(int motorhome_id){
-    motorhomeRepo.deleteMotorhome(motorhome_id);
-    }
-
-    public List <Motorhome> fetchAllMotorhomesByBrandAndModel(String brand, String model){
-        return motorhomeRepo.fetchAllMotorhomesByBrandAndModel(brand, model);
-    }
-
-    public List<String> fetchMotorhomeBrandAndModel() {
-        return motorhomeRepo.fetchMotorhomeBrandAndModel();
+    public List <Motorhome> fetchAllMotorhomesByTypeId(int id){
+        return motorhomeRepo.fetchAllMotorhomesByTypeId(id);
     }
 
     public List<Motorhome> fetchAllAvailableMotorhomes() {
         return motorhomeRepo.fetchAllAvailableMotorhomes();
     }
 
-    public Motorhome fetchAvailableMotorhomeByBrandAndModel(String brand, String model) {
-        return motorhomeRepo.fetchAvailableMotorhomeByBrandAndModel(brand, model);
+    public List<Motorhome> fetchAllOtherAvailableMotorhomes(String model) {
+        return motorhomeRepo.fetchAllOtherAvailableMotorhomes(model);
     }
 
-    public void setMotorhomeUnavailable(String license) {
-        motorhomeRepo.setMotorhomeUnavailable(license);
+    public String fetchBrandAndModelByReservationId(int id) {
+        return motorhomeRepo.fetchBrandAndModelByReservationId(id);
+    }
+
+    public Motorhome fetchMotorhomeTypeById(int id) {
+        return motorhomeRepo.fetchMotorhomeTypeById(id);
+    }
+
+    public Motorhome fetchMotorhomeByID(int motorhome_id){
+        return motorhomeRepo.fetchMotorhomeById(motorhome_id);
+    }
+
+    public Motorhome fetchMotorhomeByLicense(String license_plate) {
+        return motorhomeRepo.fetchMotorhomeByLicense(license_plate);
+    }
+
+    public void createMotorhomeType(Motorhome m) {
+        motorhomeRepo.createMotorhomeType(m);
+    }
+
+    public void createMotorhome(Motorhome m){
+        motorhomeRepo.createMotorhome(m);
+    }
+
+    public void updateMotorhomeType(Motorhome m) {
+        motorhomeRepo.updateMotorhomeType(m);
+    }
+
+    public void updateMotorhome(Motorhome m){
+        motorhomeRepo.updateMotorhome(m);
+    }
+
+    public void deleteMotorhomeType(int id) {
+        List<Motorhome> motorhomes = fetchAllMotorhomesByTypeId(id);
+        for (Motorhome motorhome : motorhomes) {
+            reservationService.setReservationFinished(motorhome.getLicense_plate());
+        }
+        motorhomeRepo.deleteMotorhomeType(id);
+    }
+
+    public void deleteMotorhome(int motorhome_id){
+        Motorhome motorhome = fetchMotorhomeByID(motorhome_id);
+        reservationService.setReservationFinished(motorhome.getLicense_plate());
+        motorhomeRepo.deleteMotorhome(motorhome_id);
     }
 
     public void setMotorhomeAvailable(String license) {
         motorhomeRepo.setMotorhomeAvailable(license);
     }
 
-    public Motorhome fetchMotorhomeByLicense(String license_plate) {
-        return motorhomeRepo.fetchMotorhomeByLicense(license_plate);
+    public void setMotorhomeUnavailable(String license) {
+        motorhomeRepo.setMotorhomeUnavailable(license);
     }
+
 
 }
 

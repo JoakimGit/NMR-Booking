@@ -16,16 +16,16 @@
     <form action="/reservation/rediger" method="post">
         <input type="hidden" name="reservation_id" th:value="${reservation.reservation_id}">
         <input type="hidden" name="license_plate" th:value="${reservation.license_plate}">
+        <input type="hidden" name="status" th:value="${reservation.status}">
         <div class="form-group">
             <label for="user_name"><b>Kunde ID</b></label>
             <input type="text" class="form-control" id="user_name" name="user_name" th:value="${reservation.user_name}" pattern="[A-Za-zæøåÆØÅöÖäÄüÜß0-9_-]+" required>
         </div>
         <div class="form-group">
             <label for="brand_model"><b>Mærke og model</b></label>
-            <select id="brand_model" name="brand_model" required>
-                <!-- Drop down menu of all available motorhomes. Also show current motorhome, but hide it if it's part of the list of available motorhomes (in order to still display a motorhome that has no more available) -->
-                <option th:value="${reservation.brand_model}" th:text="${reservation.brand_model}" th:hidden="${#arrays.contains(motorhomes, reservation.brand_model)}"></option>
-                <option th:each="motorhome : ${motorhomes}" th:value="${motorhome}" th:text="${motorhome}" th:selected="${motorhome == reservation.brand_model}"></option>
+            <select id="brand_model" name="newlicense" required>
+                <option th:value="${reservation.license_plate}" th:text="${currentbrandandmodel}"></option>
+                <option th:each="motorhome : ${motorhomes}" th:value="${motorhome.license_plate}" th:text="${motorhome.brand + ' - ' + motorhome.model}"></option>
             </select>
         </div>
         <div class="form-group">
