@@ -35,7 +35,7 @@
                 <td>
                     <a th:href="@{'/kunde/rediger/' + ${customer.customer_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
                     <a th:href="@{'/kunde/slet/' + ${customer.customer_id}}" onclick="return confirm('Er du sikker på at du vil slette denne kunde?');"><button type="button" class="btn btn-danger">Slet</button></a>
-                    <a th:href="@{'/kunde/reservationer/' + ${customer.customer_id} + '/' + ${customer.user_name}}"><button type="button" class="btn btn-primary">Reservationer</button></a>
+                    <a th:href="@{'/kunde/reservationer/' + ${customer.user_name}}"><button type="button" class="btn btn-primary">Reservationer</button></a>
                 </td>
             </tr>
         </tbody>

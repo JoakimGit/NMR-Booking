@@ -23,43 +23,75 @@ public class MotorhomeController {
 
     @GetMapping("/autocamper/oversigt")
     public String showMotorhome(Model model){
-        model.addAttribute("motorhomes", motorhomeService.fetchAllDistinctMotorhomes());
+        model.addAttribute("motorhometypes", motorhomeService.fetchAllMotorhomeTypes());
         return "/motorhome/overview";
     }
 
-    @GetMapping("/autocamper/opret")
-    public String createMotorhome(){
+    @GetMapping("/autocamper/detaljer/{id}")
+    public String motorhomedetails(@PathVariable("id") int id, Model viewModel){
+        viewModel.addAttribute("motorhometype_id", id);
+        viewModel.addAttribute("motorhomes",motorhomeService.fetchAllMotorhomesByTypeId(id));
+        return "/motorhome/details";
+    }
+
+    @GetMapping("/autocamper/opret/type")
+    public String createMotorhomeType(){
+        return "/motorhome/create-type";
+    }
+
+    @PostMapping("/autocamper/opret/type")
+    public String createMotorhomeTypeNow(@ModelAttribute Motorhome motorhome){
+        motorhomeService.createMotorhomeType(motorhome);
+        return "redirect:/autocamper/oversigt";
+    }
+
+    @GetMapping("/autocamper/opret/{id}")
+    public String createMotorhome(@PathVariable("id") int id, Model model){
+        model.addAttribute("motorhometype_id", id);
         return "/motorhome/create";
     }
 
     @PostMapping("/autocamper/opret")
     public String createMotorhomeNow(@ModelAttribute Motorhome motorhome){
         motorhomeService.createMotorhome(motorhome);
+        return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
+    }
+
+    @GetMapping("/autocamper/rediger/type/{motorhome_id}")
+    public String editMotorhomeType(@PathVariable("motorhome_id") int id, Model model){
+        model.addAttribute("motorhometype", motorhomeService.fetchMotorhomeTypeById(id));
+        return "/motorhome/edit-type";
+    }
+
+    @PostMapping("/autocamper/rediger/type")
+    public String editMotorhomeTypeNow(@ModelAttribute Motorhome motorhome){
+        System.out.println(motorhome);
+        motorhomeService.updateMotorhomeType(motorhome);
         return "redirect:/autocamper/oversigt";
     }
 
-    @GetMapping("/autocamper/detaljer/{brand}/{model}")
-    public String motorhomedetails(@PathVariable("brand") String brand, @PathVariable("model") String model, Model viewModel){
-        viewModel.addAttribute("motorhomesbrand",motorhomeService.fetchAllMotorhomesByBrandAndModel(brand, model));
-        return "/motorhome/details";
-    }
-
     @GetMapping("/autocamper/rediger/{motorhome_id}")
-    public String editMotorhome(@PathVariable("motorhome_id")int motorhome_id, Model model){
-        model.addAttribute("motorhome",motorhomeService.fetchMotorhomeByID(motorhome_id));
+    public String editMotorhome(@PathVariable("motorhome_id") int motorhome_id, Model model){
+        model.addAttribute("motorhome", motorhomeService.fetchMotorhomeByID(motorhome_id));
         return "/motorhome/edit";
     }
 
     @PostMapping("/autocamper/rediger")
     public String editMotorhomeNow(@ModelAttribute Motorhome motorhome){
         motorhomeService.updateMotorhome(motorhome);
-        return "redirect:/autocamper/detaljer/"+motorhome.getBrand()+"/"+motorhome.getModel();
+        return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
     }
 
-    @GetMapping("/autocamper/slet/{motorhome_id}/{motorhome.brand}/{motorhome.model}")
-    public String deleteMotorhome(@PathVariable("motorhome_id") int motorhome_id, @PathVariable("motorhome.brand") String brand){
-        motorhomeService.deleteMotorhome(motorhome_id);
-        return "redirect:/autocamper/detaljer/{motorhome.brand}/{motorhome.model}";
+    @GetMapping("/autocamper/slet//type/{motorhometype_id}")
+    public String deleteMotorhomeType(@PathVariable("motorhometype_id") int id){
+        motorhomeService.deleteMotorhomeType(id);
+        return "redirect:/autocamper/oversigt";
+    }
+
+    @GetMapping("/autocamper/slet/{motorhometype_id}/{motorhome_id}")
+    public String deleteMotorhome(@PathVariable("motorhometype_id") int motorhometype_id, @PathVariable("motorhome_id") int id){
+        motorhomeService.deleteMotorhome(id);
+        return "redirect:/autocamper/detaljer/"+motorhometype_id;
     }
 
     @GetMapping("/autocamper/tilbehoer/oversigt")

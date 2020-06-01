@@ -13,22 +13,24 @@ public class Reservation {
     private String location;
     private String pickup_date;
     private String dropoff_date;
-    private String brand_model;
     private String season;
     private String user_name;
     private String license_plate;
+    private boolean status;
+
     @ElementCollection
     private List<String> accessories;
+    private String brand_model;
 
-    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String brand_model, String season, String user_name, String license_plate) {
+    public Reservation(int reservation_id, String location, String pickup_date, String dropoff_date, String season, String user_name, String license_plate, boolean status) {
         this.reservation_id = reservation_id;
         this.location = location;
         this.pickup_date = pickup_date;
         this.dropoff_date = dropoff_date;
-        this.brand_model = brand_model;
         this.season = season;
         this.user_name = user_name;
         this.license_plate = license_plate;
+        this.status = status;
     }
 
     public Reservation() {}
@@ -65,14 +67,6 @@ public class Reservation {
         this.dropoff_date = dropoff_date;
     }
 
-    public String getBrand_model() {
-        return brand_model;
-    }
-
-    public void setBrand_model(String brand_model) {
-        this.brand_model = brand_model;
-    }
-
     public String getSeason() {
         return season;
     }
@@ -105,6 +99,22 @@ public class Reservation {
         this.license_plate = license_plate;
     }
 
+    public String getBrand_model() {
+        return brand_model;
+    }
+
+    public void setBrand_model(String brand_model) {
+        this.brand_model = brand_model;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -112,10 +122,12 @@ public class Reservation {
                 ", location='" + location + '\'' +
                 ", pickup_date='" + pickup_date + '\'' +
                 ", dropoff_date='" + dropoff_date + '\'' +
-                ", brand_model='" + brand_model + '\'' +
                 ", season='" + season + '\'' +
                 ", user_name='" + user_name + '\'' +
                 ", license_plate='" + license_plate + '\'' +
+                ", status=" + status +
+                ", accessories=" + accessories +
+                ", brand_model='" + brand_model + '\'' +
                 '}';
     }
 }

@@ -13,25 +13,10 @@
     <h1>Opret ny autocamper</h1>
     <br>
     <form action="/autocamper/opret" method="post">
-        <div class="form-group">
-            <label for="brand"><b>Mærke</b></label>
-            <input type="text" class="form-control"  id="brand" name="brand" placeholder="Indtast autocamper mærke" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß '-]+" required>
-        </div>
-        <div class="form-group">
-            <label for="model"><b>Model</b></label>
-            <input type="text" class="form-control" id="model" name="model" placeholder="Indtast autocamper model" pattern="[a-zA-ZæøåÆØÅöÖäÄüÜß0-9 ,.'-]+" required>
-        </div>
-        <div class="form-group">
-            <label for="price"><b>Pris</b></label>
-            <input type="text" class="form-control" id="price" name="price" placeholder="Indtast autocamper pris" pattern="[1-9]\d+(?:[.,][0]+)?" required>
-        </div>
-        <div class="form-group">
-            <label for="beds"><b>Senge</b></label>
-            <input type="number" class="form-control" id="beds" name="beds" placeholder="Indtast antal af senge" min="2" max="6" required>
-        </div>
+        <input hidden name="motorhometype_id" th:value="${id}">
         <div class="form-group">
             <label for="available"><b>Tilgængelig</b></label>
-            <input type="text" class="form-control" id="available" name="available" placeholder="Indtast tilgængelighed" pattern="\s*(true|false|TRUE|FALSE)\s*" title="Only accepts 'true/TRUE' or 'false/FALSE'" required>
+            <input type="text" class="form-control" id="available" name="available" placeholder="Indtast tilgængelighed" pattern="\s*(true|false|TRUE|FALSE)\s*" title="Godtager kun 'true/TRUE' or 'false/FALSE'" required>
         </div>
         <div class="form-group">
             <label for="license_plate"><b>Nummberplade</b></label>

@@ -32,9 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/medarbejder/**").hasRole("ADMIN")
+                .antMatchers("/faktura/**").hasAnyRole("ADMIN", "BOOKKEEPER")
                 .antMatchers("/autocamper/oversigt").hasAnyRole("ADMIN", "LEAD", "SALES")
                 .antMatchers("/autocamper/**").hasAnyRole("ADMIN", "LEAD")
-                .antMatchers("/tilbehoer/**").hasAnyRole("ADMIN", "LEAD")
                 .antMatchers("/kunde/**").hasAnyRole("ADMIN","LEAD", "SALES")
                 .antMatchers("/reservation/**").hasAnyRole("ADMIN","LEAD", "SALES")
                 .antMatchers("/", "/css/**", "/img/**").permitAll()
@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and()
             .exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                .accessDeniedPage("/adgang-nægtet");
     }
 
     @Bean
