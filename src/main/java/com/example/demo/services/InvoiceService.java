@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -118,7 +119,8 @@ public class InvoiceService {
             LocalDate date1 = LocalDate.parse(first_date, dtf);
             LocalDate date2 = LocalDate.parse(second_date, dtf);
             return (int) Duration.between(date1.atStartOfDay(), date2.atStartOfDay()).toDays();
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
+            System.out.println("Husk at skrive datoen ind i den rigtige format yyyy-MM-dd");
             e.printStackTrace();
         }
         return 0;
