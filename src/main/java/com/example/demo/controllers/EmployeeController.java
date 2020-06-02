@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
-    private List<String> allJobs = Arrays.asList("Salgs Assistent", "Salgs Leder", "Rengøringspersonale", "Bogfører", "Mekaniker");
+    private final List<String> allJobs = Arrays.asList("Ejer", "Salgs Leder", "Salgs Assistent", "Bogfører", "Rengøringspersonale", "Mekaniker");
 
     @Autowired
     EmployeeService employeeService;

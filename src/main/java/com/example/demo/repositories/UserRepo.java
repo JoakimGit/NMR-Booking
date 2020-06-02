@@ -15,4 +15,10 @@ public class UserRepo {
         String sql = "INSERT INTO user VALUES (?, ?, ?, ?, ?)";
         template.update(sql, user.getUser_id(), user.getUsername(), user.getPassword(), user.isEnabled(), user.getRole());
     }
+
+    public void updateUserRoleByUsername(String authority, String username) {
+        String sql = "UPDATE user SET role=? WHERE username=?";
+        template.update(sql, authority, username);
+    }
+
 }
