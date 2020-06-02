@@ -25,15 +25,15 @@ public class EmployeeService {
     }
 
     public void createEmployee(Employee e) {
-        formatPhone(e.getPhonenumber(), e);
-        formatCpr(e.getCpr(), e);
+        e.setPhonenumber(formatPhone(e.getPhonenumber()));
+        e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.createEmployee(e);
         userService.createUserFromEmployee(e);
     }
 
     public void updateEmployee(Employee e) {
-        formatPhone(e.getPhonenumber(), e);
-        formatCpr(e.getCpr(), e);
+        e.setPhonenumber(formatPhone(e.getPhonenumber()));
+        e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.updateEmployee(e);
         userService.updateUserRoleByUsername(e.getJob_title(), e.getFirst_name());
     }
@@ -42,17 +42,41 @@ public class EmployeeService {
         employeeRepo.deleteEmployee(id);
     }
 
-    public void formatPhone(String phone, Employee employee) {
+    public String formatPhone(String phone) {
         if (phone.length() > 8) {
             phone = phone.replaceAll("[\\-]", "");
-            employee.setPhonenumber(phone);
         }
+        return phone;
     }
 
-    public void formatCpr(String cpr, Employee employee) {
+    public String formatCpr(String cpr) {
         if (cpr.length() == 10) {
             cpr = cpr.substring(0, 6) + "-" + cpr.substring(6);
-            employee.setCpr(cpr);
         }
+        return cpr;
     }
+
+    public boolean checkForDuplicateCpr(String cpr) {
+        List<String> cprList = employeeRepo.fetchCprFromEmployee();
+        if (cprList.contains(cpr)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkForDuplicateEmail(String email) {
+        List<String> emailList = employeeRepo.fetchEmailFromEmployee();
+        if (emailList.contains(email)){
+            return true;
+        }
+        return false;
+    }
+    public boolean checkForDuplicatePhoneNumber(String phonenumber) {
+        List<String> phoneNumberList = employeeRepo.fetchPhoneNumberFromEmployee();
+        if (phoneNumberList.contains(phonenumber)){
+            return true;
+        }
+        return false;
+    }
+
 }

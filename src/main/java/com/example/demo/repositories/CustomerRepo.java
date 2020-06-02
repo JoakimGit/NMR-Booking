@@ -41,4 +41,17 @@ public class CustomerRepo {
         String sql = "DELETE FROM customer WHERE customer_id=?";
         template.update(sql, id);
     }
+    public List<String> fetchUserNameFromCustomer() {
+        String sql = "SELECT user_name FROM customer";
+        return template.queryForList(sql, String.class);
+    }
+
+    public List<String> fetchEmailFromCustomer() {
+        String sql = "SELECT email FROM customer";
+        return template.queryForList(sql, String.class);
+    }
+    public List<String> fetchPhoneNumberFromCustomer() {
+        String sql = "SELECT phonenumber FROM customer";
+        return template.queryForList(sql, String.class);
+    }
 }

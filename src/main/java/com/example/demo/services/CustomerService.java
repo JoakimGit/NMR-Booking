@@ -41,4 +41,27 @@ public class CustomerService {
             customer.setPhonenumber(phone);
         }
     }
+
+    public boolean checkForDuplicateUserName(String user_name) {
+        List<String> UserNameList = customerRepo.fetchUserNameFromCustomer();
+        if (UserNameList.contains(user_name)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkForDuplicateEmail(String email) {
+        List<String> emailList = customerRepo.fetchEmailFromCustomer();
+        if (emailList.contains(email)){
+            return true;
+        }
+        return false;
+    }
+    public boolean checkForDuplicatePhoneNumber(String phonenumber) {
+        List<String> phoneNumberList = customerRepo.fetchPhoneNumberFromCustomer();
+        if (phoneNumberList.contains(phonenumber)){
+            return true;
+        }
+        return false;
+    }
 }

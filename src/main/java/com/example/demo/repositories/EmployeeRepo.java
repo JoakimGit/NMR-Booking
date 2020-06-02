@@ -42,6 +42,22 @@ public class EmployeeRepo {
         template.update(sql, id);
     }
 
+    //employee unique value errorpage handling
+    public List<String> fetchCprFromEmployee() {
+        String sql = "SELECT cpr FROM employee";
+        return template.queryForList(sql, String.class);
+    }
+
+    public List<String> fetchEmailFromEmployee() {
+        String sql = "SELECT email FROM employee";
+        return template.queryForList(sql, String.class);
+    }
+    public List<String> fetchPhoneNumberFromEmployee() {
+        String sql = "SELECT phonenumber FROM employee";
+        return template.queryForList(sql, String.class);
+    }
+
+
 
 
 }
