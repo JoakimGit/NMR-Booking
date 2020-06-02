@@ -81,18 +81,21 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return "redirect:/medarbejder/oversigt";
     }
+
     @ExceptionHandler(DuplicateExceptionCpr.class)
     public String databaseError(Model model, DuplicateExceptionCpr exception) {
         model.addAttribute("besked",exception.getMessage());
         model.addAttribute("tilbage","/medarbejder/opret");
         return "/error/duplicate-exception-cpr";
     }
+
     @ExceptionHandler(DuplicateExceptionEmail.class)
     public String databaseError(Model model, DuplicateExceptionEmail exception) {
         model.addAttribute("besked",exception.getMessage());
         model.addAttribute("tilbage","/medarbejder/opret");
         return "/error/duplicate-exception-email";
     }
+
     @ExceptionHandler(DuplicateExceptionPhoneNumber.class)
     public String databaseError(Model model, DuplicateExceptionPhoneNumber exception) {
         model.addAttribute("besked", exception.getMessage());
