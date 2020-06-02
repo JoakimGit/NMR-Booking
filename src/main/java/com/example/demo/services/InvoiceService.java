@@ -7,7 +7,6 @@ import com.example.demo.repositories.InvoiceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -48,23 +47,16 @@ public class InvoiceService {
         invoice.setReservation_id(reservation_id);
         invoice.setInvoice_type("Reservation Pris");
 
-        Motorhome motorhome = motorhomeService.fetchMotorhomeByLicense(reservation.getLicense_plate());
-        double priceperday = motorhome.getPrice();
-
-        String date1 = reservation.getPickup_date();
-        String date2 = reservation.getDropoff_date();
-        int daysBetween = calcDaysBetweenDates(date1, date2);
-
-        double price = daysBetween*priceperday;
-
-        if (reservation.getSeason().equals("Højsæson")) {
-            price = price*1.6;
-        }
-        else if (reservation.getSeason().equals("Midtsæson")) {
-            price = price*1.3;
-        }
-        invoice.setTotal(price);
+        calcInvoiceTotal(reservation, invoice);
         invoiceRepo.createInvoice(invoice);
+    }
+
+    public void updateInvoiceFromReservation(Reservation reservation) {
+        Invoice invoice = fetchInvoiceByReservationId(reservation.getReservation_id());
+        invoice.setReservation_id(reservation.getReservation_id());
+
+        calcInvoiceTotal(reservation, invoice);
+        invoiceRepo.updateInvoice(invoice);
     }
 
     public void updateInvoice(Invoice invoice) {
@@ -99,6 +91,25 @@ public class InvoiceService {
         createInvoice(cancellationInvoice);
         motorhomeService.setMotorhomeAvailable(reservation.getLicense_plate());
         reservationService.setReservationFinished(reservation.getLicense_plate());
+    }
+
+    public void calcInvoiceTotal(Reservation reservation, Invoice invoice) {
+        Motorhome motorhome = motorhomeService.fetchMotorhomeByLicense(reservation.getLicense_plate());
+        double priceperday = motorhome.getPrice();
+
+        String date1 = reservation.getPickup_date();
+        String date2 = reservation.getDropoff_date();
+        int daysBetween = calcDaysBetweenDates(date1, date2);
+
+        double price = daysBetween*priceperday;
+
+        if (reservation.getSeason().equals("Højsæson")) {
+            price *= 1.6;
+        }
+        else if (reservation.getSeason().equals("Midtsæson")) {
+            price *= 1.3;
+        }
+        invoice.setTotal(price);
     }
 
     public int calcDaysBetweenDates(String first_date, String second_date) {

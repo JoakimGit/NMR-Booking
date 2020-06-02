@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Invoice;
 import com.example.demo.models.Reservation;
 import com.example.demo.repositories.ReservationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,8 @@ public class ReservationService {
     }
 
     public void editReservation(Reservation r, String license ) {
+        Invoice invoice = new Invoice();
+        invoice.setReservation_id(r.getReservation_id());
         // Compare license plates between post edit and pre edit. If they're not the same, a new one was chosen, so set old to available
         // then set reservation license plate to the new one, update the reservation and set the new motorhome to unavailable
         if (!(r.getLicense_plate().equals(license))) {
@@ -85,6 +88,8 @@ public class ReservationService {
         else if (r.getLicense_plate().equals(license)) {
             reservationRepo.editReservation(r);
         }
+
+        invoiceService.updateInvoiceFromReservation(r);
 
         /* Delete all accessories tied to a reservation before creating any chosen ones. Not ideal if no changes were made to accessories, but the simplest solution. */
         accessoryService.deleteAccessoryInReservation(r.getReservation_id());
