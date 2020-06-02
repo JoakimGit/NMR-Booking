@@ -60,4 +60,28 @@ public class EmployeeService {
         }
         return cpr;
     }
+
+    public boolean checkForDuplicateCpr(String cpr) {
+        List<String> cprList = employeeRepo.fetchCprFromEmployee();
+        if (cprList.contains(cpr)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkForDuplicateEmail(String email) {
+        List<String> emailList = employeeRepo.fetchEmailFromEmployee();
+        if (emailList.contains(email)){
+            return true;
+        }
+        return false;
+    }
+    public boolean checkForDuplicatePhoneNumber(String phonenumber) {
+        List<String> phoneNumberList = employeeRepo.fetchPhoneNumberFromEmployee();
+        if (phoneNumberList.contains(phonenumber)){
+            return true;
+        }
+        return false;
+    }
+
 }

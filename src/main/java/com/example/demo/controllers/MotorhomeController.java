@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.DuplicateExceptionLicensePlate;
+import com.example.demo.exceptions.DuplicateExceptionPhoneNumber;
 import com.example.demo.models.Accessory;
 import com.example.demo.models.Motorhome;
 import com.example.demo.services.AccessoryService;
@@ -7,10 +9,7 @@ import com.example.demo.services.MotorhomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MotorhomeController {
@@ -52,7 +51,11 @@ public class MotorhomeController {
     }
 
     @PostMapping("/autocamper/opret")
-    public String createMotorhomeNow(@ModelAttribute Motorhome motorhome){
+    public String createMotorhomeNow(@ModelAttribute Motorhome motorhome) throws DuplicateExceptionLicensePlate{
+        boolean licensePLateExist = motorhomeService.checkForDuplicateLicensePlate(motorhome.getLicense_plate());
+                if(licensePLateExist){
+                    throw new DuplicateExceptionLicensePlate("Du får vist denne besked fordi der opstod en fejl");
+                }
         motorhomeService.createMotorhome(motorhome);
         return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
     }
@@ -77,7 +80,11 @@ public class MotorhomeController {
     }
 
     @PostMapping("/autocamper/rediger")
-    public String editMotorhomeNow(@ModelAttribute Motorhome motorhome){
+    public String editMotorhomeNow(@ModelAttribute Motorhome motorhome)throws DuplicateExceptionLicensePlate{
+        boolean licensePLateExist = motorhomeService.checkForDuplicateLicensePlate(motorhome.getLicense_plate());
+        if(licensePLateExist){
+            throw new DuplicateExceptionLicensePlate("Du får vist denne besked fordi der opstod en fejl");
+        }
         motorhomeService.updateMotorhome(motorhome);
         return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
     }
@@ -122,5 +129,12 @@ public class MotorhomeController {
     public String deleteAccessory(@PathVariable("id") int id){
         accessoryService.deleteAccessory(id);
         return "redirect:/autocamper/tilbehoer/oversigt";
+    }
+
+    @ExceptionHandler(DuplicateExceptionLicensePlate.class)
+    public String databaseError(Model model, DuplicateExceptionLicensePlate exception) {
+        model.addAttribute("besked", exception.getMessage());
+        model.addAttribute("tilbage","/autocamper/detaljer");
+        return "/error/duplicate-exception-phonenumber";
     }
 }

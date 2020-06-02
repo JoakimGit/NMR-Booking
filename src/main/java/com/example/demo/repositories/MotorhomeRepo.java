@@ -111,4 +111,9 @@ public class MotorhomeRepo {
         String sql = "UPDATE motorhome SET available=false WHERE license_plate=?";
         template.update(sql, license);
     }
+
+    public List<String> fetchLicensePlateFromMotorhome() {
+        String sql = "SELECT license_plate FROM motorhome";
+        return template.queryForList(sql, String.class);
+    }
 }

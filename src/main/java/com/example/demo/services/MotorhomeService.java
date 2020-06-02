@@ -86,6 +86,14 @@ public class MotorhomeService {
         motorhomeRepo.setMotorhomeUnavailable(license);
     }
 
+    public boolean checkForDuplicateLicensePlate(String license_plate) {
+        List<String> licensePlateList = motorhomeRepo.fetchLicensePlateFromMotorhome();
+        if (licensePlateList.contains(license_plate)){
+            return true;
+        }
+        return false;
+    }
+
 
 }
 

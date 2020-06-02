@@ -1,14 +1,14 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.DuplicateExceptionCpr;
+import com.example.demo.exceptions.DuplicateExceptionEmail;
+import com.example.demo.exceptions.DuplicateExceptionPhoneNumber;
 import com.example.demo.models.Employee;
 import com.example.demo.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +34,19 @@ public class EmployeeController {
     }
 
     @PostMapping("/medarbejder/opret")
-    public String createEmployee(@ModelAttribute Employee employee) {
+    public String createEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
+        boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
+        boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
+        if (cprExist){
+            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
+        }
+        if(emailExist){
+            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+        }
+        if (phoneNumberExit){
+            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+        }
         employeeService.createEmployee(employee);
         return "redirect:/medarbejder/oversigt";
     }
@@ -47,7 +59,19 @@ public class EmployeeController {
     }
 
     @PostMapping("/medarbejder/rediger")
-    public String updateEmployee(@ModelAttribute Employee employee) {
+    public String updateEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
+        boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
+        boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
+        if (cprExist){
+            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
+        }
+        if(emailExist){
+            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+        }
+        if (phoneNumberExit){
+            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+        }
         employeeService.updateEmployee(employee);
         return "redirect:/medarbejder/oversigt";
     }
@@ -56,5 +80,23 @@ public class EmployeeController {
     public String deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
         return "redirect:/medarbejder/oversigt";
+    }
+    @ExceptionHandler(DuplicateExceptionCpr.class)
+    public String databaseError(Model model, DuplicateExceptionCpr exception) {
+        model.addAttribute("besked",exception.getMessage());
+        model.addAttribute("tilbage","/medarbejder/opret");
+        return "/error/duplicate-exception-cpr";
+    }
+    @ExceptionHandler(DuplicateExceptionEmail.class)
+    public String databaseError(Model model, DuplicateExceptionEmail exception) {
+        model.addAttribute("besked",exception.getMessage());
+        model.addAttribute("tilbage","/medarbejder/opret");
+        return "/error/duplicate-exception-email";
+    }
+    @ExceptionHandler(DuplicateExceptionPhoneNumber.class)
+    public String databaseError(Model model, DuplicateExceptionPhoneNumber exception) {
+        model.addAttribute("besked", exception.getMessage());
+        model.addAttribute("tilbage","/medarbejder/opret");
+        return "/error/duplicate-exception-phonenumber";
     }
 }
