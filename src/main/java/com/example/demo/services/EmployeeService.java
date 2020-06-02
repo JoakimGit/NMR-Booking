@@ -26,8 +26,8 @@ public class EmployeeService {
     }
 
     public void createEmployee(Employee e) {
-        formatPhone(e.getPhonenumber(), e);
-        formatCpr(e.getCpr(), e);
+        e.setPhonenumber(formatPhone(e.getPhonenumber()));
+        e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.createEmployee(e);
 
         User user = new User();
@@ -38,8 +38,8 @@ public class EmployeeService {
     }
 
     public void updateEmployee(Employee e) {
-        formatPhone(e.getPhonenumber(), e);
-        formatCpr(e.getCpr(), e);
+        e.setPhonenumber(formatPhone(e.getPhonenumber()));
+        e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.updateEmployee(e);
     }
 
@@ -47,17 +47,17 @@ public class EmployeeService {
         employeeRepo.deleteEmployee(id);
     }
 
-    public void formatPhone(String phone, Employee employee) {
+    public String formatPhone(String phone) {
         if (phone.length() > 8) {
             phone = phone.replaceAll("[\\-]", "");
-            employee.setPhonenumber(phone);
         }
+        return phone;
     }
 
-    public void formatCpr(String cpr, Employee employee) {
+    public String formatCpr(String cpr) {
         if (cpr.length() == 10) {
             cpr = cpr.substring(0, 6) + "-" + cpr.substring(6);
-            employee.setCpr(cpr);
         }
+        return cpr;
     }
 }
