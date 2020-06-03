@@ -37,21 +37,11 @@ public class CustomerController {
 
     @PostMapping("/kunde/opret")
     public String createCustomer(@ModelAttribute Customer customer) throws DuplicateExceptionUserName,DuplicateExceptionEmail,DuplicateExceptionPhoneNumber  {
-        boolean UserNameExist = customerService.checkForDuplicateUserName(customer.getUser_name());
-        boolean emailExist = customerService.checkForDuplicateEmail(customer.getEmail());
-        boolean phoneNumberExit = customerService.checkForDuplicatePhoneNumber(customer.getPhonenumber());
-        if (UserNameExist){
-            throw new DuplicateExceptionUserName("Du får vist denne side fordi en fejl er opstået");
-        }
-        if (emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
-        }
-        if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
-        }
+        checkForDuplicates(customer);
         customerService.createCustomer(customer);
         return "redirect:/kunde/oversigt";
     }
+
 
     @GetMapping("/kunde/rediger/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
@@ -61,18 +51,7 @@ public class CustomerController {
 
     @PostMapping("/kunde/rediger")
     public String editCustomer(@ModelAttribute Customer customer)throws DuplicateExceptionUserName,DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
-        boolean UserNameExist = customerService.checkForDuplicateUserName(customer.getUser_name());
-        boolean emailExist = customerService.checkForDuplicateEmail(customer.getEmail());
-        boolean phoneNumberExit = customerService.checkForDuplicatePhoneNumber(customer.getPhonenumber());
-        if (UserNameExist){
-            throw new DuplicateExceptionUserName("Du får vist denne side fordi en fejl er opstået");
-        }
-        if (emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
-        }
-        if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
-        }
+        checkForDuplicates(customer);
         customerService.editCustomer(customer);
         return "redirect:/kunde/oversigt";
     }
@@ -109,4 +88,25 @@ public class CustomerController {
         model.addAttribute("tilbage","/kunde/opret");
         return "/error/duplicate-exception-phonenumber";
     }
+
+    private void checkForDuplicates(@ModelAttribute Customer customer) throws DuplicateExceptionUserName, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        boolean UserNameExist = customerService.checkForDuplicateUserName(customer.getUser_name());
+        boolean emailExist = customerService.checkForDuplicateEmail(customer.getEmail());
+        boolean phoneNumberExit = customerService.checkForDuplicatePhoneNumber(customer.getPhonenumber());
+        if (UserNameExist){
+            throw new DuplicateExceptionUserName("Du får vist denne side fordi en fejl er opstået");
+        }
+        if (emailExist){
+            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+        }
+        if (phoneNumberExit){
+            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+        }
+    }
+
+    private void checkForDuplicatesEdit() {
+
+    }
+
+
 }

@@ -35,21 +35,11 @@ public class EmployeeController {
 
     @PostMapping("/medarbejder/opret")
     public String createEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
-        boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
-        boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
-        boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
-        if (cprExist){
-            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
-        }
-        if(emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
-        }
-        if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
-        }
+        checkForDuplicates(employee);
         employeeService.createEmployee(employee);
         return "redirect:/medarbejder/oversigt";
     }
+
 
     @GetMapping("medarbejder/rediger/{id}")
     public String update(@PathVariable("id") int id, Model model) {
@@ -60,18 +50,7 @@ public class EmployeeController {
 
     @PostMapping("/medarbejder/rediger")
     public String updateEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
-        boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
-        boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
-        boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
-        if (cprExist){
-            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
-        }
-        if(emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
-        }
-        if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
-        }
+        checkForDuplicates(employee);
         employeeService.updateEmployee(employee);
         return "redirect:/medarbejder/oversigt";
     }
@@ -101,5 +80,24 @@ public class EmployeeController {
         model.addAttribute("besked", exception.getMessage());
         model.addAttribute("tilbage","/medarbejder/opret");
         return "/error/duplicate-exception-phonenumber";
+    }
+
+    private void checkForDuplicates(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
+        boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
+        boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
+        if (cprExist){
+            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
+        }
+        if(emailExist){
+            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+        }
+        if (phoneNumberExit){
+            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+        }
+    }
+
+    private void checkForDuplicatesEdit() {
+
     }
 }
