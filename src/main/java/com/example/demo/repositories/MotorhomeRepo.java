@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//Lavet af Daniel og Joakim
 @Repository
 public class MotorhomeRepo {
 

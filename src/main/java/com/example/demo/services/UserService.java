@@ -6,6 +6,7 @@ import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+//Lavet af Joakim
 @Service
 public class UserService {
 

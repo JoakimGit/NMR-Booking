@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 
+//Lavet af Magnus
 @Entity
 public class Reservation {
 

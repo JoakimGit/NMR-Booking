@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//Lavet af Magnus og Joakim
 @Controller
 public class ReservationController {
 
