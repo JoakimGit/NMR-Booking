@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//Lavet af Magnus
 @Repository
 public class ReservationRepo {
 
