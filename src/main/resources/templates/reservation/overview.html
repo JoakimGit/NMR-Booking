@@ -48,8 +48,8 @@
                     </ul>
                 </td>
                 <td>
-                    <a th:href="@{'/reservation/afbestil/' + ${reservation.reservation_id}}" th:hidden="${reservation.license_plate == null || reservation.status == false}" onclick="return confirm('Er du sikker på at du vil afbestille denne reservation?');"><button type="button" class="btn btn-dark">Aflys</button></a>
-                    <a th:href="@{'/reservation/afslut/' + ${reservation.license_plate}}" th:hidden="${reservation.license_plate == null || reservation.status == false}" onclick="return confirm('Er du sikker på at du vil afslutte denne reservation?');"><button type="button" class="btn btn-warning">Afslut</button></a>
+                    <a th:href="@{'/reservation/afbestil/' + ${reservation.reservation_id}}" th:hidden="${reservation.license_plate == null || reservation.status == false || resService.compareDates(reservation.getPickup_date(), today)}" onclick="return confirm('Er du sikker på at du vil afbestille denne reservation?');"><button type="button" class="btn btn-dark">Aflys</button></a>
+                    <a th:href="@{'/reservation/afslut/' + ${reservation.license_plate}}" th:hidden="${reservation.license_plate == null || reservation.status == false || resService.compareDates(today, reservation.getDropoff_date())}" onclick="return confirm('Er du sikker på at du vil afslutte denne reservation?');"><button type="button" class="btn btn-warning">Afslut</button></a>
                     <a th:href="@{'/reservation/rediger/' + ${reservation.reservation_id} + '/' + ${reservation.license_plate}}" th:hidden="${reservation.license_plate == null || reservation.status == false}"><button type="button" class="btn btn-success">Rediger</button></a>
                     <a th:href="@{'/reservation/slet/' + ${reservation.reservation_id}}" onclick="return confirm('Er du sikker på at du vil slette denne reservation?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>

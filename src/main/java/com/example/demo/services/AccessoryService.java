@@ -48,12 +48,15 @@ public class AccessoryService {
     public void deleteAccessoryInReservation(int id) {
         accessoryRepo.deleteAccessoryInReservation(id);
     }
+
     public boolean checkForDuplicateAccessoryName(String accessory_name) {
-        List<String> accessoryNameList = accessoryRepo.fetchAllAccessoryNames();
-        if (accessoryNameList.contains(accessory_name)){
-            return true;
-        }
-        return false;
+        List<String> accessoryNameList = accessoryRepo.fetchAccessoryNameFromAccessory();
+        return accessoryNameList.contains(accessory_name);
+    }
+
+    public boolean checkForOtherDuplicateAccessoryName(String accessory_name, int id) {
+        List<String> accessoryNameList = accessoryRepo.fetchAccessoryNameFromOtherAccessory(id);
+        return accessoryNameList.contains(accessory_name);
     }
 
 

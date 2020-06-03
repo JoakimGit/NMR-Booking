@@ -121,7 +121,7 @@ public class ReservationService {
         reservationRepo.setReservationFinished(license);
     }
 
-    public static boolean compareDates(String first_date, String second_date) {
+    public boolean compareDates(String first_date, String second_date) {
         // Takes two string dates as input. Returns true if the first date is before the second. Otherwise false.
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {

@@ -66,4 +66,9 @@ public class AccessoryRepo {
         String sql = "SELECT accessory_name FROM accessory";
         return template.queryForList(sql, String.class);
     }
+
+    public List<String> fetchAccessoryNameFromOtherAccessory(int id) {
+        String sql = "SELECT accessory_name FROM accessory WHERE accessory_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
 }

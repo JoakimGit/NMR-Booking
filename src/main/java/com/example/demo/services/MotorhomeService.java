@@ -88,10 +88,12 @@ public class MotorhomeService {
 
     public boolean checkForDuplicateLicensePlate(String license_plate) {
         List<String> licensePlateList = motorhomeRepo.fetchLicensePlateFromMotorhome();
-        if (licensePlateList.contains(license_plate)){
-            return true;
-        }
-        return false;
+        return licensePlateList.contains(license_plate);
+    }
+
+    public boolean checkForOtherDuplicateLicensePlate(String license_plate, int id) {
+        List<String> licensePlateList = motorhomeRepo.fetchLicensePlateFromOtherMotorhome(id);
+        return licensePlateList.contains(license_plate);
     }
 
 

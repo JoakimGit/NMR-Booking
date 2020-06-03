@@ -60,17 +60,17 @@ public class EmployeeController {
 
     @PostMapping("/medarbejder/rediger")
     public String updateEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
-        boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
-        boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
-        boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
+        boolean cprExist = employeeService.checkForOtherDuplicateCpr(employee.getCpr(), employee.getEmployee_id());
+        boolean emailExist = employeeService.checkForOtherDuplicateEmail(employee.getEmail(), employee.getEmployee_id());
+        boolean phoneNumberExit = employeeService.checkForOtherDuplicatePhoneNumber(employee.getPhonenumber(), employee.getEmployee_id());
         if (cprExist){
-            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionCpr("/kunde/rediger/"+employee.getEmployee_id());
         }
         if(emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionEmail("/kunde/rediger/"+employee.getEmployee_id());
         }
         if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionPhoneNumber("/kunde/rediger/"+employee.getEmployee_id());
         }
         employeeService.updateEmployee(employee);
         return "redirect:/medarbejder/oversigt";
@@ -84,22 +84,19 @@ public class EmployeeController {
 
     @ExceptionHandler(DuplicateExceptionCpr.class)
     public String databaseError(Model model, DuplicateExceptionCpr exception) {
-        model.addAttribute("besked",exception.getMessage());
-        model.addAttribute("tilbage","/medarbejder/opret");
+        model.addAttribute("tilbage",exception.getMessage());
         return "/error/duplicate-exception-cpr";
     }
 
     @ExceptionHandler(DuplicateExceptionEmail.class)
     public String databaseError(Model model, DuplicateExceptionEmail exception) {
-        model.addAttribute("besked",exception.getMessage());
-        model.addAttribute("tilbage","/medarbejder/opret");
+        model.addAttribute("tilbage",exception.getMessage());
         return "/error/duplicate-exception-email";
     }
 
     @ExceptionHandler(DuplicateExceptionPhoneNumber.class)
     public String databaseError(Model model, DuplicateExceptionPhoneNumber exception) {
-        model.addAttribute("besked", exception.getMessage());
-        model.addAttribute("tilbage","/medarbejder/opret");
+        model.addAttribute("tilbage", exception.getMessage());
         return "/error/duplicate-exception-phonenumber";
     }
 }

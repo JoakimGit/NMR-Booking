@@ -21,13 +21,13 @@ public class MotorhomeController {
     AccessoryService accessoryService;
 
     @GetMapping("/autocamper/oversigt")
-    public String showMotorhome(Model model){
+    public String showMotorhome(Model model) {
         model.addAttribute("motorhometypes", motorhomeService.fetchAllMotorhomeTypes());
         return "/motorhome/overview";
     }
 
     @GetMapping("/autocamper/detaljer/{id}")
-    public String motorhomedetails(@PathVariable("id") int id, Model viewModel){
+    public String motorhomedetails(@PathVariable("id") int id, Model viewModel) {
         viewModel.addAttribute("motorhometype_id", id);
         viewModel.addAttribute("motorhomes",motorhomeService.fetchAllMotorhomesByTypeId(id));
         return "/motorhome/details";
@@ -39,64 +39,64 @@ public class MotorhomeController {
     }
 
     @PostMapping("/autocamper/opret/type")
-    public String createMotorhomeTypeNow(@ModelAttribute Motorhome motorhome){
+    public String createMotorhomeTypeNow(@ModelAttribute Motorhome motorhome) {
         motorhomeService.createMotorhomeType(motorhome);
         return "redirect:/autocamper/oversigt";
     }
 
     @GetMapping("/autocamper/opret/{id}")
-    public String createMotorhome(@PathVariable("id") int id, Model model){
+    public String createMotorhome(@PathVariable("id") int id, Model model) {
         model.addAttribute("motorhometype_id", id);
         return "/motorhome/create";
     }
 
     @PostMapping("/autocamper/opret")
-    public String createMotorhomeNow(@ModelAttribute Motorhome motorhome) throws DuplicateExceptionLicensePlate{
+    public String createMotorhomeNow(@ModelAttribute Motorhome motorhome) throws DuplicateExceptionLicensePlate {
         boolean licensePLateExist = motorhomeService.checkForDuplicateLicensePlate(motorhome.getLicense_plate());
-                if(licensePLateExist){
-                    throw new DuplicateExceptionLicensePlate("Du får vist denne besked fordi der opstod en fejl");
-                }
+        if(licensePLateExist){
+            throw new DuplicateExceptionLicensePlate("/autocamper/opret");
+        }
         motorhomeService.createMotorhome(motorhome);
         return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
     }
 
     @GetMapping("/autocamper/rediger/type/{motorhome_id}")
-    public String editMotorhomeType(@PathVariable("motorhome_id") int id, Model model){
+    public String editMotorhomeType(@PathVariable("motorhome_id") int id, Model model) {
         model.addAttribute("motorhometype", motorhomeService.fetchMotorhomeTypeById(id));
         return "/motorhome/edit-type";
     }
 
     @PostMapping("/autocamper/rediger/type")
-    public String editMotorhomeTypeNow(@ModelAttribute Motorhome motorhome){
+    public String editMotorhomeTypeNow(@ModelAttribute Motorhome motorhome) {
         System.out.println(motorhome);
         motorhomeService.updateMotorhomeType(motorhome);
         return "redirect:/autocamper/oversigt";
     }
 
     @GetMapping("/autocamper/rediger/{motorhome_id}")
-    public String editMotorhome(@PathVariable("motorhome_id") int motorhome_id, Model model){
+    public String editMotorhome(@PathVariable("motorhome_id") int motorhome_id, Model model) {
         model.addAttribute("motorhome", motorhomeService.fetchMotorhomeByID(motorhome_id));
         return "/motorhome/edit";
     }
 
     @PostMapping("/autocamper/rediger")
-    public String editMotorhomeNow(@ModelAttribute Motorhome motorhome)throws DuplicateExceptionLicensePlate{
-        boolean licensePLateExist = motorhomeService.checkForDuplicateLicensePlate(motorhome.getLicense_plate());
+    public String editMotorhomeNow(@ModelAttribute Motorhome motorhome)throws DuplicateExceptionLicensePlate {
+        boolean licensePLateExist = motorhomeService.checkForOtherDuplicateLicensePlate(motorhome.getLicense_plate(), motorhome.getMotorhome_id());
         if(licensePLateExist){
-            throw new DuplicateExceptionLicensePlate("Du får vist denne besked fordi der opstod en fejl");
+            throw new DuplicateExceptionLicensePlate("/autocamper/rediger/detaljer/"+motorhome.getMotorhometype_id());
         }
         motorhomeService.updateMotorhome(motorhome);
         return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
     }
 
     @GetMapping("/autocamper/slet//type/{motorhometype_id}")
-    public String deleteMotorhomeType(@PathVariable("motorhometype_id") int id){
+    public String deleteMotorhomeType(@PathVariable("motorhometype_id") int id) {
         motorhomeService.deleteMotorhomeType(id);
         return "redirect:/autocamper/oversigt";
     }
 
     @GetMapping("/autocamper/slet/{motorhometype_id}/{motorhome_id}")
-    public String deleteMotorhome(@PathVariable("motorhometype_id") int motorhometype_id, @PathVariable("motorhome_id") int id){
+    public String deleteMotorhome(@PathVariable("motorhometype_id") int motorhometype_id, @PathVariable("motorhome_id") int id) {
         motorhomeService.deleteMotorhome(id);
         return "redirect:/autocamper/detaljer/"+motorhometype_id;
     }
@@ -111,7 +111,7 @@ public class MotorhomeController {
     public String createAccessory(@ModelAttribute Accessory accessory) throws DuplicateExceptionAccessoryName {
         boolean accessoryNameExist = accessoryService.checkForDuplicateAccessoryName(accessory.getAccessory_name());
         if(accessoryNameExist){
-            throw new DuplicateExceptionAccessoryName("Du får vist denne besked fordi der opstod en fejl");
+            throw new DuplicateExceptionAccessoryName("/autocamper/tilbehoer/oversigt");
         }
         accessoryService.createAccessory(accessory);
         return "redirect:/autocamper/tilbehoer/oversigt";
@@ -125,31 +125,29 @@ public class MotorhomeController {
 
     @PostMapping("/autocamper/tilbehoer/rediger")
     public String editAccessoryNow(@ModelAttribute Accessory accessory) throws DuplicateExceptionAccessoryName {
-        boolean accessoryNameExist = accessoryService.checkForDuplicateAccessoryName(accessory.getAccessory_name());
+        boolean accessoryNameExist = accessoryService.checkForOtherDuplicateAccessoryName(accessory.getAccessory_name(), accessory.getAccessory_id());
         if(accessoryNameExist){
-            throw new DuplicateExceptionAccessoryName("Du får vist denne besked fordi der opstod en fejl");
+            throw new DuplicateExceptionAccessoryName("/autocamper/tilbehoer/rediger/"+accessory.getAccessory_id());
         }
         accessoryService.updateAccessory(accessory);
         return "redirect:/autocamper/tilbehoer/oversigt";
     }
 
     @GetMapping("/autocamper/tilbehoer/slet/{id}")
-    public String deleteAccessory(@PathVariable("id") int id){
+    public String deleteAccessory(@PathVariable("id") int id) {
         accessoryService.deleteAccessory(id);
         return "redirect:/autocamper/tilbehoer/oversigt";
     }
 
     @ExceptionHandler(DuplicateExceptionLicensePlate.class)
     public String databaseError(Model model, DuplicateExceptionLicensePlate exception) {
-        model.addAttribute("besked", exception.getMessage());
-        model.addAttribute("tilbage","/autocamper/detaljer");
+        model.addAttribute("tilbage", exception.getMessage());
         return "/error/duplicate-exception-Licenseplate";
     }
 
     @ExceptionHandler(DuplicateExceptionAccessoryName.class)
     public String databaseError(Model model, DuplicateExceptionAccessoryName exception) {
-        model.addAttribute("besked", exception.getMessage());
-        model.addAttribute("tilbage","/autocamper/tilbehoer/oversigt");
+        model.addAttribute("tilbage", exception.getMessage());
         return "/error/duplicate-exception-accessoryname";
     }
 }

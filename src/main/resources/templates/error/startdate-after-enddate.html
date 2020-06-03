@@ -8,8 +8,7 @@
 <div th:replace="fragments/navbar_login"></div>
 
 <div class="container">
-    <br><h2>Duplikat indtastning.</h2>
-    <br><h2>Denne fejl er opstået fordi dette tilbehør allerede eksisterer. </h2>
+    <br><h2>Denne fejl er opstået fordi en din start dato: <b><span th:text="${reservation.pickup_date}"></span></b> kommer efter din slut dato: <b><span th:text="${reservation.dropoff_date}"></span></b>. Start dato skal komme først.</h2>
     <br><h4>Tryk <a th:href="${tilbage}">her</a> for at vende tilbage.</h4>
 </div>
 

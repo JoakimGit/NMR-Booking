@@ -41,13 +41,13 @@ public class CustomerController {
         boolean emailExist = customerService.checkForDuplicateEmail(customer.getEmail());
         boolean phoneNumberExit = customerService.checkForDuplicatePhoneNumber(customer.getPhonenumber());
         if (UserNameExist){
-            throw new DuplicateExceptionUserName("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionUserName("/kunde/opret");
         }
         if (emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionEmail("/kunde/opret");
         }
         if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionPhoneNumber("/kunde/opret");
         }
         customerService.createCustomer(customer);
         return "redirect:/kunde/oversigt";
@@ -60,18 +60,18 @@ public class CustomerController {
     }
 
     @PostMapping("/kunde/rediger")
-    public String editCustomer(@ModelAttribute Customer customer)throws DuplicateExceptionUserName,DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
-        boolean UserNameExist = customerService.checkForDuplicateUserName(customer.getUser_name());
-        boolean emailExist = customerService.checkForDuplicateEmail(customer.getEmail());
-        boolean phoneNumberExit = customerService.checkForDuplicatePhoneNumber(customer.getPhonenumber());
-        if (UserNameExist){
-            throw new DuplicateExceptionUserName("Du får vist denne side fordi en fejl er opstået");
+    public String editCustomer(@ModelAttribute Customer customer) throws DuplicateExceptionUserName, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        boolean userNameExist = customerService.checkForOtherDuplicateUserName(customer.getUser_name(), customer.getCustomer_id());
+        boolean emailExist = customerService.checkForOtherDuplicateEmail(customer.getEmail(), customer.getCustomer_id());
+        boolean phoneNumberExit = customerService.checkForOtherDuplicatePhoneNumber(customer.getPhonenumber(), customer.getCustomer_id());
+        if (userNameExist) {
+            throw new DuplicateExceptionUserName("/kunde/rediger/"+customer.getCustomer_id());
         }
-        if (emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+        if (emailExist) {
+            throw new DuplicateExceptionEmail("/kunde/rediger/"+customer.getCustomer_id());
         }
-        if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+        if (phoneNumberExit) {
+            throw new DuplicateExceptionPhoneNumber("/kunde/rediger/"+customer.getCustomer_id());
         }
         customerService.editCustomer(customer);
         return "redirect:/kunde/oversigt";
@@ -91,22 +91,19 @@ public class CustomerController {
 
     @ExceptionHandler(DuplicateExceptionUserName.class)
     public String databaseError(Model model, DuplicateExceptionUserName exception) {
-        model.addAttribute("besked",exception.getMessage());
-        model.addAttribute("tilbage","/kunde/opret");
+        model.addAttribute("tilbage",exception.getMessage());
         return "/error/duplicate-exception-username";
     }
 
     @ExceptionHandler(DuplicateExceptionEmail.class)
     public String databaseError(Model model, DuplicateExceptionEmail exception) {
-        model.addAttribute("besked",exception.getMessage());
-        model.addAttribute("tilbage","/kunde/opret");
+        model.addAttribute("tilbage",exception.getMessage());
         return "/error/duplicate-exception-email";
     }
 
     @ExceptionHandler(DuplicateExceptionPhoneNumber.class)
     public String databaseError(Model model, DuplicateExceptionPhoneNumber exception) {
-        model.addAttribute("besked", exception.getMessage());
-        model.addAttribute("tilbage","/kunde/opret");
+        model.addAttribute("tilbage",exception.getMessage());
         return "/error/duplicate-exception-phonenumber";
     }
 }

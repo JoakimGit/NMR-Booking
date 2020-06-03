@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Controller
 public class ReservationController {
 
@@ -34,6 +37,8 @@ public class ReservationController {
     @GetMapping("/reservation/oversigt")
     public String overview(Model model) {
         model.addAttribute("reservations", reservationService.fetchAllReservations());
+        model.addAttribute("resService", new ReservationService());
+        model.addAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         return "/reservation/overview";
     }
 
@@ -45,7 +50,12 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation/opret")
-    public String createReservation(@ModelAttribute Reservation reservation) {
+    public String createReservation(@ModelAttribute Reservation reservation, Model model) {
+        if (!(reservationService.compareDates(reservation.getPickup_date(), reservation.getDropoff_date()))) {
+            model.addAttribute("reservation", reservation);
+            model.addAttribute("tilbage", "/reservation/opret");
+            return "/error/startdate-after-enddate";
+        }
         reservationService.createReservation(reservation);
         return "redirect:/reservation/oversigt";
     }
@@ -62,7 +72,12 @@ public class ReservationController {
     }
 
     @PostMapping("reservation/rediger")
-    public String editReservation(@ModelAttribute Reservation reservation, WebRequest param) {
+    public String editReservation(@ModelAttribute Reservation reservation, WebRequest param, Model model) {
+        if (!(reservationService.compareDates(reservation.getPickup_date(), reservation.getDropoff_date()))) {
+            model.addAttribute("reservation", reservation);
+            model.addAttribute("tilbage", "/reservation/rediger/"+reservation.getReservation_id()+"/"+reservation.getLicense_plate());
+            return "/error/startdate-after-enddate";
+        }
         reservationService.editReservation(reservation, param.getParameter("newlicense"));
         return "redirect:/reservation/oversigt";
     }

@@ -52,12 +52,24 @@ public class EmployeeRepo {
         String sql = "SELECT email FROM employee";
         return template.queryForList(sql, String.class);
     }
+
     public List<String> fetchPhoneNumberFromEmployee() {
         String sql = "SELECT phonenumber FROM employee";
         return template.queryForList(sql, String.class);
     }
 
+    public List<String> fetchCprFromOtherEmployee(int id) {
+        String sql = "SELECT cpr FROM employee WHERE employee_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
 
+    public List<String> fetchEmailFromOtherEmployee(int id) {
+        String sql = "SELECT email FROM employee WHERE employee_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
 
-
+    public List<String> fetchPhoneNumberFromOtherEmployee(int id) {
+        String sql = "SELECT phonenumber FROM employee WHERE employee_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
 }

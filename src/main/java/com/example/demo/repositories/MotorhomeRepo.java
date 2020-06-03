@@ -116,4 +116,9 @@ public class MotorhomeRepo {
         String sql = "SELECT license_plate FROM motorhome";
         return template.queryForList(sql, String.class);
     }
+
+    public List<String> fetchLicensePlateFromOtherMotorhome(int id) {
+        String sql = "SELECT license_plate FROM motorhome WHERE motorhome_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
 }

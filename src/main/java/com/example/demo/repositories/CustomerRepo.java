@@ -41,6 +41,7 @@ public class CustomerRepo {
         String sql = "DELETE FROM customer WHERE customer_id=?";
         template.update(sql, id);
     }
+
     public List<String> fetchUserNameFromCustomer() {
         String sql = "SELECT user_name FROM customer";
         return template.queryForList(sql, String.class);
@@ -50,8 +51,24 @@ public class CustomerRepo {
         String sql = "SELECT email FROM customer";
         return template.queryForList(sql, String.class);
     }
+
     public List<String> fetchPhoneNumberFromCustomer() {
         String sql = "SELECT phonenumber FROM customer";
         return template.queryForList(sql, String.class);
+    }
+
+    public List<String> fetchUserNameFromOtherCustomer(int id) {
+        String sql = "SELECT user_name FROM customer WHERE customer_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
+
+    public List<String> fetchEmailFromOtherCustomer(int id) {
+        String sql = "SELECT email FROM customer WHERE customer_id!=?";
+        return template.queryForList(sql, String.class, id);
+    }
+
+    public List<String> fetchPhoneNumberFromOtherCustomer(int id) {
+        String sql = "SELECT phonenumber FROM customer WHERE customer_id!=?";
+        return template.queryForList(sql, String.class, id);
     }
 }

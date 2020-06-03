@@ -58,25 +58,32 @@ public class EmployeeService {
 
     public boolean checkForDuplicateCpr(String cpr) {
         List<String> cprList = employeeRepo.fetchCprFromEmployee();
-        if (cprList.contains(cpr)){
-            return true;
-        }
-        return false;
+        return cprList.contains(cpr);
     }
 
     public boolean checkForDuplicateEmail(String email) {
         List<String> emailList = employeeRepo.fetchEmailFromEmployee();
-        if (emailList.contains(email)){
-            return true;
-        }
-        return false;
+        return emailList.contains(email);
     }
+
     public boolean checkForDuplicatePhoneNumber(String phonenumber) {
         List<String> phoneNumberList = employeeRepo.fetchPhoneNumberFromEmployee();
-        if (phoneNumberList.contains(phonenumber)){
-            return true;
-        }
-        return false;
+        return phoneNumberList.contains(phonenumber);
+    }
+
+    public boolean checkForOtherDuplicateCpr(String cpr, int id) {
+        List<String> cprList = employeeRepo.fetchCprFromOtherEmployee(id);
+        return cprList.contains(cpr);
+    }
+
+    public boolean checkForOtherDuplicateEmail(String email, int id) {
+        List<String> emailList = employeeRepo.fetchEmailFromOtherEmployee(id);
+        return emailList.contains(email);
+    }
+
+    public boolean checkForOtherDuplicatePhoneNumber(String phonenumber, int id) {
+        List<String> phoneNumberList = employeeRepo.fetchPhoneNumberFromOtherEmployee(id);
+        return phoneNumberList.contains(phonenumber);
     }
 
 }

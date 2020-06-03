@@ -6,10 +6,10 @@
 </head>
 <body>
 <div th:replace="fragments/navbar_login"></div>
-<div class="container">
-    <p th:text="${besked}"></p>
-    <br><h2>Denne fejl er opstået fordi en Autocamper med det samme Licens plade allerede eksisterer. </h2>
 
+<div class="container">
+    <br><h2>Duplikat indtastning.</h2>
+    <br><h2>Denne fejl er opstået fordi en Autocamper med denne nummerplade allerede eksisterer.</h2>
     <br><h4>Tryk <a th:href="${tilbage}">her</a> for at vende tilbage.</h4>
 </div>
 
