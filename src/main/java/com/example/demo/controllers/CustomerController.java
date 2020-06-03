@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.exceptions.DuplicateExceptionCpr;
 import com.example.demo.exceptions.DuplicateExceptionEmail;
 import com.example.demo.exceptions.DuplicateExceptionPhoneNumber;
 import com.example.demo.exceptions.DuplicateExceptionUserName;
@@ -52,7 +51,6 @@ public class CustomerController {
         }
         customerService.createCustomer(customer);
         return "redirect:/kunde/oversigt";
-
     }
 
     @GetMapping("/kunde/rediger/{id}")
@@ -90,23 +88,25 @@ public class CustomerController {
         model.addAttribute("reservations", reservationService.fetchReservationsByCustomerUsername(user_name));
         return "/customer/reservations";
     }
+
     @ExceptionHandler(DuplicateExceptionUserName.class)
     public String databaseError(Model model, DuplicateExceptionUserName exception) {
         model.addAttribute("besked",exception.getMessage());
         model.addAttribute("tilbage","/kunde/opret");
         return "/error/duplicate-exception-username";
     }
+
     @ExceptionHandler(DuplicateExceptionEmail.class)
     public String databaseError(Model model, DuplicateExceptionEmail exception) {
         model.addAttribute("besked",exception.getMessage());
         model.addAttribute("tilbage","/kunde/opret");
         return "/error/duplicate-exception-email";
     }
+
     @ExceptionHandler(DuplicateExceptionPhoneNumber.class)
     public String databaseError(Model model, DuplicateExceptionPhoneNumber exception) {
         model.addAttribute("besked", exception.getMessage());
         model.addAttribute("tilbage","/kunde/opret");
         return "/error/duplicate-exception-phonenumber";
     }
-
 }

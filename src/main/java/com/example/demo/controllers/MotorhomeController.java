@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.exceptions.DuplicateExceptionAccessoryName;
 import com.example.demo.exceptions.DuplicateExceptionLicensePlate;
-import com.example.demo.exceptions.DuplicateExceptionPhoneNumber;
 import com.example.demo.models.Accessory;
 import com.example.demo.models.Motorhome;
 import com.example.demo.services.AccessoryService;

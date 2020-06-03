@@ -6,6 +6,9 @@ import com.example.demo.repositories.ReservationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -116,6 +119,20 @@ public class ReservationService {
 
     public void setReservationFinished(String license) {
         reservationRepo.setReservationFinished(license);
+    }
+
+    public static boolean compareDates(String first_date, String second_date) {
+        // Takes two string dates as input. Returns true if the first date is before the second. Otherwise false.
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate date1 = LocalDate.parse(first_date, dtf);
+            LocalDate date2 = LocalDate.parse(second_date, dtf);
+            return date1.isBefore(date2);
+        }
+        catch (DateTimeParseException e) {
+            e.getMessage();
+        }
+        return false;
     }
 
 

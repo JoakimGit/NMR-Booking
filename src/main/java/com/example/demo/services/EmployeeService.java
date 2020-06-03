@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import com.example.demo.models.Employee;
-import com.example.demo.models.User;
 import com.example.demo.repositories.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,18 +28,14 @@ public class EmployeeService {
         e.setPhonenumber(formatPhone(e.getPhonenumber()));
         e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.createEmployee(e);
-
-        User user = new User();
-        user.setUsername(e.getFirst_name());
-        user.setPassword("123" + e.getLast_name());
-        user.setRole(e.getAuthority());
-        userService.createUser(user);
+        userService.createUserFromEmployee(e);
     }
 
     public void updateEmployee(Employee e) {
         e.setPhonenumber(formatPhone(e.getPhonenumber()));
         e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.updateEmployee(e);
+        userService.updateUserRoleByUsername(e.getJob_title(), e.getFirst_name());
     }
 
     public void deleteEmployee(int id) {

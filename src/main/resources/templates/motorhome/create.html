@@ -16,7 +16,10 @@
         <input hidden name="motorhometype_id" th:value="${id}">
         <div class="form-group">
             <label for="available"><b>Tilgængelig</b></label>
-            <input type="text" class="form-control" id="available" name="available" placeholder="Indtast tilgængelighed" pattern="\s*(true|false|TRUE|FALSE)\s*" title="Godtager kun 'true/TRUE' or 'false/FALSE'" required>
+            <select id="available" name="available" required>
+                <option value="TRUE">Tilgængelig</option>
+                <option value="FALSE">Ikke tilgængelig</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="license_plate"><b>Nummberplade</b></label>
