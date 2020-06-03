@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.DuplicateExceptionAccessoryName;
 import com.example.demo.exceptions.DuplicateExceptionLicensePlate;
 import com.example.demo.exceptions.DuplicateExceptionPhoneNumber;
 import com.example.demo.models.Accessory;
@@ -108,7 +109,11 @@ public class MotorhomeController {
     }
 
     @PostMapping("/autocamper/tilbehoer/opret")
-    public String createAccessory(@ModelAttribute Accessory accessory) {
+    public String createAccessory(@ModelAttribute Accessory accessory) throws DuplicateExceptionAccessoryName {
+        boolean accessoryNameExist = accessoryService.checkForDuplicateAccessoryName(accessory.getAccessory_name());
+        if(accessoryNameExist){
+            throw new DuplicateExceptionAccessoryName("Du får vist denne besked fordi der opstod en fejl");
+        }
         accessoryService.createAccessory(accessory);
         return "redirect:/autocamper/tilbehoer/oversigt";
     }
@@ -120,7 +125,11 @@ public class MotorhomeController {
     }
 
     @PostMapping("/autocamper/tilbehoer/rediger")
-    public String editAccessoryNow(@ModelAttribute Accessory accessory) {
+    public String editAccessoryNow(@ModelAttribute Accessory accessory) throws DuplicateExceptionAccessoryName {
+        boolean accessoryNameExist = accessoryService.checkForDuplicateAccessoryName(accessory.getAccessory_name());
+        if(accessoryNameExist){
+            throw new DuplicateExceptionAccessoryName("Du får vist denne besked fordi der opstod en fejl");
+        }
         accessoryService.updateAccessory(accessory);
         return "redirect:/autocamper/tilbehoer/oversigt";
     }
@@ -135,6 +144,13 @@ public class MotorhomeController {
     public String databaseError(Model model, DuplicateExceptionLicensePlate exception) {
         model.addAttribute("besked", exception.getMessage());
         model.addAttribute("tilbage","/autocamper/detaljer");
-        return "/error/duplicate-exception-phonenumber";
+        return "/error/duplicate-exception-Licenseplate";
+    }
+
+    @ExceptionHandler(DuplicateExceptionAccessoryName.class)
+    public String databaseError(Model model, DuplicateExceptionAccessoryName exception) {
+        model.addAttribute("besked", exception.getMessage());
+        model.addAttribute("tilbage","/autocamper/tilbehoer/oversigt");
+        return "/error/duplicate-exception-accessoryname";
     }
 }

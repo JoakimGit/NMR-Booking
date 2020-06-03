@@ -41,11 +41,20 @@ public class AccessoryService {
         return accessoryRepo.fetchAllChosenAccessoriesById(reservation_id);
     }
 
-    public void createAccessoryForReservation (int id, String name) {
+    public void createAccessoryForReservation(int id, String name) {
         accessoryRepo.createAccessoryForReservation(id, name);
     }
 
     public void deleteAccessoryInReservation(int id) {
         accessoryRepo.deleteAccessoryInReservation(id);
     }
+    public boolean checkForDuplicateAccessoryName(String accessory_name) {
+        List<String> accessoryNameList = accessoryRepo.fetchAllAccessoryNames();
+        if (accessoryNameList.contains(accessory_name)){
+            return true;
+        }
+        return false;
+    }
+
+
 }

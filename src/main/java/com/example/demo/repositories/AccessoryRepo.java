@@ -61,4 +61,9 @@ public class AccessoryRepo {
         String sql = "DELETE FROM accessory_in_reservation WHERE reservation_id = ?";
         template.update(sql, id);
     }
+
+    public List<String> fetchAccessoryNameFromAccessory() {
+        String sql = "SELECT accessory_name FROM accessory";
+        return template.queryForList(sql, String.class);
+    }
 }
