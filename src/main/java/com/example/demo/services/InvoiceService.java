@@ -54,8 +54,6 @@ public class InvoiceService {
 
     public void updateInvoiceFromReservation(Reservation reservation) {
         Invoice invoice = fetchInvoiceByReservationId(reservation.getReservation_id());
-        invoice.setReservation_id(reservation.getReservation_id());
-
         calcInvoiceTotal(reservation, invoice);
         invoiceRepo.updateInvoice(invoice);
     }
@@ -69,13 +67,19 @@ public class InvoiceService {
     }
 
     public void createCancellationInvoice(Reservation reservation, Invoice invoice) {
+        // Create an empty invoice. This is the one we pass to createInvoice in repo after setting the fields.
         Invoice cancellationInvoice = new Invoice();
+        // Get the current date in order to compare against the start date of the reservation.
         String currentdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String reservationstart = reservation.getPickup_date();
         int daysBetween = calcDaysBetweenDates(currentdate, reservationstart);
+        // The cancellation fee is based on the invoice total, so we multiply it with the percentage defined based on how many days until start date.
         double reservationprice = invoice.getTotal();
         if (daysBetween > 50) {
-            reservationprice = reservationprice*0.8;
+            reservationprice = reservationprice*0.2;
+            if (reservationprice < 1500) {
+                reservationprice = 1500;
+            }
         }
         else if (daysBetween < 50 && daysBetween >= 15) {
             reservationprice = reservationprice*0.5;
@@ -86,10 +90,12 @@ public class InvoiceService {
         else if (daysBetween == 0) {
             reservationprice = reservationprice*0.95;
         }
+        // Set the different fields in the empty invoice and then create it.
         cancellationInvoice.setInvoice_type("Afmeldingsgebyr");
         cancellationInvoice.setTotal(reservationprice);
         cancellationInvoice.setReservation_id(reservation.getReservation_id());
         createInvoice(cancellationInvoice);
+        // Set the motorhome belonging to the reservation to available again, and then set the reservation to finished.
         motorhomeService.setMotorhomeAvailable(reservation.getLicense_plate());
         reservationService.setReservationFinished(reservation.getLicense_plate());
     }
@@ -101,21 +107,21 @@ public class InvoiceService {
         String date1 = reservation.getPickup_date();
         String date2 = reservation.getDropoff_date();
         int daysBetween = calcDaysBetweenDates(date1, date2);
-
         double price = daysBetween*priceperday;
 
         if (reservation.getSeason().equals("Højsæson")) {
             price *= 1.6;
-        }
-        else if (reservation.getSeason().equals("Midtsæson")) {
+        } else if (reservation.getSeason().equals("Midtsæson")) {
             price *= 1.3;
         }
         invoice.setTotal(price);
     }
 
     public int calcDaysBetweenDates(String first_date, String second_date) {
+        // Define the date format we want to use
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
+            // Parse the dates from string into date based on the format and return the number of days.
             LocalDate date1 = LocalDate.parse(first_date, dtf);
             LocalDate date2 = LocalDate.parse(second_date, dtf);
             return (int) Duration.between(date1.atStartOfDay(), date2.atStartOfDay()).toDays();

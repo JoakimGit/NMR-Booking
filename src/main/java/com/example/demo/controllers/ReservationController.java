@@ -98,7 +98,9 @@ public class ReservationController {
 
     @GetMapping("/reservation/afbestil/{id}")
     public String cancelReservation(@PathVariable("id") int id) {
+        // Get the reservation that you want to cancel
         Reservation reservation = reservationService.fetchReservationById(id);
+        // Get the invoice belonging to that reservation.
         Invoice invoice = invoiceService.fetchInvoiceByReservationId(id);
         invoiceService.createCancellationInvoice(reservation, invoice);
         return "redirect:/reservation/oversigt";

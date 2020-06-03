@@ -87,13 +87,11 @@ public class ReservationService {
             reservationRepo.editReservation(r);
             motorhomeService.setMotorhomeUnavailable(license);
         }
-        // Included 'else if' instead of having only the if block with editReservation(r) outside so that it doesn't set availability before trying to update (in case it fails)
+        // Included 'else if' instead of having editReservation(r) outside so that it doesn't set availability before trying to update (in case it fails)
         else if (r.getLicense_plate().equals(license)) {
             reservationRepo.editReservation(r);
         }
-
         invoiceService.updateInvoiceFromReservation(r);
-
         /* Delete all accessories tied to a reservation before creating any chosen ones. Not ideal if no changes were made to accessories, but the simplest solution. */
         accessoryService.deleteAccessoryInReservation(r.getReservation_id());
 

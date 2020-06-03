@@ -23,7 +23,7 @@
             <tr th:each="invoice : ${invoices}">
                 <td th:text="${invoice.invoice_id}"></td>
                 <td th:text="${invoice.invoice_type}"></td>
-                <td th:text="${invoice.total}"></td>
+                <td th:text="${invoice.total + ' kr'}"></td>
                 <td th:text="${invoice.reservation_id} ?: 'Reservationen er slettet'"></td>
                 <td><a th:href="@{'/faktura/rediger/' + ${invoice.invoice_id}}"><button type="button" class="btn btn-success">Rediger</button></a>
                     <a th:href="@{'/faktura/slet/' + ${invoice.invoice_id}}" onclick="return confirm('Er du sikker på at du vil slette denne faktura?');"><button type="button" class="btn btn-danger">Slet</button></a>
