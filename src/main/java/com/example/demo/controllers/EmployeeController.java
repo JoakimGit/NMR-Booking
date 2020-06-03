@@ -46,13 +46,13 @@ public class EmployeeController {
         boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
         // If one of the above does exist, throw the appropiate error which shows the corresponding error page.
         if (cprExist){
-            throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionCpr("/medarbejder/opret/");
         }
         if(emailExist){
-            throw new DuplicateExceptionEmail("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionEmail("/medarbejder/opret/");
         }
         if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("Du får vist denne side fordi en fejl er opstået");
+            throw new DuplicateExceptionPhoneNumber("/medarbejder/opret/");
         }
         employeeService.createEmployee(employee);
         return "redirect:/medarbejder/oversigt";
@@ -76,13 +76,13 @@ public class EmployeeController {
         boolean phoneNumberExit = employeeService.checkForOtherDuplicatePhoneNumber(employee.getPhonenumber(), employee.getEmployee_id());
         // If one of the above does exist, throw the appropiate error which shows the corresponding error page.
         if (cprExist){
-            throw new DuplicateExceptionCpr("/kunde/rediger/"+employee.getEmployee_id());
+            throw new DuplicateExceptionCpr("/medarbejder/rediger/"+employee.getEmployee_id());
         }
         if(emailExist){
-            throw new DuplicateExceptionEmail("/kunde/rediger/"+employee.getEmployee_id());
+            throw new DuplicateExceptionEmail("/medarbejder/rediger/"+employee.getEmployee_id());
         }
         if (phoneNumberExit){
-            throw new DuplicateExceptionPhoneNumber("/kunde/rediger/"+employee.getEmployee_id());
+            throw new DuplicateExceptionPhoneNumber("/medarbejder/rediger/"+employee.getEmployee_id());
         }
         employeeService.updateEmployee(employee);
         return "redirect:/medarbejder/oversigt";
