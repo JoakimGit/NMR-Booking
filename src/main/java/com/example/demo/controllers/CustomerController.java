@@ -37,7 +37,9 @@ public class CustomerController {
     }
 
     @PostMapping("/kunde/opret")
-    public String createCustomer(@ModelAttribute Customer customer) throws DuplicateExceptionUserName,DuplicateExceptionEmail,DuplicateExceptionPhoneNumber  {
+    public String createCustomer(@ModelAttribute Customer customer) throws DuplicateExceptionUserName, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber  {
+        // User can type in phonenumber 2 ways, so we format it before creating the customer.
+        customerService.formatPhone(customer.getPhonenumber(), customer);
         boolean UserNameExist = customerService.checkForDuplicateUserName(customer.getUser_name());
         boolean emailExist = customerService.checkForDuplicateEmail(customer.getEmail());
         boolean phoneNumberExit = customerService.checkForDuplicatePhoneNumber(customer.getPhonenumber());
@@ -62,6 +64,7 @@ public class CustomerController {
 
     @PostMapping("/kunde/rediger")
     public String editCustomer(@ModelAttribute Customer customer) throws DuplicateExceptionUserName, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        customerService.formatPhone(customer.getPhonenumber(), customer);
         boolean userNameExist = customerService.checkForOtherDuplicateUserName(customer.getUser_name(), customer.getCustomer_id());
         boolean emailExist = customerService.checkForOtherDuplicateEmail(customer.getEmail(), customer.getCustomer_id());
         boolean phoneNumberExit = customerService.checkForOtherDuplicatePhoneNumber(customer.getPhonenumber(), customer.getCustomer_id());

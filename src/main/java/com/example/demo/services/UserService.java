@@ -14,13 +14,14 @@ public class UserService {
     UserRepo userRepo;
 
     public void createUserFromEmployee(Employee e) {
+        // Create new user. Then set username and password to be first name and last name respectively.
+        // Obviously not very secure, but it's the default we went with for simplicity.
         User user = new User();
         user.setUsername(e.getFirst_name());
         user.setPassword(e.getLast_name());
-
+        // Use the job title chosen for the employee to set their permission level as a user.
         String jobtitle = e.getJob_title();
         setAuthorityFromJob(jobtitle, user);
-
         userRepo.createUser(user);
     }
 

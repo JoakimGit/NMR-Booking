@@ -26,16 +26,14 @@ public class EmployeeService {
     }
 
     public void createEmployee(Employee e) {
-        e.setPhonenumber(formatPhone(e.getPhonenumber()));
-        e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.createEmployee(e);
+        // After creating an employee, a corresponding user is created
         userService.createUserFromEmployee(e);
     }
 
     public void updateEmployee(Employee e) {
-        e.setPhonenumber(formatPhone(e.getPhonenumber()));
-        e.setCpr(formatCpr(e.getCpr()));
         employeeRepo.updateEmployee(e);
+        // After updating an employee, the corresponding user role is updated. It's the only thing that can be updated on a user.
         userService.updateUserRoleByUsername(e.getJob_title(), e.getFirst_name());
     }
 
@@ -44,6 +42,7 @@ public class EmployeeService {
     }
 
     public String formatPhone(String phone) {
+        // If user typed in number as xx-xx-xx-xx it will be formattted to xxxxxxxx
         if (phone.length() > 8) {
             phone = phone.replaceAll("[\\-]", "");
         }
@@ -51,12 +50,14 @@ public class EmployeeService {
     }
 
     public String formatCpr(String cpr) {
+        // If user typed in cpr as xxxxxxxxxx it will be formattted to xxxxxx-xxxx
         if (cpr.length() == 10) {
             cpr = cpr.substring(0, 6) + "-" + cpr.substring(6);
         }
         return cpr;
     }
 
+    // Methods used for checking for duplicates
     public boolean checkForDuplicateCpr(String cpr) {
         List<String> cprList = employeeRepo.fetchCprFromEmployee();
         return cprList.contains(cpr);
@@ -86,5 +87,4 @@ public class EmployeeService {
         List<String> phoneNumberList = employeeRepo.fetchPhoneNumberFromOtherEmployee(id);
         return phoneNumberList.contains(phonenumber);
     }
-
 }

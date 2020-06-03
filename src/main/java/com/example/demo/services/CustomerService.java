@@ -22,14 +22,12 @@ public class CustomerService {
         return customerRepo.fetchCustomerById(customer_id);
     }
 
-    public void editCustomer(Customer c) {
-        formatPhone(c.getPhonenumber(), c);
-        customerRepo.editCustomer(c);
+    public void createCustomer(Customer c) {
+        customerRepo.createCustomer(c);
     }
 
-    public void createCustomer(Customer c) {
-        formatPhone(c.getPhonenumber(), c);
-        customerRepo.createCustomer(c);
+    public void editCustomer(Customer c) {
+        customerRepo.editCustomer(c);
     }
 
     public void deleteCustomer(int customer_id) {
@@ -37,12 +35,14 @@ public class CustomerService {
     }
 
     public void formatPhone(String phone, Customer customer) {
+        // If user typed in number as xx-xx-xx-xx it will be formattted to xxxxxxxx
         if (phone.length() > 8) {
             phone = phone.replaceAll("[\\-]", "");
             customer.setPhonenumber(phone);
         }
     }
 
+    // Methods used for checking for duplicates
     public boolean checkForDuplicateUserName(String user_name) {
         List<String> UserNameList = customerRepo.fetchUserNameFromCustomer();
         return UserNameList.contains(user_name);

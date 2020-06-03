@@ -46,15 +46,16 @@ public class InvoiceService {
 
     public void createInvoiceFromReservation(Reservation reservation, int reservation_id) {
         Invoice invoice = new Invoice();
+        // Set the various fields of the newly instantiated invoice, then create it
         invoice.setReservation_id(reservation_id);
         invoice.setInvoice_type("Reservation Pris");
-
         calcInvoiceTotal(reservation, invoice);
         invoiceRepo.createInvoice(invoice);
     }
 
     public void updateInvoiceFromReservation(Reservation reservation) {
         Invoice invoice = fetchInvoiceByReservationId(reservation.getReservation_id());
+        // Calculate the total, then update
         calcInvoiceTotal(reservation, invoice);
         invoiceRepo.updateInvoice(invoice);
     }
@@ -102,14 +103,17 @@ public class InvoiceService {
     }
 
     public void calcInvoiceTotal(Reservation reservation, Invoice invoice) {
+        // Fetch motorhome tied to our known licenseplate and get the price per day from that.
         Motorhome motorhome = motorhomeService.fetchMotorhomeByLicense(reservation.getLicense_plate());
         double priceperday = motorhome.getPrice();
 
+        // Calculate days between pickup and dropoff and * with price per day to get price for period.
         String date1 = reservation.getPickup_date();
         String date2 = reservation.getDropoff_date();
         int daysBetween = calcDaysBetweenDates(date1, date2);
         double price = daysBetween*priceperday;
 
+        // Multiply price for period by middle/peak season fee
         if (reservation.getSeason().equals("Højsæson")) {
             price *= 1.6;
         } else if (reservation.getSeason().equals("Midtsæson")) {

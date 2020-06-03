@@ -17,6 +17,7 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
+    // All the different jobs as a list of strings. Gets added as an attribute to some views and looped through to create a downdown menu of jobs.
     private final List<String> allJobs = Arrays.asList("Ejer", "Salgs Leder", "Salgs Assistent", "Bogfører", "Rengøringspersonale", "Mekaniker");
 
     @Autowired
@@ -36,9 +37,14 @@ public class EmployeeController {
 
     @PostMapping("/medarbejder/opret")
     public String createEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        // User can type in phonenumber/cpr in 2 ways, so we format them to be the same before creating the employee.
+        employee.setCpr(employeeService.formatCpr(employee.getCpr()));
+        employee.setPhonenumber(employeeService.formatPhone(employee.getPhonenumber()));
+        // Cpr, email and phonenumber are unique, so we need to check if they already exist before we insert into the database.
         boolean cprExist = employeeService.checkForDuplicateCpr(employee.getCpr());
         boolean emailExist = employeeService.checkForDuplicateEmail(employee.getEmail());
         boolean phoneNumberExit = employeeService.checkForDuplicatePhoneNumber(employee.getPhonenumber());
+        // If one of the above does exist, throw the appropiate error which shows the corresponding error page.
         if (cprExist){
             throw new DuplicateExceptionCpr("Du får vist denne side fordi en fejl er opstået");
         }
@@ -61,9 +67,14 @@ public class EmployeeController {
 
     @PostMapping("/medarbejder/rediger")
     public String updateEmployee(@ModelAttribute Employee employee) throws DuplicateExceptionCpr, DuplicateExceptionEmail, DuplicateExceptionPhoneNumber {
+        // User can type in phonenumber/cpr in 2 ways, so we format them to be the same before creating the employee.
+        employee.setCpr(employeeService.formatCpr(employee.getCpr()));
+        employee.setPhonenumber(employeeService.formatPhone(employee.getPhonenumber()));
+        // Cpr, email and phonenumber are unique, so we need to check if they already exist before we update the database.
         boolean cprExist = employeeService.checkForOtherDuplicateCpr(employee.getCpr(), employee.getEmployee_id());
         boolean emailExist = employeeService.checkForOtherDuplicateEmail(employee.getEmail(), employee.getEmployee_id());
         boolean phoneNumberExit = employeeService.checkForOtherDuplicatePhoneNumber(employee.getPhonenumber(), employee.getEmployee_id());
+        // If one of the above does exist, throw the appropiate error which shows the corresponding error page.
         if (cprExist){
             throw new DuplicateExceptionCpr("/kunde/rediger/"+employee.getEmployee_id());
         }

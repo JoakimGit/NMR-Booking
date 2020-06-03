@@ -19,6 +19,7 @@ public class Reservation {
     private String license_plate;
     private boolean status;
 
+    // Not part of the reservation table in database. Used to store information.
     @ElementCollection
     private List<String> accessories;
     private String brand_model;

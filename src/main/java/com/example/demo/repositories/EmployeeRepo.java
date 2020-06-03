@@ -43,7 +43,7 @@ public class EmployeeRepo {
         template.update(sql, id);
     }
 
-    //employee unique value errorpage handling
+    // Methods used for checking for duplicates
     public List<String> fetchCprFromEmployee() {
         String sql = "SELECT cpr FROM employee";
         return template.queryForList(sql, String.class);

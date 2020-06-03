@@ -31,10 +31,6 @@
                 <td th:text="${motorhome.model}"></td>
                 <td th:text="${motorhome.price + ' kr'}"></td>
                 <td th:text="${motorhome.beds}"></td>
-                <!--<td th:switch="${motorhome.available}">
-                    <p th:case="true">Ja</p>
-                    <p th:case="false">Nej</p>
-                </td>-->
                 <td th:text="${motorhome.available} ? 'Ja' : 'Nej'"></td>
                 <td th:text="${motorhome.license_plate}"></td>
                 <td>
@@ -42,7 +38,7 @@
                     <a th:href="@{'/autocamper/slet/' + ${motorhome.motorhometype_id} + '/' + ${motorhome.motorhome_id}}"
                        onclick="return confirm('Er du sikker på du vil slette denne autocamper?');"><button type="button" class="btn btn-danger">Slet</button></a>
                 </td>
-        </tr>
+            </tr>
         </tbody>
     </table><br>
 </div>

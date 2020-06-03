@@ -63,6 +63,7 @@ public class AccessoryRepo {
         template.update(sql, id);
     }
 
+    // Methods used for checking for duplicates
     public List<String> fetchAccessoryNameFromAccessory() {
         String sql = "SELECT accessory_name FROM accessory";
         return template.queryForList(sql, String.class);

@@ -51,6 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/adgang-nægtet");
     }
 
+    // Spring security needs to be provided with a password encoder. This one does nothing, but we do provide it.
+    // Proper password encoding is one of the things we didn't finish in time.
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return NoOpPasswordEncoder.getInstance();

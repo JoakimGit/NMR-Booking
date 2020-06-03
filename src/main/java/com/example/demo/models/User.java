@@ -49,6 +49,7 @@ public class User {
         this.password = password;
     }
 
+    // Returns true because a user is enabled by default and there's no way to disable one.
     public boolean isEnabled() {
         return true;
     }

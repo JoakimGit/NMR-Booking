@@ -66,6 +66,8 @@ public class MotorhomeService {
     }
 
     public void deleteMotorhomeType(int id) {
+        // Before deleting all motorhomes of a specific type, set the reservations where those motorhomes are
+        // used to finished (they should already be marked as finished if you want to delete type though).
         List<Motorhome> motorhomes = fetchAllMotorhomesByTypeId(id);
         for (Motorhome motorhome : motorhomes) {
             reservationService.setReservationFinished(motorhome.getLicense_plate());
@@ -75,6 +77,7 @@ public class MotorhomeService {
 
     public void deleteMotorhome(int motorhome_id){
         Motorhome motorhome = fetchMotorhomeByID(motorhome_id);
+        // Set reservation where motorhome is used to finished in case it already isn't (which it should be)
         reservationService.setReservationFinished(motorhome.getLicense_plate());
         motorhomeRepo.deleteMotorhome(motorhome_id);
     }
@@ -87,6 +90,7 @@ public class MotorhomeService {
         motorhomeRepo.setMotorhomeUnavailable(license);
     }
 
+    // Methods used for checking for duplicates
     public boolean checkForDuplicateLicensePlate(String license_plate) {
         List<String> licensePlateList = motorhomeRepo.fetchLicensePlateFromMotorhome();
         return licensePlateList.contains(license_plate);
@@ -96,8 +100,4 @@ public class MotorhomeService {
         List<String> licensePlateList = motorhomeRepo.fetchLicensePlateFromOtherMotorhome(id);
         return licensePlateList.contains(license_plate);
     }
-
-
 }
-
-

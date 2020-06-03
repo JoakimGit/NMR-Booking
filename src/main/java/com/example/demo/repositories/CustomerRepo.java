@@ -43,6 +43,7 @@ public class CustomerRepo {
         template.update(sql, id);
     }
 
+    // Methods used for checking for duplicates
     public List<String> fetchUserNameFromCustomer() {
         String sql = "SELECT user_name FROM customer";
         return template.queryForList(sql, String.class);

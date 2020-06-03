@@ -21,5 +21,4 @@ public class UserRepo {
         String sql = "UPDATE user SET role=? WHERE username=?";
         template.update(sql, authority, username);
     }
-
 }

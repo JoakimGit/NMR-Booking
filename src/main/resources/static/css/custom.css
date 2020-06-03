@@ -15,7 +15,9 @@
     font-size: 16px;
 }
 
-/* In order to make the column with the buttons in reservation/overview wide enough that it holds all the buttons in a single line */
+/*  In order to make the column with the buttons in reservation/overview wide enough that it holds all the buttons in
+    a single line - UPDATE - I have since realised that not everyone has the same width monitor, so while it looks
+    good in my browser, it's not the case for everyone. */
 .w-16 {
     width: 16% !important;
 }

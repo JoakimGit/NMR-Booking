@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//Lavet af Daniel og Emil
+//Lavet af Daniel og Joakim
 @Controller
 public class MotorhomeController {
 

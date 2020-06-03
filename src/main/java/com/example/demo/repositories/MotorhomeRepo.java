@@ -47,6 +47,8 @@ public class MotorhomeRepo {
         String sql = "SELECT CONCAT(brand, ' - ', model) AS brand_model FROM motorhome_type JOIN motorhome ON motorhome_type.motorhometype_id " +
                 "= motorhome.motorhometype_id JOIN reservation ON motorhome.license_plate = reservation.license_plate WHERE reservation_id=?";
         List<String> brand_model = template.queryForList(sql, String.class, id);
+        // Would normally use queryForObject to get a string result, but it expects exactly 1 row returned. This query can return 0 rows,
+        // so we query for list which will accept 0 rows giving an empty list so we can return null or the value in the first index from that list.
         if (brand_model.isEmpty()) {
             return null;
         } else {
@@ -113,6 +115,7 @@ public class MotorhomeRepo {
         template.update(sql, license);
     }
 
+    // Methods used for checking for duplicates
     public List<String> fetchLicensePlateFromMotorhome() {
         String sql = "SELECT license_plate FROM motorhome";
         return template.queryForList(sql, String.class);

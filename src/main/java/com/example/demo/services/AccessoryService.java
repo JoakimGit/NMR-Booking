@@ -50,6 +50,7 @@ public class AccessoryService {
         accessoryRepo.deleteAccessoryInReservation(id);
     }
 
+    // Methods used for checking for duplicates
     public boolean checkForDuplicateAccessoryName(String accessory_name) {
         List<String> accessoryNameList = accessoryRepo.fetchAccessoryNameFromAccessory();
         return accessoryNameList.contains(accessory_name);
@@ -59,6 +60,4 @@ public class AccessoryService {
         List<String> accessoryNameList = accessoryRepo.fetchAccessoryNameFromOtherAccessory(id);
         return accessoryNameList.contains(accessory_name);
     }
-
-
 }
