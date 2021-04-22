@@ -55,7 +55,7 @@ public class MotorhomeController {
     public String createMotorhomeNow(@ModelAttribute Motorhome motorhome) throws DuplicateExceptionLicensePlate {
         boolean licensePLateExist = motorhomeService.checkForDuplicateLicensePlate(motorhome.getLicense_plate());
         if(licensePLateExist){
-            throw new DuplicateExceptionLicensePlate("/autocamper/opret");
+            throw new DuplicateExceptionLicensePlate("/autocamper/opret/"+motorhome.getMotorhometype_id());
         }
         motorhomeService.createMotorhome(motorhome);
         return "redirect:/autocamper/detaljer/"+motorhome.getMotorhometype_id();
