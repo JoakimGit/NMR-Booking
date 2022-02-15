@@ -6,7 +6,7 @@
 
 ### Screenshots
 
-![home-view](./images/home.jpg)
+![home-view](./images/motorhome.jpg)
 
 ### Built with
 
